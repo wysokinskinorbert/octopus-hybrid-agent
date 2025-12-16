@@ -1,0 +1,1 @@
+BLOCKED: Weather dashboard implementation - Placeholder 'YOUR_API_KEY' remains in code, preventing actual API calls. Need valid API key for weather data fetching.

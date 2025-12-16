@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cat:*)",
+      "WebSearch",
+      "Bash(python -m octopus.main:*)",
+      "Bash(py -m octopus.main:*)",
+      "Bash(py:*)",
+      "Bash(octopus:*)",
+      "Bash(find:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:textual.textualize.io)",
+      "Bash(pip install:*)",
+      "Bash(python -m pip install:*)",
+      "Bash(python -m octopus:*)",
+      "Bash(python -c:*)",
+      "Bash(cd:*)",
+      "Bash(dir:*)",
+      "WebFetch(domain:www.anthropic.com)",
+      "Bash(python -m py_compile:*)",
+      "WebFetch(domain:claudelog.com)",
+      "WebFetch(domain:skywork.ai)",
+      "WebFetch(domain:blog.promptlayer.com)",
+      "WebFetch(domain:simonwillison.net)",
+      "Bash(ls:*)",
+      "WebFetch(domain:www.builder.io)",
+      "WebFetch(domain:gist.github.com)"
+    ]
+  }
+}

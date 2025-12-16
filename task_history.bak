@@ -1,0 +1,289 @@
+[
+  {
+    "timestamp": 1765754846.1939664,
+    "date": "2025-12-15 00:27:26",
+    "prompt": "tak",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765754897.7075324,
+    "date": "2025-12-15 00:28:17",
+    "prompt": "tak chce",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765754921.6182697,
+    "date": "2025-12-15 00:28:41",
+    "prompt": "A",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765754948.1777065,
+    "date": "2025-12-15 00:29:08",
+    "prompt": "to wystarczy",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765755685.6845732,
+    "date": "2025-12-15 00:41:25",
+    "prompt": "tak, modyfikuj zgodnei z planem",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765756845.1036603,
+    "date": "2025-12-15 01:00:45",
+    "prompt": "Tak, realizuj plan.",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765757024.9220362,
+    "date": "2025-12-15 01:03:44",
+    "prompt": "Tak, realizuj plan.",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765757226.3090816,
+    "date": "2025-12-15 01:07:06",
+    "prompt": "Tak, realizuj plan.",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765757442.4328256,
+    "date": "2025-12-15 01:10:42",
+    "prompt": "Tak, realizuj plan.",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765758049.3022342,
+    "date": "2025-12-15 01:20:49",
+    "prompt": "Tak, realizuj plan.",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765758179.7583103,
+    "date": "2025-12-15 01:22:59",
+    "prompt": "Tak, realizuj plan.",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765758442.0254738,
+    "date": "2025-12-15 01:27:22",
+    "prompt": "Inna kombinacja – opiszę w odpowiedzi",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765758843.392104,
+    "date": "2025-12-15 01:34:03",
+    "prompt": "Tak, ale dodaj więcej animacji",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765759446.8032634,
+    "date": "2025-12-15 01:44:06",
+    "prompt": "napisz animowany nowoczesny pogodowy dashboard , nie uzzywaj api jesli to mozliwe",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765793232.8305457,
+    "date": "2025-12-15 11:07:12",
+    "prompt": "Tak",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765795791.3290806,
+    "date": "2025-12-15 11:49:51",
+    "prompt": "Tak, plan jest OK, użyj katalogu pogoda-dashboard",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765796811.9805684,
+    "date": "2025-12-15 12:06:51",
+    "prompt": "Tak, realizuj plan.",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765796848.654912,
+    "date": "2025-12-15 12:07:28",
+    "prompt": "Tak, realizuj plan.",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765797072.2231255,
+    "date": "2025-12-15 12:11:12",
+    "prompt": "Tak, realizuj plan.",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765797290.2461116,
+    "date": "2025-12-15 12:14:50",
+    "prompt": "Tak, realizuj plan.",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765797871.3655121,
+    "date": "2025-12-15 12:24:31",
+    "prompt": "Tak, realizuj plan.",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765798323.8678122,
+    "date": "2025-12-15 12:32:03",
+    "prompt": "Tak, realizuj plan.",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765801204.3611264,
+    "date": "2025-12-15 13:20:04",
+    "prompt": "Check src folder",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765801239.3066783,
+    "date": "2025-12-15 13:20:39",
+    "prompt": "tak",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765801251.906487,
+    "date": "2025-12-15 13:20:51",
+    "prompt": "yes",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765801262.6646526,
+    "date": "2025-12-15 13:21:02",
+    "prompt": "yes",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765801308.7684147,
+    "date": "2025-12-15 13:21:48",
+    "prompt": "yes",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765801328.1574044,
+    "date": "2025-12-15 13:22:08",
+    "prompt": "yes",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765801343.015133,
+    "date": "2025-12-15 13:22:23",
+    "prompt": "yes",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765801349.2195773,
+    "date": "2025-12-15 13:22:29",
+    "prompt": "yes",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765801355.4241915,
+    "date": "2025-12-15 13:22:35",
+    "prompt": "yes",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765801360.4120674,
+    "date": "2025-12-15 13:22:40",
+    "prompt": "yes",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765801365.7877555,
+    "date": "2025-12-15 13:22:45",
+    "prompt": "yes",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765831768.0036254,
+    "date": "2025-12-15 21:49:28",
+    "prompt": "Yes",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765831783.3590086,
+    "date": "2025-12-15 21:49:43",
+    "prompt": "yes",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765831797.0468252,
+    "date": "2025-12-15 21:49:57",
+    "prompt": "yes",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765831812.8655744,
+    "date": "2025-12-15 21:50:12",
+    "prompt": "yes",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765832640.704299,
+    "date": "2025-12-15 22:04:00",
+    "prompt": "yes",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765832788.9774034,
+    "date": "2025-12-15 22:06:28",
+    "prompt": "yes",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765834020.934688,
+    "date": "2025-12-15 22:27:00",
+    "prompt": "sprawdz na czym skończyłes pracę nad webowym dashbordem i dokończ je , projekt jest w katalogu E:\\APLICATION_PROJECTS\\octopus\\pogoda-dashboard",
+    "status": "completed",
+    "result_summary": ""
+  },
+  {
+    "timestamp": 1765834032.8168411,
+    "date": "2025-12-15 22:27:12",
+    "prompt": "yes",
+    "status": "completed",
+    "result_summary": ""
+  }
+]

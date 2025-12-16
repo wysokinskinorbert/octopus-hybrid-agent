@@ -1,0 +1,66 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formularz</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Formularz</h1>
+    <form id="myForm">
+        <label for="name">ImiÄ™:</label><br>
+        <input type="text" id="name" name="name"><br>
+        <label for="surname">Nazwisko:</label><br>
+        <input type="text" id="surname" name="surname"><br>
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email"><br>
+        <button type="submit">Dodaj</button>
+    </form>
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>ImiÄ™</th>
+                <th>Nazwisko</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        document.getElementById('myForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const surname = document.getElementById('surname').value;
+            const email = document.getElementById('email').value;
+
+            if (name === '' || surname === '' || email === '') {
+                alert('Wszystkie pola sÄ… wymagane.');
+                return;
+            }
+
+            const tableBody = document.querySelector('#dataTable tbody');
+            const newRow = tableBody.insertRow();
+            const nameCell = newRow.insertCell(0);
+            const surnameCell = newRow.insertCell(1);
+            const emailCell = newRow.insertCell(2);
+
+            nameCell.textContent = name;
+            surnameCell.textContent = surname;
+            emailCell.textContent = email;
+        });
+    </script>
+</body>
+</html>
