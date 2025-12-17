@@ -39,8 +39,7 @@ build/
 *.swo
 
 # Logs
-logs/
+# logs/
 *.log
-
 # Temp
 tmp/

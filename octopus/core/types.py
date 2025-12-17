@@ -87,3 +87,29 @@ class OctopusMessage(BaseModel):
             # Clear tool-specific fields
             self.tool_call_id = None
             self.name = None
+
+# --- NEW STRUCTURES FOR HYBRID HANDOFF ---
+
+class TaskSpec(BaseModel):
+    """Structured specification for a delegated task."""
+    id: str
+    goal: str
+    constraints: List[str] = Field(default_factory=list)
+    focus_files: List[str] = Field(default_factory=list)
+    verification_steps: List[str] = Field(default_factory=list)
+
+    def to_prompt(self) -> str:
+        """Convert spec to a prompt-friendly string."""
+        return (
+            f"GOAL: {self.goal}\n"
+            f"CONSTRAINTS: {json.dumps(self.constraints, indent=2)}\n"
+            f"FOCUS FILES: {json.dumps(self.focus_files, indent=2)}\n"
+            f"VERIFICATION STEPS: {json.dumps(self.verification_steps, indent=2)}"
+        )
+
+class TaskResult(BaseModel):
+    """Structured report from a sub-agent."""
+    status: str # "success", "failure", "blocked"
+    summary: str
+    changed_files: List[str] = Field(default_factory=list)
+    verification_result: str = ""

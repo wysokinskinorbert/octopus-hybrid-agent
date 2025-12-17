@@ -28,6 +28,8 @@ class SessionLogger:
         try:
             with open(self.log_file, "a", encoding="utf-8") as f:
                 f.write(json.dumps(data, ensure_ascii=False) + "\n")
+                f.flush()
+                os.fsync(f.fileno())
         except Exception as e:
             # Fallback to stderr if logging fails, but don't crash app
             sys.stderr.write(f"Logger Error: {e}\n")

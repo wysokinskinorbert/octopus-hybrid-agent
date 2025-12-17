@@ -1,0 +1,7 @@
+{"event": "session_start", "timestamp": 1765803292.9060974}
+{"timestamp": 1765803292.9169211, "datetime": "2025-12-15T13:54:52.916921", "type": "init", "content": "Session initialized for role: architect", "metadata": {"provider": "openai_cloud"}}
+{"timestamp": 1765803292.959451, "datetime": "2025-12-15T13:54:52.959450", "type": "status", "content": "Initializing MCP Servers...", "metadata": {}}
+{"timestamp": 1765803293.1770418, "datetime": "2025-12-15T13:54:53.177041", "type": "status", "content": "Connected to internal_fs (4 tools)", "metadata": {}}
+{"timestamp": 1765803299.3196604, "datetime": "2025-12-15T13:54:59.319660", "type": "user_msg", "content": "sprawdz na czym skończyłes pracę nad webowym dashbordem i dokończ je , projekt jest w katalogu E:\\APLICATION_PROJECTS\\octopus\\pogoda-dashboard", "metadata": {}}
+{"timestamp": 1765803299.33855, "datetime": "2025-12-15T13:54:59.338550", "type": "status", "content": "Thinking (openai_cloud)...", "metadata": {}}
+{"timestamp": 1765803301.6188576, "datetime": "2025-12-15T13:55:01.618857", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 449}}}

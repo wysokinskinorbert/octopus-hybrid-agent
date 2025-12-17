@@ -1,0 +1,612 @@
+{"event": "session_start", "timestamp": 1765928969.9869952}
+{"timestamp": 1765928970.0024178, "datetime": "2025-12-17T00:49:30.002418", "type": "init", "content": "Session initialized for role: architect", "metadata": {"provider": "openai_cloud"}}
+{"timestamp": 1765928970.113154, "datetime": "2025-12-17T00:49:30.113154", "type": "status", "content": "Initializing MCP Servers...", "metadata": {}}
+{"timestamp": 1765928970.2890553, "datetime": "2025-12-17T00:49:30.289055", "type": "status", "content": "Connected to internal_fs (6 tools)", "metadata": {}}
+{"timestamp": 1765928986.7650898, "datetime": "2025-12-17T00:49:46.765089", "type": "user_msg", "content": "urchom aplikacje pogoda-dashboard", "metadata": {}}
+{"timestamp": 1765928986.7809136, "datetime": "2025-12-17T00:49:46.780913", "type": "status", "content": "Thinking (openai_cloud)...", "metadata": {}}
+{"timestamp": 1765928990.3566794, "datetime": "2025-12-17T00:49:50.356679", "type": "stats", "content": "Tokens used: 983 (gpt-4o)", "metadata": {"model_id": "gpt-4o", "prompt": 933, "completion": 50, "total": 983, "role": "architect"}}
+{"timestamp": 1765928990.3698752, "datetime": "2025-12-17T00:49:50.369875", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 983}}}
+{"timestamp": 1765928990.3743813, "datetime": "2025-12-17T00:49:50.374381", "type": "tool_call", "content": "Using tool: list_directory", "metadata": {"name": "list_directory", "role": "architect", "model_id": "gpt-4o", "arguments": {"path": "."}}}
+{"timestamp": 1765928990.3803878, "datetime": "2025-12-17T00:49:50.380387", "type": "tool_result", "content": "Result: .claude\n.git\n.gitignore\n.pytest_cache\nanalyze_logs.py\nApp.css\ncheck_roles.py\nCLAUDE.md\ncleanup_tasks...", "metadata": {"role": "architect", "model_id": "gpt-4o", "name": "list_directory", "full_result": ".claude\n.git\n.gitignore\n.pytest_cache\nanalyze_logs.py\nApp.css\ncheck_roles.py\nCLAUDE.md\ncleanup_tasks.py\nconfig.yaml\ndebug_config_load.py\ndebug_startup.py\ndemo_project\nGEMINI.md\nheadless_runner.py\nhello.py\nhybridflow.egg-info\nindex.css\nindex.html\ninventory.py\nlogs\nmatrix_solver.py\nnode_modules\noctopus\noctopus_framework.egg-info\noutput.log\npackage-lock.json\npackage.json\npatch_session.py\npogoda-dashboard\nprompt.md\nREADME.md\nrequirements.txt\nscript.py\nsetup.py\nsrc\ntask_history.bak\ntask_history.json\ntests\ntest_startup.py\ntmp\nverify.py\nverify_final.py\nverify_final_8531.py\n__pycache__"}}
+{"timestamp": 1765928990.3921468, "datetime": "2025-12-17T00:49:50.392147", "type": "tool_call", "content": "Using tool: search_file_content", "metadata": {"name": "search_file_content", "role": "architect", "model_id": "gpt-4o", "arguments": {"pattern": "weather dashboard", "path": "."}}}
+{"timestamp": 1765928990.7045097, "datetime": "2025-12-17T00:49:50.704509", "type": "tool_result", "content": "Result: Found matches in:\n.\\config.yaml\n.\\logs\\session_20251215_131933.jsonl\n.\\logs\\session_20251215_214707....", "metadata": {"role": "architect", "model_id": "gpt-4o", "name": "search_file_content", "full_result": "Found matches in:\n.\\config.yaml\n.\\logs\\session_20251215_131933.jsonl\n.\\logs\\session_20251215_214707.jsonl\n.\\logs\\session_20251215_233808.jsonl\n.\\logs\\session_20251216_125501.jsonl\n.\\logs\\session_20251216_130312.jsonl\n.\\logs\\session_20251216_132134.jsonl\n.\\logs\\session_20251216_164034.jsonl\n.\\logs\\session_20251216_170640.jsonl\n.\\logs\\session_20251216_171557.jsonl\n.\\logs\\session_20251216_172747.jsonl\n.\\logs\\session_20251216_180340.jsonl\n.\\logs\\session_20251216_195251.jsonl\n.\\logs\\session_20251216_210056.jsonl\n.\\logs\\session_20251216_213643.jsonl\n.\\logs\\session_20251216_233345.jsonl\n.\\logs\\session_20251216_235213.jsonl\n.\\logs\\session_20251217_000551.jsonl\n.\\logs\\session_20251217_001720.jsonl\n.\\logs\\session_20251217_002420.jsonl\n.\\logs\\session_20251217_002924.jsonl"}}
+{"timestamp": 1765928990.7152755, "datetime": "2025-12-17T00:49:50.715275", "type": "status", "content": "Thinking (openai_cloud)...", "metadata": {}}
+{"timestamp": 1765928991.7189002, "datetime": "2025-12-17T00:49:51.718900", "type": "stats", "content": "Tokens used: 1500 (gpt-4o)", "metadata": {"model_id": "gpt-4o", "prompt": 1484, "completion": 16, "total": 1500, "role": "architect"}}
+{"timestamp": 1765928991.7329533, "datetime": "2025-12-17T00:49:51.732953", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 2483}}}
+{"timestamp": 1765928991.7414618, "datetime": "2025-12-17T00:49:51.741461", "type": "tool_call", "content": "Using tool: list_directory", "metadata": {"name": "list_directory", "role": "architect", "model_id": "gpt-4o", "arguments": {"path": "pogoda-dashboard"}}}
+{"timestamp": 1765928991.7483518, "datetime": "2025-12-17T00:49:51.748351", "type": "tool_result", "content": "Result: app.py\nrequirements.txt...", "metadata": {"role": "architect", "model_id": "gpt-4o", "name": "list_directory", "full_result": "app.py\nrequirements.txt"}}
+{"timestamp": 1765928991.7530744, "datetime": "2025-12-17T00:49:51.753074", "type": "status", "content": "Thinking (openai_cloud)...", "metadata": {}}
+{"timestamp": 1765928992.7196674, "datetime": "2025-12-17T00:49:52.719667", "type": "stats", "content": "Tokens used: 1531 (gpt-4o)", "metadata": {"model_id": "gpt-4o", "prompt": 1513, "completion": 18, "total": 1531, "role": "architect"}}
+{"timestamp": 1765928992.7346992, "datetime": "2025-12-17T00:49:52.734699", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 4014}}}
+{"timestamp": 1765928992.741832, "datetime": "2025-12-17T00:49:52.741831", "type": "tool_call", "content": "Using tool: read_file", "metadata": {"name": "read_file", "role": "architect", "model_id": "gpt-4o", "arguments": {"path": "pogoda-dashboard/app.py"}}}
+{"timestamp": 1765928992.7482874, "datetime": "2025-12-17T00:49:52.748287", "type": "tool_result", "content": "Result: print('Weather Dashboard Initialized')...", "metadata": {"role": "architect", "model_id": "gpt-4o", "name": "read_file", "full_result": "print('Weather Dashboard Initialized')"}}
+{"timestamp": 1765928992.7535598, "datetime": "2025-12-17T00:49:52.753559", "type": "status", "content": "Thinking (openai_cloud)...", "metadata": {}}
+{"timestamp": 1765928994.289824, "datetime": "2025-12-17T00:49:54.289824", "type": "stats", "content": "Tokens used: 1564 (gpt-4o)", "metadata": {"model_id": "gpt-4o", "prompt": 1545, "completion": 19, "total": 1564, "role": "architect"}}
+{"timestamp": 1765928994.305252, "datetime": "2025-12-17T00:49:54.305252", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 5578}}}
+{"timestamp": 1765928994.3116283, "datetime": "2025-12-17T00:49:54.311628", "type": "tool_call", "content": "Using tool: read_file", "metadata": {"name": "read_file", "role": "architect", "model_id": "gpt-4o", "arguments": {"path": "pogoda-dashboard/requirements.txt"}}}
+{"timestamp": 1765928994.3186269, "datetime": "2025-12-17T00:49:54.318626", "type": "tool_result", "content": "Result: ...", "metadata": {"role": "architect", "model_id": "gpt-4o", "name": "read_file", "full_result": ""}}
+{"timestamp": 1765928994.325268, "datetime": "2025-12-17T00:49:54.325267", "type": "status", "content": "Thinking (openai_cloud)...", "metadata": {}}
+{"timestamp": 1765928995.7503946, "datetime": "2025-12-17T00:49:55.750394", "type": "stats", "content": "Tokens used: 1410 (gpt-4o)", "metadata": {"model_id": "gpt-4o", "prompt": 1393, "completion": 17, "total": 1410, "role": "architect"}}
+{"timestamp": 1765928995.7651942, "datetime": "2025-12-17T00:49:55.765194", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 6988}}}
+{"timestamp": 1765928995.7737045, "datetime": "2025-12-17T00:49:55.773704", "type": "tool_call", "content": "Using tool: glob", "metadata": {"name": "glob", "role": "architect", "model_id": "gpt-4o", "arguments": {"pattern": "pogoda-dashboard/**/*.py"}}}
+{"timestamp": 1765928995.7803352, "datetime": "2025-12-17T00:49:55.780335", "type": "tool_result", "content": "Result: pogoda-dashboard\\app.py...", "metadata": {"role": "architect", "model_id": "gpt-4o", "name": "glob", "full_result": "pogoda-dashboard\\app.py"}}
+{"timestamp": 1765928995.7857568, "datetime": "2025-12-17T00:49:55.785756", "type": "status", "content": "Thinking (openai_cloud)...", "metadata": {}}
+{"timestamp": 1765928998.623233, "datetime": "2025-12-17T00:49:58.623233", "type": "stats", "content": "Tokens used: 1515 (gpt-4o)", "metadata": {"model_id": "gpt-4o", "prompt": 1423, "completion": 92, "total": 1515, "role": "architect"}}
+{"timestamp": 1765928998.6390626, "datetime": "2025-12-17T00:49:58.639062", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 8503}}}
+{"timestamp": 1765928998.6460655, "datetime": "2025-12-17T00:49:58.646065", "type": "question", "content": "Plan to run the weather dashboard application: 1. Ensure necessary dependencies are installed from 'pogoda-dashboard/requirements.txt'. 2. Run 'app.py' from the 'pogoda-dashboard' directory. 3. Verify the application outputs 'Weather Dashboard Initialized' to confirm it is running. Do you approve this plan?", "metadata": {"role": "architect", "options": ["Yes", "No"], "reason": "plan_approval"}}
+{"timestamp": 1765929001.0884545, "datetime": "2025-12-17T00:50:01.088454", "type": "user_msg", "content": "Yes", "metadata": {}}
+{"timestamp": 1765929001.105951, "datetime": "2025-12-17T00:50:01.105950", "type": "status", "content": "✓ Plan approved. Entering EXECUTE mode.", "metadata": {"style": "green bold"}}
+{"timestamp": 1765929001.1109512, "datetime": "2025-12-17T00:50:01.110951", "type": "log", "content": "[MODE TRANSITION] PLAN → EXECUTE (user said: Yes)", "metadata": {"style": "green"}}
+{"timestamp": 1765929001.1355386, "datetime": "2025-12-17T00:50:01.135538", "type": "status", "content": "Thinking (openai_cloud)...", "metadata": {}}
+{"timestamp": 1765929003.8514724, "datetime": "2025-12-17T00:50:03.851472", "type": "stats", "content": "Tokens used: 1550 (gpt-4o)", "metadata": {"model_id": "gpt-4o", "prompt": 1475, "completion": 75, "total": 1550, "role": "architect"}}
+{"timestamp": 1765929003.866902, "datetime": "2025-12-17T00:50:03.866901", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 10053}}}
+{"timestamp": 1765929003.8728976, "datetime": "2025-12-17T00:50:03.872897", "type": "tool_call", "content": "Using tool: delegate_task", "metadata": {"name": "delegate_task", "role": "architect", "model_id": "gpt-4o", "arguments": {"goal": "Set up and run the weather dashboard application.", "constraints": ["Ensure all dependencies are installed using 'requirements.txt' in the 'pogoda-dashboard' directory.", "Run the 'app.py' file in the same directory."], "verification_steps": ["Check if the output contains 'Weather Dashboard Initialized' to confirm successful start."]}}}
+{"timestamp": 1765929003.8821092, "datetime": "2025-12-17T00:50:03.882109", "type": "log", "content": "Refining Plan -> Developer: Set up and run the weather dashboard application.", "metadata": {"role": "architect", "style": "bold magenta"}}
+{"timestamp": 1765929003.8967123, "datetime": "2025-12-17T00:50:03.896712", "type": "todo_add", "content": "Set up and run the weather dashboard application.", "metadata": {"id": "task_1", "status": "pending"}}
+{"timestamp": 1765929003.9085417, "datetime": "2025-12-17T00:50:03.908541", "type": "todo_update", "content": "", "metadata": {"id": "task_1", "status": "in_progress"}}
+{"timestamp": 1765929003.913543, "datetime": "2025-12-17T00:50:03.913542", "type": "status", "content": "Developer Attempt 1/3", "metadata": {"role": "developer", "model_id": "mistral-small:24b", "iteration": 1, "max_iterations": 3}}
+{"timestamp": 1765929016.695829, "datetime": "2025-12-17T00:50:16.695829", "type": "streaming", "content": "<", "metadata": {}}
+{"timestamp": 1765929016.7186847, "datetime": "2025-12-17T00:50:16.718684", "type": "streaming", "content": "tool", "metadata": {}}
+{"timestamp": 1765929016.725195, "datetime": "2025-12-17T00:50:16.725195", "type": "streaming", "content": "_code", "metadata": {}}
+{"timestamp": 1765929016.7299004, "datetime": "2025-12-17T00:50:16.729900", "type": "streaming", "content": ">\n", "metadata": {}}
+{"timestamp": 1765929016.734905, "datetime": "2025-12-17T00:50:16.734905", "type": "streaming", "content": "{\n", "metadata": {}}
+{"timestamp": 1765929016.7418587, "datetime": "2025-12-17T00:50:16.741858", "type": "streaming", "content": "   ", "metadata": {}}
+{"timestamp": 1765929016.7468672, "datetime": "2025-12-17T00:50:16.746867", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765929016.7594752, "datetime": "2025-12-17T00:50:16.759475", "type": "streaming", "content": "name", "metadata": {}}
+{"timestamp": 1765929016.7654767, "datetime": "2025-12-17T00:50:16.765476", "type": "streaming", "content": "\":", "metadata": {}}
+{"timestamp": 1765929016.7780166, "datetime": "2025-12-17T00:50:16.778016", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765929016.7885451, "datetime": "2025-12-17T00:50:16.788544", "type": "streaming", "content": "list", "metadata": {}}
+{"timestamp": 1765929016.7950583, "datetime": "2025-12-17T00:50:16.795058", "type": "streaming", "content": "_directory", "metadata": {}}
+{"timestamp": 1765929016.8058076, "datetime": "2025-12-17T00:50:16.805807", "type": "streaming", "content": "\",\n", "metadata": {}}
+{"timestamp": 1765929016.8118143, "datetime": "2025-12-17T00:50:16.811814", "type": "streaming", "content": "   ", "metadata": {}}
+{"timestamp": 1765929016.8258393, "datetime": "2025-12-17T00:50:16.825839", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765929016.8377843, "datetime": "2025-12-17T00:50:16.837784", "type": "streaming", "content": "arguments", "metadata": {}}
+{"timestamp": 1765929016.8447921, "datetime": "2025-12-17T00:50:16.844792", "type": "streaming", "content": "\":", "metadata": {}}
+{"timestamp": 1765929016.8554645, "datetime": "2025-12-17T00:50:16.855464", "type": "streaming", "content": " {\n", "metadata": {}}
+{"timestamp": 1765929016.861463, "datetime": "2025-12-17T00:50:16.861463", "type": "streaming", "content": "       ", "metadata": {}}
+{"timestamp": 1765929016.8764956, "datetime": "2025-12-17T00:50:16.876495", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765929016.8911548, "datetime": "2025-12-17T00:50:16.891154", "type": "streaming", "content": "path", "metadata": {}}
+{"timestamp": 1765929016.899678, "datetime": "2025-12-17T00:50:16.899678", "type": "streaming", "content": "\":", "metadata": {}}
+{"timestamp": 1765929016.9096847, "datetime": "2025-12-17T00:50:16.909684", "type": "streaming", "content": " \"./", "metadata": {}}
+{"timestamp": 1765929016.9207053, "datetime": "2025-12-17T00:50:16.920705", "type": "streaming", "content": "p", "metadata": {}}
+{"timestamp": 1765929016.9262187, "datetime": "2025-12-17T00:50:16.926218", "type": "streaming", "content": "og", "metadata": {}}
+{"timestamp": 1765929016.9362283, "datetime": "2025-12-17T00:50:16.936228", "type": "streaming", "content": "oda", "metadata": {}}
+{"timestamp": 1765929016.9417443, "datetime": "2025-12-17T00:50:16.941744", "type": "streaming", "content": "-d", "metadata": {}}
+{"timestamp": 1765929016.947427, "datetime": "2025-12-17T00:50:16.947427", "type": "streaming", "content": "ashboard", "metadata": {}}
+{"timestamp": 1765929016.9560008, "datetime": "2025-12-17T00:50:16.956000", "type": "streaming", "content": "\"\n", "metadata": {}}
+{"timestamp": 1765929016.961652, "datetime": "2025-12-17T00:50:16.961651", "type": "streaming", "content": "   ", "metadata": {}}
+{"timestamp": 1765929016.9731627, "datetime": "2025-12-17T00:50:16.973162", "type": "streaming", "content": " }\n", "metadata": {}}
+{"timestamp": 1765929016.978428, "datetime": "2025-12-17T00:50:16.978427", "type": "streaming", "content": "}\n", "metadata": {}}
+{"timestamp": 1765929016.9899423, "datetime": "2025-12-17T00:50:16.989942", "type": "streaming", "content": "</", "metadata": {}}
+{"timestamp": 1765929016.9954526, "datetime": "2025-12-17T00:50:16.995452", "type": "streaming", "content": "tool", "metadata": {}}
+{"timestamp": 1765929017.0064735, "datetime": "2025-12-17T00:50:17.006473", "type": "streaming", "content": "_code", "metadata": {}}
+{"timestamp": 1765929017.0124726, "datetime": "2025-12-17T00:50:17.012472", "type": "streaming", "content": ">", "metadata": {}}
+{"timestamp": 1765929017.0284958, "datetime": "2025-12-17T00:50:17.028496", "type": "stats", "content": "Tokens used: 1703 (mistral-small:24b)", "metadata": {"model_id": "mistral-small:24b", "prompt": 1666, "completion": 37, "total": 1703, "role": "developer"}}
+{"timestamp": 1765929017.038531, "datetime": "2025-12-17T00:50:17.038531", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 10053, "mistral-small:24b": 1703}}}
+{"timestamp": 1765929017.0438154, "datetime": "2025-12-17T00:50:17.043815", "type": "error", "content": "Developer Error: 'dict' object has no attribute 'function'", "metadata": {}}
+{"timestamp": 1765929017.0541139, "datetime": "2025-12-17T00:50:17.054113", "type": "log", "content": "Reviewing work...", "metadata": {"role": "system", "style": "bold yellow"}}
+{"timestamp": 1765929018.309759, "datetime": "2025-12-17T00:50:18.309759", "type": "stats", "content": "Tokens used: 646 (gpt-4-turbo)", "metadata": {"model_id": "gpt-4-turbo", "prompt": 628, "completion": 18, "total": 646, "role": "reviewer"}}
+{"timestamp": 1765929018.3343656, "datetime": "2025-12-17T00:50:18.334365", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 10053, "mistral-small:24b": 1703, "gpt-4-turbo": 646}}}
+{"timestamp": 1765929018.3540154, "datetime": "2025-12-17T00:50:18.354015", "type": "log", "content": "Verification Failed. Retrying (1/3)...", "metadata": {"role": "system", "style": "bold red"}}
+{"timestamp": 1765929018.363022, "datetime": "2025-12-17T00:50:18.363022", "type": "status", "content": "Developer Attempt 2/3", "metadata": {"role": "developer", "model_id": "mistral-small:24b", "iteration": 2, "max_iterations": 3}}
+{"timestamp": 1765929018.9835887, "datetime": "2025-12-17T00:50:18.983588", "type": "streaming", "content": "<", "metadata": {}}
+{"timestamp": 1765929019.0048332, "datetime": "2025-12-17T00:50:19.004833", "type": "streaming", "content": "tool", "metadata": {}}
+{"timestamp": 1765929019.0120714, "datetime": "2025-12-17T00:50:19.012071", "type": "streaming", "content": "_code", "metadata": {}}
+{"timestamp": 1765929019.0184057, "datetime": "2025-12-17T00:50:19.018405", "type": "streaming", "content": ">\n", "metadata": {}}
+{"timestamp": 1765929019.0234509, "datetime": "2025-12-17T00:50:19.023450", "type": "streaming", "content": "{\n", "metadata": {}}
+{"timestamp": 1765929019.0298934, "datetime": "2025-12-17T00:50:19.029893", "type": "streaming", "content": "   ", "metadata": {}}
+{"timestamp": 1765929019.055707, "datetime": "2025-12-17T00:50:19.055706", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765929019.072352, "datetime": "2025-12-17T00:50:19.072352", "type": "streaming", "content": "name", "metadata": {}}
+{"timestamp": 1765929019.0946634, "datetime": "2025-12-17T00:50:19.094663", "type": "streaming", "content": "\":", "metadata": {}}
+{"timestamp": 1765929019.1165159, "datetime": "2025-12-17T00:50:19.116515", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765929019.137688, "datetime": "2025-12-17T00:50:19.137687", "type": "streaming", "content": "run", "metadata": {}}
+{"timestamp": 1765929019.1589446, "datetime": "2025-12-17T00:50:19.158944", "type": "streaming", "content": "_s", "metadata": {}}
+{"timestamp": 1765929019.1809819, "datetime": "2025-12-17T00:50:19.180981", "type": "streaming", "content": "hell", "metadata": {}}
+{"timestamp": 1765929019.206013, "datetime": "2025-12-17T00:50:19.206013", "type": "streaming", "content": "_command", "metadata": {}}
+{"timestamp": 1765929019.2262468, "datetime": "2025-12-17T00:50:19.226246", "type": "streaming", "content": "\",\n", "metadata": {}}
+{"timestamp": 1765929019.2473044, "datetime": "2025-12-17T00:50:19.247304", "type": "streaming", "content": "   ", "metadata": {}}
+{"timestamp": 1765929019.3646474, "datetime": "2025-12-17T00:50:19.364647", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765929019.3813126, "datetime": "2025-12-17T00:50:19.381312", "type": "streaming", "content": "arguments", "metadata": {}}
+{"timestamp": 1765929019.3941991, "datetime": "2025-12-17T00:50:19.394199", "type": "streaming", "content": "\":", "metadata": {}}
+{"timestamp": 1765929019.405897, "datetime": "2025-12-17T00:50:19.405897", "type": "streaming", "content": " {\n", "metadata": {}}
+{"timestamp": 1765929019.4118958, "datetime": "2025-12-17T00:50:19.411895", "type": "streaming", "content": "       ", "metadata": {}}
+{"timestamp": 1765929019.4385123, "datetime": "2025-12-17T00:50:19.438512", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765929019.4453573, "datetime": "2025-12-17T00:50:19.445357", "type": "streaming", "content": "command", "metadata": {}}
+{"timestamp": 1765929019.4514387, "datetime": "2025-12-17T00:50:19.451438", "type": "streaming", "content": "\":", "metadata": {}}
+{"timestamp": 1765929019.4571028, "datetime": "2025-12-17T00:50:19.457102", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765929019.4624348, "datetime": "2025-12-17T00:50:19.462434", "type": "streaming", "content": "pip", "metadata": {}}
+{"timestamp": 1765929019.4793706, "datetime": "2025-12-17T00:50:19.479370", "type": "streaming", "content": " install", "metadata": {}}
+{"timestamp": 1765929019.5028143, "datetime": "2025-12-17T00:50:19.502814", "type": "streaming", "content": " -", "metadata": {}}
+{"timestamp": 1765929019.5210314, "datetime": "2025-12-17T00:50:19.521031", "type": "streaming", "content": "r", "metadata": {}}
+{"timestamp": 1765929019.5422966, "datetime": "2025-12-17T00:50:19.542296", "type": "streaming", "content": " requirements", "metadata": {}}
+{"timestamp": 1765929019.5629866, "datetime": "2025-12-17T00:50:19.562986", "type": "streaming", "content": ".txt", "metadata": {}}
+{"timestamp": 1765929019.5896924, "datetime": "2025-12-17T00:50:19.589692", "type": "streaming", "content": "\",\n", "metadata": {}}
+{"timestamp": 1765929019.621015, "datetime": "2025-12-17T00:50:19.621015", "type": "streaming", "content": "       ", "metadata": {}}
+{"timestamp": 1765929019.6295273, "datetime": "2025-12-17T00:50:19.629527", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765929019.6474328, "datetime": "2025-12-17T00:50:19.647432", "type": "streaming", "content": "background", "metadata": {}}
+{"timestamp": 1765929019.6701028, "datetime": "2025-12-17T00:50:19.670102", "type": "streaming", "content": "\":", "metadata": {}}
+{"timestamp": 1765929019.689696, "datetime": "2025-12-17T00:50:19.689695", "type": "streaming", "content": " false", "metadata": {}}
+{"timestamp": 1765929019.7104845, "datetime": "2025-12-17T00:50:19.710484", "type": "streaming", "content": "\n", "metadata": {}}
+{"timestamp": 1765929019.736107, "datetime": "2025-12-17T00:50:19.736107", "type": "streaming", "content": "   ", "metadata": {}}
+{"timestamp": 1765929019.752374, "datetime": "2025-12-17T00:50:19.752373", "type": "streaming", "content": " }\n", "metadata": {}}
+{"timestamp": 1765929019.786811, "datetime": "2025-12-17T00:50:19.786811", "type": "streaming", "content": "}\n", "metadata": {}}
+{"timestamp": 1765929019.7947288, "datetime": "2025-12-17T00:50:19.794728", "type": "streaming", "content": "</", "metadata": {}}
+{"timestamp": 1765929019.815384, "datetime": "2025-12-17T00:50:19.815383", "type": "streaming", "content": "tool", "metadata": {}}
+{"timestamp": 1765929019.8419702, "datetime": "2025-12-17T00:50:19.841970", "type": "streaming", "content": "_code", "metadata": {}}
+{"timestamp": 1765929019.8578765, "datetime": "2025-12-17T00:50:19.857876", "type": "streaming", "content": ">", "metadata": {}}
+{"timestamp": 1765929019.8898518, "datetime": "2025-12-17T00:50:19.889851", "type": "stats", "content": "Tokens used: 1770 (mistral-small:24b)", "metadata": {"model_id": "mistral-small:24b", "prompt": 1724, "completion": 46, "total": 1770, "role": "developer"}}
+{"timestamp": 1765929019.8972585, "datetime": "2025-12-17T00:50:19.897258", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 10053, "mistral-small:24b": 3473, "gpt-4-turbo": 646}}}
+{"timestamp": 1765929019.9065833, "datetime": "2025-12-17T00:50:19.906583", "type": "error", "content": "Developer Error: 'dict' object has no attribute 'function'", "metadata": {}}
+{"timestamp": 1765929019.9112153, "datetime": "2025-12-17T00:50:19.911215", "type": "log", "content": "Reviewing work...", "metadata": {"role": "system", "style": "bold yellow"}}
+{"timestamp": 1765929021.8806558, "datetime": "2025-12-17T00:50:21.880655", "type": "streaming", "content": "RE", "metadata": {}}
+{"timestamp": 1765929021.9023864, "datetime": "2025-12-17T00:50:21.902386", "type": "streaming", "content": "JECTED", "metadata": {}}
+{"timestamp": 1765929022.2858927, "datetime": "2025-12-17T00:50:22.285892", "type": "streaming", "content": ":", "metadata": {}}
+{"timestamp": 1765929022.3014843, "datetime": "2025-12-17T00:50:22.301484", "type": "streaming", "content": " The", "metadata": {}}
+{"timestamp": 1765929022.3180687, "datetime": "2025-12-17T00:50:22.318068", "type": "streaming", "content": " developer", "metadata": {}}
+{"timestamp": 1765929022.3249447, "datetime": "2025-12-17T00:50:22.324944", "type": "streaming", "content": "'s", "metadata": {}}
+{"timestamp": 1765929022.3394847, "datetime": "2025-12-17T00:50:22.339484", "type": "streaming", "content": " output", "metadata": {}}
+{"timestamp": 1765929022.3468022, "datetime": "2025-12-17T00:50:22.346802", "type": "streaming", "content": " only", "metadata": {}}
+{"timestamp": 1765929022.3710554, "datetime": "2025-12-17T00:50:22.371055", "type": "streaming", "content": " addresses", "metadata": {}}
+{"timestamp": 1765929022.3775747, "datetime": "2025-12-17T00:50:22.377574", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929022.4152346, "datetime": "2025-12-17T00:50:22.415234", "type": "streaming", "content": " installation", "metadata": {}}
+{"timestamp": 1765929022.4287574, "datetime": "2025-12-17T00:50:22.428757", "type": "streaming", "content": " of", "metadata": {}}
+{"timestamp": 1765929022.4624972, "datetime": "2025-12-17T00:50:22.462497", "type": "streaming", "content": " dependencies", "metadata": {}}
+{"timestamp": 1765929022.4746158, "datetime": "2025-12-17T00:50:22.474615", "type": "streaming", "content": " using", "metadata": {}}
+{"timestamp": 1765929022.51257, "datetime": "2025-12-17T00:50:22.512569", "type": "streaming", "content": " '", "metadata": {}}
+{"timestamp": 1765929022.5276098, "datetime": "2025-12-17T00:50:22.527609", "type": "streaming", "content": "requirements", "metadata": {}}
+{"timestamp": 1765929022.556647, "datetime": "2025-12-17T00:50:22.556647", "type": "streaming", "content": ".txt", "metadata": {}}
+{"timestamp": 1765929022.565454, "datetime": "2025-12-17T00:50:22.565454", "type": "streaming", "content": "'", "metadata": {}}
+{"timestamp": 1765929022.5940025, "datetime": "2025-12-17T00:50:22.594002", "type": "streaming", "content": " but", "metadata": {}}
+{"timestamp": 1765929022.610059, "datetime": "2025-12-17T00:50:22.610058", "type": "streaming", "content": " does", "metadata": {}}
+{"timestamp": 1765929022.6451547, "datetime": "2025-12-17T00:50:22.645154", "type": "streaming", "content": " not", "metadata": {}}
+{"timestamp": 1765929022.6553173, "datetime": "2025-12-17T00:50:22.655317", "type": "streaming", "content": " fulfill", "metadata": {}}
+{"timestamp": 1765929022.6860592, "datetime": "2025-12-17T00:50:22.686059", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929022.693085, "datetime": "2025-12-17T00:50:22.693084", "type": "streaming", "content": " complete", "metadata": {}}
+{"timestamp": 1765929022.7360563, "datetime": "2025-12-17T00:50:22.736056", "type": "streaming", "content": " requirements", "metadata": {}}
+{"timestamp": 1765929022.7441483, "datetime": "2025-12-17T00:50:22.744148", "type": "streaming", "content": " specified", "metadata": {}}
+{"timestamp": 1765929022.8439467, "datetime": "2025-12-17T00:50:22.843946", "type": "streaming", "content": " in", "metadata": {}}
+{"timestamp": 1765929022.8533041, "datetime": "2025-12-17T00:50:22.853304", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929022.861306, "datetime": "2025-12-17T00:50:22.861305", "type": "streaming", "content": " original", "metadata": {}}
+{"timestamp": 1765929022.8769584, "datetime": "2025-12-17T00:50:22.876958", "type": "streaming", "content": " task", "metadata": {}}
+{"timestamp": 1765929022.894625, "datetime": "2025-12-17T00:50:22.894625", "type": "streaming", "content": ".", "metadata": {}}
+{"timestamp": 1765929022.9079437, "datetime": "2025-12-17T00:50:22.907943", "type": "streaming", "content": " Specifically", "metadata": {}}
+{"timestamp": 1765929022.9152799, "datetime": "2025-12-17T00:50:22.915279", "type": "streaming", "content": ",", "metadata": {}}
+{"timestamp": 1765929022.929564, "datetime": "2025-12-17T00:50:22.929563", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929022.9596803, "datetime": "2025-12-17T00:50:22.959680", "type": "streaming", "content": " following", "metadata": {}}
+{"timestamp": 1765929022.972363, "datetime": "2025-12-17T00:50:22.972363", "type": "streaming", "content": " issues", "metadata": {}}
+{"timestamp": 1765929023.0089273, "datetime": "2025-12-17T00:50:23.008927", "type": "streaming", "content": " are", "metadata": {}}
+{"timestamp": 1765929023.0265067, "datetime": "2025-12-17T00:50:23.026506", "type": "streaming", "content": " present", "metadata": {}}
+{"timestamp": 1765929023.0581572, "datetime": "2025-12-17T00:50:23.058157", "type": "streaming", "content": ":\n\n", "metadata": {}}
+{"timestamp": 1765929023.0641572, "datetime": "2025-12-17T00:50:23.064157", "type": "streaming", "content": "1", "metadata": {}}
+{"timestamp": 1765929023.0971775, "datetime": "2025-12-17T00:50:23.097177", "type": "streaming", "content": ".", "metadata": {}}
+{"timestamp": 1765929023.1037724, "datetime": "2025-12-17T00:50:23.103772", "type": "streaming", "content": " The", "metadata": {}}
+{"timestamp": 1765929023.1385062, "datetime": "2025-12-17T00:50:23.138506", "type": "streaming", "content": " command", "metadata": {}}
+{"timestamp": 1765929023.1450493, "datetime": "2025-12-17T00:50:23.145049", "type": "streaming", "content": " provided", "metadata": {}}
+{"timestamp": 1765929023.1952686, "datetime": "2025-12-17T00:50:23.195268", "type": "streaming", "content": " does", "metadata": {}}
+{"timestamp": 1765929023.2241874, "datetime": "2025-12-17T00:50:23.224187", "type": "streaming", "content": " not", "metadata": {}}
+{"timestamp": 1765929023.2447755, "datetime": "2025-12-17T00:50:23.244775", "type": "streaming", "content": " specify", "metadata": {}}
+{"timestamp": 1765929023.2527318, "datetime": "2025-12-17T00:50:23.252731", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929023.2757835, "datetime": "2025-12-17T00:50:23.275783", "type": "streaming", "content": " directory", "metadata": {}}
+{"timestamp": 1765929023.2908676, "datetime": "2025-12-17T00:50:23.290867", "type": "streaming", "content": " '", "metadata": {}}
+{"timestamp": 1765929023.320498, "datetime": "2025-12-17T00:50:23.320498", "type": "streaming", "content": "p", "metadata": {}}
+{"timestamp": 1765929023.3300126, "datetime": "2025-12-17T00:50:23.330012", "type": "streaming", "content": "og", "metadata": {}}
+{"timestamp": 1765929023.3635788, "datetime": "2025-12-17T00:50:23.363579", "type": "streaming", "content": "oda", "metadata": {}}
+{"timestamp": 1765929023.3715854, "datetime": "2025-12-17T00:50:23.371585", "type": "streaming", "content": "-dashboard", "metadata": {}}
+{"timestamp": 1765929023.4155633, "datetime": "2025-12-17T00:50:23.415563", "type": "streaming", "content": "',", "metadata": {}}
+{"timestamp": 1765929023.4245636, "datetime": "2025-12-17T00:50:23.424563", "type": "streaming", "content": " which", "metadata": {}}
+{"timestamp": 1765929023.461643, "datetime": "2025-12-17T00:50:23.461643", "type": "streaming", "content": " is", "metadata": {}}
+{"timestamp": 1765929023.472643, "datetime": "2025-12-17T00:50:23.472642", "type": "streaming", "content": " required", "metadata": {}}
+{"timestamp": 1765929023.501243, "datetime": "2025-12-17T00:50:23.501243", "type": "streaming", "content": " as", "metadata": {}}
+{"timestamp": 1765929023.5083385, "datetime": "2025-12-17T00:50:23.508338", "type": "streaming", "content": " per", "metadata": {}}
+{"timestamp": 1765929023.5572193, "datetime": "2025-12-17T00:50:23.557219", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929023.5642185, "datetime": "2025-12-17T00:50:23.564218", "type": "streaming", "content": " constraints", "metadata": {}}
+{"timestamp": 1765929023.7205377, "datetime": "2025-12-17T00:50:23.720537", "type": "streaming", "content": " to", "metadata": {}}
+{"timestamp": 1765929023.7385342, "datetime": "2025-12-17T00:50:23.738534", "type": "streaming", "content": " ensure", "metadata": {}}
+{"timestamp": 1765929023.7455347, "datetime": "2025-12-17T00:50:23.745534", "type": "streaming", "content": " that", "metadata": {}}
+{"timestamp": 1765929023.7794933, "datetime": "2025-12-17T00:50:23.779493", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929023.78609, "datetime": "2025-12-17T00:50:23.786090", "type": "streaming", "content": " correct", "metadata": {}}
+{"timestamp": 1765929023.7936046, "datetime": "2025-12-17T00:50:23.793604", "type": "streaming", "content": " '", "metadata": {}}
+{"timestamp": 1765929023.8257816, "datetime": "2025-12-17T00:50:23.825781", "type": "streaming", "content": "requirements", "metadata": {}}
+{"timestamp": 1765929023.8453107, "datetime": "2025-12-17T00:50:23.845310", "type": "streaming", "content": ".txt", "metadata": {}}
+{"timestamp": 1765929023.8604507, "datetime": "2025-12-17T00:50:23.860450", "type": "streaming", "content": "'", "metadata": {}}
+{"timestamp": 1765929023.8734586, "datetime": "2025-12-17T00:50:23.873458", "type": "streaming", "content": " file", "metadata": {}}
+{"timestamp": 1765929023.880537, "datetime": "2025-12-17T00:50:23.880537", "type": "streaming", "content": " is", "metadata": {}}
+{"timestamp": 1765929023.886539, "datetime": "2025-12-17T00:50:23.886539", "type": "streaming", "content": " used", "metadata": {}}
+{"timestamp": 1765929023.8933344, "datetime": "2025-12-17T00:50:23.893334", "type": "streaming", "content": ".\n", "metadata": {}}
+{"timestamp": 1765929023.9080038, "datetime": "2025-12-17T00:50:23.908003", "type": "streaming", "content": "2", "metadata": {}}
+{"timestamp": 1765929023.9140048, "datetime": "2025-12-17T00:50:23.914004", "type": "streaming", "content": ".", "metadata": {}}
+{"timestamp": 1765929023.927029, "datetime": "2025-12-17T00:50:23.927029", "type": "streaming", "content": " The", "metadata": {}}
+{"timestamp": 1765929023.9604511, "datetime": "2025-12-17T00:50:23.960451", "type": "streaming", "content": " task", "metadata": {}}
+{"timestamp": 1765929023.9679723, "datetime": "2025-12-17T00:50:23.967972", "type": "streaming", "content": " to", "metadata": {}}
+{"timestamp": 1765929024.007694, "datetime": "2025-12-17T00:50:24.007694", "type": "streaming", "content": " run", "metadata": {}}
+{"timestamp": 1765929024.0147007, "datetime": "2025-12-17T00:50:24.014700", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929024.0548072, "datetime": "2025-12-17T00:50:24.054807", "type": "streaming", "content": " '", "metadata": {}}
+{"timestamp": 1765929024.0618083, "datetime": "2025-12-17T00:50:24.061808", "type": "streaming", "content": "app", "metadata": {}}
+{"timestamp": 1765929024.096717, "datetime": "2025-12-17T00:50:24.096716", "type": "streaming", "content": ".py", "metadata": {}}
+{"timestamp": 1765929024.108886, "datetime": "2025-12-17T00:50:24.108885", "type": "streaming", "content": "'", "metadata": {}}
+{"timestamp": 1765929024.156461, "datetime": "2025-12-17T00:50:24.156461", "type": "streaming", "content": " file", "metadata": {}}
+{"timestamp": 1765929024.169474, "datetime": "2025-12-17T00:50:24.169473", "type": "streaming", "content": " in", "metadata": {}}
+{"timestamp": 1765929024.1892447, "datetime": "2025-12-17T00:50:24.189244", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929024.1977577, "datetime": "2025-12-17T00:50:24.197757", "type": "streaming", "content": " '", "metadata": {}}
+{"timestamp": 1765929024.2373824, "datetime": "2025-12-17T00:50:24.237382", "type": "streaming", "content": "p", "metadata": {}}
+{"timestamp": 1765929024.2499733, "datetime": "2025-12-17T00:50:24.249973", "type": "streaming", "content": "og", "metadata": {}}
+{"timestamp": 1765929024.2846177, "datetime": "2025-12-17T00:50:24.284617", "type": "streaming", "content": "oda", "metadata": {}}
+{"timestamp": 1765929024.2957113, "datetime": "2025-12-17T00:50:24.295711", "type": "streaming", "content": "-dashboard", "metadata": {}}
+{"timestamp": 1765929024.3248045, "datetime": "2025-12-17T00:50:24.324804", "type": "streaming", "content": "'", "metadata": {}}
+{"timestamp": 1765929024.3328972, "datetime": "2025-12-17T00:50:24.332897", "type": "streaming", "content": " directory", "metadata": {}}
+{"timestamp": 1765929024.3696012, "datetime": "2025-12-17T00:50:24.369601", "type": "streaming", "content": " is", "metadata": {}}
+{"timestamp": 1765929024.3811238, "datetime": "2025-12-17T00:50:24.381123", "type": "streaming", "content": " not", "metadata": {}}
+{"timestamp": 1765929024.4236329, "datetime": "2025-12-17T00:50:24.423632", "type": "streaming", "content": " addressed", "metadata": {}}
+{"timestamp": 1765929024.4380784, "datetime": "2025-12-17T00:50:24.438078", "type": "streaming", "content": " at", "metadata": {}}
+{"timestamp": 1765929024.4653037, "datetime": "2025-12-17T00:50:24.465303", "type": "streaming", "content": " all", "metadata": {}}
+{"timestamp": 1765929024.4819682, "datetime": "2025-12-17T00:50:24.481968", "type": "streaming", "content": ".\n\n", "metadata": {}}
+{"timestamp": 1765929024.5082986, "datetime": "2025-12-17T00:50:24.508298", "type": "streaming", "content": "To", "metadata": {}}
+{"timestamp": 1765929024.516192, "datetime": "2025-12-17T00:50:24.516192", "type": "streaming", "content": " meet", "metadata": {}}
+{"timestamp": 1765929024.5555546, "datetime": "2025-12-17T00:50:24.555554", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929024.5632143, "datetime": "2025-12-17T00:50:24.563214", "type": "streaming", "content": " original", "metadata": {}}
+{"timestamp": 1765929024.602904, "datetime": "2025-12-17T00:50:24.602904", "type": "streaming", "content": " specifications", "metadata": {}}
+{"timestamp": 1765929024.610522, "datetime": "2025-12-17T00:50:24.610522", "type": "streaming", "content": ",", "metadata": {}}
+{"timestamp": 1765929024.6493838, "datetime": "2025-12-17T00:50:24.649383", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929024.656634, "datetime": "2025-12-17T00:50:24.656634", "type": "streaming", "content": " developer", "metadata": {}}
+{"timestamp": 1765929024.6984918, "datetime": "2025-12-17T00:50:24.698491", "type": "streaming", "content": " needs", "metadata": {}}
+{"timestamp": 1765929024.7090116, "datetime": "2025-12-17T00:50:24.709011", "type": "streaming", "content": " to", "metadata": {}}
+{"timestamp": 1765929024.7374196, "datetime": "2025-12-17T00:50:24.737419", "type": "streaming", "content": " modify", "metadata": {}}
+{"timestamp": 1765929024.7441382, "datetime": "2025-12-17T00:50:24.744138", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929024.7943912, "datetime": "2025-12-17T00:50:24.794391", "type": "streaming", "content": " command", "metadata": {}}
+{"timestamp": 1765929024.8068173, "datetime": "2025-12-17T00:50:24.806817", "type": "streaming", "content": " to", "metadata": {}}
+{"timestamp": 1765929024.830362, "datetime": "2025-12-17T00:50:24.830362", "type": "streaming", "content": " include", "metadata": {}}
+{"timestamp": 1765929024.84235, "datetime": "2025-12-17T00:50:24.842350", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929024.8793697, "datetime": "2025-12-17T00:50:24.879369", "type": "streaming", "content": " correct", "metadata": {}}
+{"timestamp": 1765929024.8905954, "datetime": "2025-12-17T00:50:24.890595", "type": "streaming", "content": " directory", "metadata": {}}
+{"timestamp": 1765929024.9204278, "datetime": "2025-12-17T00:50:24.920427", "type": "streaming", "content": " for", "metadata": {}}
+{"timestamp": 1765929024.9269347, "datetime": "2025-12-17T00:50:24.926934", "type": "streaming", "content": " installing", "metadata": {}}
+{"timestamp": 1765929024.96425, "datetime": "2025-12-17T00:50:24.964250", "type": "streaming", "content": " dependencies", "metadata": {}}
+{"timestamp": 1765929024.9753752, "datetime": "2025-12-17T00:50:24.975375", "type": "streaming", "content": " and", "metadata": {}}
+{"timestamp": 1765929025.0097854, "datetime": "2025-12-17T00:50:25.009785", "type": "streaming", "content": " add", "metadata": {}}
+{"timestamp": 1765929025.0207853, "datetime": "2025-12-17T00:50:25.020785", "type": "streaming", "content": " a", "metadata": {}}
+{"timestamp": 1765929025.061426, "datetime": "2025-12-17T00:50:25.061425", "type": "streaming", "content": " command", "metadata": {}}
+{"timestamp": 1765929025.0679374, "datetime": "2025-12-17T00:50:25.067937", "type": "streaming", "content": " to", "metadata": {}}
+{"timestamp": 1765929025.1058216, "datetime": "2025-12-17T00:50:25.105821", "type": "streaming", "content": " run", "metadata": {}}
+{"timestamp": 1765929025.1118267, "datetime": "2025-12-17T00:50:25.111826", "type": "streaming", "content": " '", "metadata": {}}
+{"timestamp": 1765929025.1915426, "datetime": "2025-12-17T00:50:25.191542", "type": "streaming", "content": "app", "metadata": {}}
+{"timestamp": 1765929025.2056499, "datetime": "2025-12-17T00:50:25.205650", "type": "streaming", "content": ".py", "metadata": {}}
+{"timestamp": 1765929025.2842267, "datetime": "2025-12-17T00:50:25.284226", "type": "streaming", "content": "'.", "metadata": {}}
+{"timestamp": 1765929025.291747, "datetime": "2025-12-17T00:50:25.291747", "type": "streaming", "content": " The", "metadata": {}}
+{"timestamp": 1765929025.3253422, "datetime": "2025-12-17T00:50:25.325342", "type": "streaming", "content": " corrected", "metadata": {}}
+{"timestamp": 1765929025.3324556, "datetime": "2025-12-17T00:50:25.332455", "type": "streaming", "content": " commands", "metadata": {}}
+{"timestamp": 1765929025.3620021, "datetime": "2025-12-17T00:50:25.362002", "type": "streaming", "content": " should", "metadata": {}}
+{"timestamp": 1765929025.371519, "datetime": "2025-12-17T00:50:25.371518", "type": "streaming", "content": " look", "metadata": {}}
+{"timestamp": 1765929025.4057767, "datetime": "2025-12-17T00:50:25.405776", "type": "streaming", "content": " something", "metadata": {}}
+{"timestamp": 1765929025.412153, "datetime": "2025-12-17T00:50:25.412153", "type": "streaming", "content": " like", "metadata": {}}
+{"timestamp": 1765929025.455716, "datetime": "2025-12-17T00:50:25.455715", "type": "streaming", "content": " this", "metadata": {}}
+{"timestamp": 1765929025.4627182, "datetime": "2025-12-17T00:50:25.462718", "type": "streaming", "content": ":\n\n", "metadata": {}}
+{"timestamp": 1765929025.4938266, "datetime": "2025-12-17T00:50:25.493826", "type": "streaming", "content": "1", "metadata": {}}
+{"timestamp": 1765929025.4995265, "datetime": "2025-12-17T00:50:25.499526", "type": "streaming", "content": ".", "metadata": {}}
+{"timestamp": 1765929025.5454736, "datetime": "2025-12-17T00:50:25.545473", "type": "streaming", "content": " Change", "metadata": {}}
+{"timestamp": 1765929025.5595212, "datetime": "2025-12-17T00:50:25.559521", "type": "streaming", "content": " directory", "metadata": {}}
+{"timestamp": 1765929025.6248107, "datetime": "2025-12-17T00:50:25.624810", "type": "streaming", "content": " to", "metadata": {}}
+{"timestamp": 1765929025.637784, "datetime": "2025-12-17T00:50:25.637784", "type": "streaming", "content": " '", "metadata": {}}
+{"timestamp": 1765929025.6959002, "datetime": "2025-12-17T00:50:25.695900", "type": "streaming", "content": "p", "metadata": {}}
+{"timestamp": 1765929025.7081654, "datetime": "2025-12-17T00:50:25.708165", "type": "streaming", "content": "og", "metadata": {}}
+{"timestamp": 1765929025.7504838, "datetime": "2025-12-17T00:50:25.750483", "type": "streaming", "content": "oda", "metadata": {}}
+{"timestamp": 1765929025.7606783, "datetime": "2025-12-17T00:50:25.760678", "type": "streaming", "content": "-dashboard", "metadata": {}}
+{"timestamp": 1765929025.7925732, "datetime": "2025-12-17T00:50:25.792573", "type": "streaming", "content": "'", "metadata": {}}
+{"timestamp": 1765929025.8061132, "datetime": "2025-12-17T00:50:25.806113", "type": "streaming", "content": " and", "metadata": {}}
+{"timestamp": 1765929025.8402104, "datetime": "2025-12-17T00:50:25.840210", "type": "streaming", "content": " install", "metadata": {}}
+{"timestamp": 1765929025.84672, "datetime": "2025-12-17T00:50:25.846720", "type": "streaming", "content": " dependencies", "metadata": {}}
+{"timestamp": 1765929025.8829007, "datetime": "2025-12-17T00:50:25.882900", "type": "streaming", "content": ":", "metadata": {}}
+{"timestamp": 1765929025.8931143, "datetime": "2025-12-17T00:50:25.893114", "type": "streaming", "content": " `", "metadata": {}}
+{"timestamp": 1765929025.9337485, "datetime": "2025-12-17T00:50:25.933748", "type": "streaming", "content": "cd", "metadata": {}}
+{"timestamp": 1765929025.9452612, "datetime": "2025-12-17T00:50:25.945261", "type": "streaming", "content": " pog", "metadata": {}}
+{"timestamp": 1765929025.979546, "datetime": "2025-12-17T00:50:25.979546", "type": "streaming", "content": "oda", "metadata": {}}
+{"timestamp": 1765929025.9895663, "datetime": "2025-12-17T00:50:25.989566", "type": "streaming", "content": "-dashboard", "metadata": {}}
+{"timestamp": 1765929026.0221934, "datetime": "2025-12-17T00:50:26.022193", "type": "streaming", "content": " &&", "metadata": {}}
+{"timestamp": 1765929026.0297081, "datetime": "2025-12-17T00:50:26.029708", "type": "streaming", "content": " pip", "metadata": {}}
+{"timestamp": 1765929026.071524, "datetime": "2025-12-17T00:50:26.071523", "type": "streaming", "content": " install", "metadata": {}}
+{"timestamp": 1765929026.0790346, "datetime": "2025-12-17T00:50:26.079034", "type": "streaming", "content": " -", "metadata": {}}
+{"timestamp": 1765929026.1120389, "datetime": "2025-12-17T00:50:26.112038", "type": "streaming", "content": "r", "metadata": {}}
+{"timestamp": 1765929026.1185534, "datetime": "2025-12-17T00:50:26.118553", "type": "streaming", "content": " requirements", "metadata": {}}
+{"timestamp": 1765929026.1567876, "datetime": "2025-12-17T00:50:26.156787", "type": "streaming", "content": ".txt", "metadata": {}}
+{"timestamp": 1765929026.1733205, "datetime": "2025-12-17T00:50:26.173320", "type": "streaming", "content": "`\n", "metadata": {}}
+{"timestamp": 1765929026.211946, "datetime": "2025-12-17T00:50:26.211945", "type": "streaming", "content": "2", "metadata": {}}
+{"timestamp": 1765929026.2234557, "datetime": "2025-12-17T00:50:26.223455", "type": "streaming", "content": ".", "metadata": {}}
+{"timestamp": 1765929026.2452154, "datetime": "2025-12-17T00:50:26.245215", "type": "streaming", "content": " Run", "metadata": {}}
+{"timestamp": 1765929026.2566884, "datetime": "2025-12-17T00:50:26.256688", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929026.2960286, "datetime": "2025-12-17T00:50:26.296028", "type": "streaming", "content": " '", "metadata": {}}
+{"timestamp": 1765929026.308203, "datetime": "2025-12-17T00:50:26.308203", "type": "streaming", "content": "app", "metadata": {}}
+{"timestamp": 1765929026.3505695, "datetime": "2025-12-17T00:50:26.350569", "type": "streaming", "content": ".py", "metadata": {}}
+{"timestamp": 1765929026.3626509, "datetime": "2025-12-17T00:50:26.362650", "type": "streaming", "content": "'", "metadata": {}}
+{"timestamp": 1765929026.3877153, "datetime": "2025-12-17T00:50:26.387715", "type": "streaming", "content": " file", "metadata": {}}
+{"timestamp": 1765929026.399235, "datetime": "2025-12-17T00:50:26.399235", "type": "streaming", "content": " within", "metadata": {}}
+{"timestamp": 1765929026.4339666, "datetime": "2025-12-17T00:50:26.433966", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929026.440482, "datetime": "2025-12-17T00:50:26.440481", "type": "streaming", "content": " '", "metadata": {}}
+{"timestamp": 1765929026.4784443, "datetime": "2025-12-17T00:50:26.478444", "type": "streaming", "content": "p", "metadata": {}}
+{"timestamp": 1765929026.4902039, "datetime": "2025-12-17T00:50:26.490203", "type": "streaming", "content": "og", "metadata": {}}
+{"timestamp": 1765929026.5253842, "datetime": "2025-12-17T00:50:26.525384", "type": "streaming", "content": "oda", "metadata": {}}
+{"timestamp": 1765929026.5377035, "datetime": "2025-12-17T00:50:26.537703", "type": "streaming", "content": "-dashboard", "metadata": {}}
+{"timestamp": 1765929026.5757086, "datetime": "2025-12-17T00:50:26.575708", "type": "streaming", "content": "'", "metadata": {}}
+{"timestamp": 1765929026.5903308, "datetime": "2025-12-17T00:50:26.590330", "type": "streaming", "content": " directory", "metadata": {}}
+{"timestamp": 1765929026.613119, "datetime": "2025-12-17T00:50:26.613118", "type": "streaming", "content": ":", "metadata": {}}
+{"timestamp": 1765929026.6232467, "datetime": "2025-12-17T00:50:26.623246", "type": "streaming", "content": " `", "metadata": {}}
+{"timestamp": 1765929026.6613133, "datetime": "2025-12-17T00:50:26.661313", "type": "streaming", "content": "python", "metadata": {}}
+{"timestamp": 1765929026.6743143, "datetime": "2025-12-17T00:50:26.674314", "type": "streaming", "content": " app", "metadata": {}}
+{"timestamp": 1765929026.7039118, "datetime": "2025-12-17T00:50:26.703911", "type": "streaming", "content": ".py", "metadata": {}}
+{"timestamp": 1765929026.710573, "datetime": "2025-12-17T00:50:26.710573", "type": "streaming", "content": "`\n\n", "metadata": {}}
+{"timestamp": 1765929026.7546222, "datetime": "2025-12-17T00:50:26.754622", "type": "streaming", "content": "These", "metadata": {}}
+{"timestamp": 1765929026.761135, "datetime": "2025-12-17T00:50:26.761135", "type": "streaming", "content": " steps", "metadata": {}}
+{"timestamp": 1765929026.7922862, "datetime": "2025-12-17T00:50:26.792286", "type": "streaming", "content": " ensure", "metadata": {}}
+{"timestamp": 1765929026.8001964, "datetime": "2025-12-17T00:50:26.800196", "type": "streaming", "content": " that", "metadata": {}}
+{"timestamp": 1765929026.844461, "datetime": "2025-12-17T00:50:26.844461", "type": "streaming", "content": " both", "metadata": {}}
+{"timestamp": 1765929026.858126, "datetime": "2025-12-17T00:50:26.858125", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929026.8867233, "datetime": "2025-12-17T00:50:26.886723", "type": "streaming", "content": " installation", "metadata": {}}
+{"timestamp": 1765929026.8933237, "datetime": "2025-12-17T00:50:26.893323", "type": "streaming", "content": " of", "metadata": {}}
+{"timestamp": 1765929026.9413307, "datetime": "2025-12-17T00:50:26.941330", "type": "streaming", "content": " dependencies", "metadata": {}}
+{"timestamp": 1765929026.9478438, "datetime": "2025-12-17T00:50:26.947843", "type": "streaming", "content": " and", "metadata": {}}
+{"timestamp": 1765929027.018052, "datetime": "2025-12-17T00:50:27.018052", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929027.0324721, "datetime": "2025-12-17T00:50:27.032472", "type": "streaming", "content": " running", "metadata": {}}
+{"timestamp": 1765929027.1228821, "datetime": "2025-12-17T00:50:27.122882", "type": "streaming", "content": " of", "metadata": {}}
+{"timestamp": 1765929027.1303964, "datetime": "2025-12-17T00:50:27.130396", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929027.1803527, "datetime": "2025-12-17T00:50:27.180352", "type": "streaming", "content": " application", "metadata": {}}
+{"timestamp": 1765929027.1947904, "datetime": "2025-12-17T00:50:27.194790", "type": "streaming", "content": " are", "metadata": {}}
+{"timestamp": 1765929027.2122288, "datetime": "2025-12-17T00:50:27.212228", "type": "streaming", "content": " performed", "metadata": {}}
+{"timestamp": 1765929027.2259314, "datetime": "2025-12-17T00:50:27.225931", "type": "streaming", "content": " in", "metadata": {}}
+{"timestamp": 1765929027.263633, "datetime": "2025-12-17T00:50:27.263632", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929027.2701445, "datetime": "2025-12-17T00:50:27.270144", "type": "streaming", "content": " correct", "metadata": {}}
+{"timestamp": 1765929027.3109014, "datetime": "2025-12-17T00:50:27.310901", "type": "streaming", "content": " directory", "metadata": {}}
+{"timestamp": 1765929027.3194182, "datetime": "2025-12-17T00:50:27.319418", "type": "streaming", "content": ",", "metadata": {}}
+{"timestamp": 1765929027.353703, "datetime": "2025-12-17T00:50:27.353703", "type": "streaming", "content": " complying", "metadata": {}}
+{"timestamp": 1765929027.3598204, "datetime": "2025-12-17T00:50:27.359820", "type": "streaming", "content": " with", "metadata": {}}
+{"timestamp": 1765929027.399042, "datetime": "2025-12-17T00:50:27.399041", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929027.4056544, "datetime": "2025-12-17T00:50:27.405654", "type": "streaming", "content": " specified", "metadata": {}}
+{"timestamp": 1765929027.4301655, "datetime": "2025-12-17T00:50:27.430165", "type": "streaming", "content": " constraints", "metadata": {}}
+{"timestamp": 1765929027.441189, "datetime": "2025-12-17T00:50:27.441189", "type": "streaming", "content": ".", "metadata": {}}
+{"timestamp": 1765929027.471074, "datetime": "2025-12-17T00:50:27.471074", "type": "stats", "content": "Tokens used: 860 (gpt-4-turbo)", "metadata": {"model_id": "gpt-4-turbo", "prompt": 637, "completion": 223, "total": 860, "role": "reviewer"}}
+{"timestamp": 1765929027.480267, "datetime": "2025-12-17T00:50:27.480267", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 10053, "mistral-small:24b": 3473, "gpt-4-turbo": 1506}}}
+{"timestamp": 1765929027.4890988, "datetime": "2025-12-17T00:50:27.489098", "type": "log", "content": "Verification Failed. Retrying (2/3)...", "metadata": {"role": "system", "style": "bold red"}}
+{"timestamp": 1765929027.49519, "datetime": "2025-12-17T00:50:27.495190", "type": "status", "content": "Developer Attempt 3/3", "metadata": {"role": "developer", "model_id": "mistral-small:24b", "iteration": 3, "max_iterations": 3}}
+{"timestamp": 1765929032.3682377, "datetime": "2025-12-17T00:50:32.368237", "type": "streaming", "content": "<", "metadata": {}}
+{"timestamp": 1765929032.395272, "datetime": "2025-12-17T00:50:32.395272", "type": "streaming", "content": "tool", "metadata": {}}
+{"timestamp": 1765929032.4019694, "datetime": "2025-12-17T00:50:32.401969", "type": "streaming", "content": "_code", "metadata": {}}
+{"timestamp": 1765929032.407287, "datetime": "2025-12-17T00:50:32.407286", "type": "streaming", "content": ">\n", "metadata": {}}
+{"timestamp": 1765929032.412891, "datetime": "2025-12-17T00:50:32.412890", "type": "streaming", "content": "{\n", "metadata": {}}
+{"timestamp": 1765929032.4264352, "datetime": "2025-12-17T00:50:32.426435", "type": "streaming", "content": "   ", "metadata": {}}
+{"timestamp": 1765929032.4413972, "datetime": "2025-12-17T00:50:32.441397", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765929032.4484468, "datetime": "2025-12-17T00:50:32.448446", "type": "streaming", "content": "name", "metadata": {}}
+{"timestamp": 1765929032.4624486, "datetime": "2025-12-17T00:50:32.462448", "type": "streaming", "content": "\":", "metadata": {}}
+{"timestamp": 1765929032.4867253, "datetime": "2025-12-17T00:50:32.486725", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765929032.5048494, "datetime": "2025-12-17T00:50:32.504849", "type": "streaming", "content": "run", "metadata": {}}
+{"timestamp": 1765929032.5259356, "datetime": "2025-12-17T00:50:32.525935", "type": "streaming", "content": "_s", "metadata": {}}
+{"timestamp": 1765929032.5484824, "datetime": "2025-12-17T00:50:32.548482", "type": "streaming", "content": "hell", "metadata": {}}
+{"timestamp": 1765929032.569862, "datetime": "2025-12-17T00:50:32.569861", "type": "streaming", "content": "_command", "metadata": {}}
+{"timestamp": 1765929032.591104, "datetime": "2025-12-17T00:50:32.591104", "type": "streaming", "content": "\",\n", "metadata": {}}
+{"timestamp": 1765929032.6127925, "datetime": "2025-12-17T00:50:32.612792", "type": "streaming", "content": "   ", "metadata": {}}
+{"timestamp": 1765929032.6423454, "datetime": "2025-12-17T00:50:32.642345", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765929032.6553435, "datetime": "2025-12-17T00:50:32.655343", "type": "streaming", "content": "arguments", "metadata": {}}
+{"timestamp": 1765929032.675535, "datetime": "2025-12-17T00:50:32.675534", "type": "streaming", "content": "\":", "metadata": {}}
+{"timestamp": 1765929032.6959355, "datetime": "2025-12-17T00:50:32.695935", "type": "streaming", "content": " {\"", "metadata": {}}
+{"timestamp": 1765929032.7175276, "datetime": "2025-12-17T00:50:32.717527", "type": "streaming", "content": "command", "metadata": {}}
+{"timestamp": 1765929032.7387197, "datetime": "2025-12-17T00:50:32.738719", "type": "streaming", "content": "\":", "metadata": {}}
+{"timestamp": 1765929032.7597718, "datetime": "2025-12-17T00:50:32.759771", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765929032.7783346, "datetime": "2025-12-17T00:50:32.778334", "type": "streaming", "content": "cd", "metadata": {}}
+{"timestamp": 1765929032.8041956, "datetime": "2025-12-17T00:50:32.804195", "type": "streaming", "content": " pog", "metadata": {}}
+{"timestamp": 1765929032.8225007, "datetime": "2025-12-17T00:50:32.822500", "type": "streaming", "content": "oda", "metadata": {}}
+{"timestamp": 1765929032.8434074, "datetime": "2025-12-17T00:50:32.843407", "type": "streaming", "content": "-d", "metadata": {}}
+{"timestamp": 1765929032.8645449, "datetime": "2025-12-17T00:50:32.864544", "type": "streaming", "content": "ashboard", "metadata": {}}
+{"timestamp": 1765929032.8858123, "datetime": "2025-12-17T00:50:32.885812", "type": "streaming", "content": " &&", "metadata": {}}
+{"timestamp": 1765929032.9066978, "datetime": "2025-12-17T00:50:32.906697", "type": "streaming", "content": " pip", "metadata": {}}
+{"timestamp": 1765929032.930786, "datetime": "2025-12-17T00:50:32.930785", "type": "streaming", "content": " install", "metadata": {}}
+{"timestamp": 1765929032.9553883, "datetime": "2025-12-17T00:50:32.955388", "type": "streaming", "content": " -", "metadata": {}}
+{"timestamp": 1765929032.9742603, "datetime": "2025-12-17T00:50:32.974260", "type": "streaming", "content": "r", "metadata": {}}
+{"timestamp": 1765929032.994511, "datetime": "2025-12-17T00:50:32.994510", "type": "streaming", "content": " requirements", "metadata": {}}
+{"timestamp": 1765929033.0218432, "datetime": "2025-12-17T00:50:33.021843", "type": "streaming", "content": ".txt", "metadata": {}}
+{"timestamp": 1765929033.0388029, "datetime": "2025-12-17T00:50:33.038803", "type": "streaming", "content": "\",", "metadata": {}}
+{"timestamp": 1765929033.0602088, "datetime": "2025-12-17T00:50:33.060208", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765929033.081855, "datetime": "2025-12-17T00:50:33.081855", "type": "streaming", "content": "background", "metadata": {}}
+{"timestamp": 1765929033.1030722, "datetime": "2025-12-17T00:50:33.103072", "type": "streaming", "content": "\":", "metadata": {}}
+{"timestamp": 1765929033.123736, "datetime": "2025-12-17T00:50:33.123735", "type": "streaming", "content": " false", "metadata": {}}
+{"timestamp": 1765929033.1455872, "datetime": "2025-12-17T00:50:33.145587", "type": "streaming", "content": "}\n", "metadata": {}}
+{"timestamp": 1765929033.17986, "datetime": "2025-12-17T00:50:33.179860", "type": "streaming", "content": "}\n", "metadata": {}}
+{"timestamp": 1765929033.1984549, "datetime": "2025-12-17T00:50:33.198454", "type": "streaming", "content": "</", "metadata": {}}
+{"timestamp": 1765929033.225037, "datetime": "2025-12-17T00:50:33.225037", "type": "streaming", "content": "tool", "metadata": {}}
+{"timestamp": 1765929033.2386436, "datetime": "2025-12-17T00:50:33.238643", "type": "streaming", "content": "_code", "metadata": {}}
+{"timestamp": 1765929033.2583566, "datetime": "2025-12-17T00:50:33.258356", "type": "streaming", "content": ">", "metadata": {}}
+{"timestamp": 1765929033.2913845, "datetime": "2025-12-17T00:50:33.291384", "type": "stats", "content": "Tokens used: 2066 (mistral-small:24b)", "metadata": {"model_id": "mistral-small:24b", "prompt": 2019, "completion": 47, "total": 2066, "role": "developer"}}
+{"timestamp": 1765929033.2974567, "datetime": "2025-12-17T00:50:33.297456", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 10053, "mistral-small:24b": 5539, "gpt-4-turbo": 1506}}}
+{"timestamp": 1765929033.307471, "datetime": "2025-12-17T00:50:33.307471", "type": "error", "content": "Developer Error: 'dict' object has no attribute 'function'", "metadata": {}}
+{"timestamp": 1765929033.3134503, "datetime": "2025-12-17T00:50:33.313450", "type": "log", "content": "Reviewing work...", "metadata": {"role": "system", "style": "bold yellow"}}
+{"timestamp": 1765929034.090872, "datetime": "2025-12-17T00:50:34.090872", "type": "streaming", "content": "The", "metadata": {}}
+{"timestamp": 1765929034.1124256, "datetime": "2025-12-17T00:50:34.112425", "type": "streaming", "content": " developer", "metadata": {}}
+{"timestamp": 1765929034.1276834, "datetime": "2025-12-17T00:50:34.127683", "type": "streaming", "content": " has", "metadata": {}}
+{"timestamp": 1765929034.1387224, "datetime": "2025-12-17T00:50:34.138722", "type": "streaming", "content": " executed", "metadata": {}}
+{"timestamp": 1765929034.16527, "datetime": "2025-12-17T00:50:34.165269", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929034.1732786, "datetime": "2025-12-17T00:50:34.173278", "type": "streaming", "content": " first", "metadata": {}}
+{"timestamp": 1765929034.210708, "datetime": "2025-12-17T00:50:34.210707", "type": "streaming", "content": " part", "metadata": {}}
+{"timestamp": 1765929034.2257326, "datetime": "2025-12-17T00:50:34.225732", "type": "streaming", "content": " of", "metadata": {}}
+{"timestamp": 1765929034.2584014, "datetime": "2025-12-17T00:50:34.258401", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929034.271405, "datetime": "2025-12-17T00:50:34.271405", "type": "streaming", "content": " task", "metadata": {}}
+{"timestamp": 1765929034.2785773, "datetime": "2025-12-17T00:50:34.278577", "type": "streaming", "content": " by", "metadata": {}}
+{"timestamp": 1765929034.2850292, "datetime": "2025-12-17T00:50:34.285029", "type": "streaming", "content": " installing", "metadata": {}}
+{"timestamp": 1765929034.3155434, "datetime": "2025-12-17T00:50:34.315543", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929034.3255937, "datetime": "2025-12-17T00:50:34.325593", "type": "streaming", "content": " dependencies", "metadata": {}}
+{"timestamp": 1765929034.3534157, "datetime": "2025-12-17T00:50:34.353415", "type": "streaming", "content": " using", "metadata": {}}
+{"timestamp": 1765929034.3602147, "datetime": "2025-12-17T00:50:34.360214", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929034.405483, "datetime": "2025-12-17T00:50:34.405482", "type": "streaming", "content": " '", "metadata": {}}
+{"timestamp": 1765929034.4124882, "datetime": "2025-12-17T00:50:34.412488", "type": "streaming", "content": "requirements", "metadata": {}}
+{"timestamp": 1765929034.4215758, "datetime": "2025-12-17T00:50:34.421575", "type": "streaming", "content": ".txt", "metadata": {}}
+{"timestamp": 1765929034.427659, "datetime": "2025-12-17T00:50:34.427658", "type": "streaming", "content": "'", "metadata": {}}
+{"timestamp": 1765929034.4614213, "datetime": "2025-12-17T00:50:34.461421", "type": "streaming", "content": " file", "metadata": {}}
+{"timestamp": 1765929034.4690914, "datetime": "2025-12-17T00:50:34.469091", "type": "streaming", "content": " in", "metadata": {}}
+{"timestamp": 1765929034.4991472, "datetime": "2025-12-17T00:50:34.499147", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929034.5096836, "datetime": "2025-12-17T00:50:34.509683", "type": "streaming", "content": " '", "metadata": {}}
+{"timestamp": 1765929034.5318656, "datetime": "2025-12-17T00:50:34.531865", "type": "streaming", "content": "p", "metadata": {}}
+{"timestamp": 1765929034.541733, "datetime": "2025-12-17T00:50:34.541733", "type": "streaming", "content": "og", "metadata": {}}
+{"timestamp": 1765929034.5685086, "datetime": "2025-12-17T00:50:34.568508", "type": "streaming", "content": "oda", "metadata": {}}
+{"timestamp": 1765929034.5758462, "datetime": "2025-12-17T00:50:34.575846", "type": "streaming", "content": "-dashboard", "metadata": {}}
+{"timestamp": 1765929034.6080792, "datetime": "2025-12-17T00:50:34.608079", "type": "streaming", "content": "'", "metadata": {}}
+{"timestamp": 1765929034.6150935, "datetime": "2025-12-17T00:50:34.615093", "type": "streaming", "content": " directory", "metadata": {}}
+{"timestamp": 1765929034.6452413, "datetime": "2025-12-17T00:50:34.645241", "type": "streaming", "content": ".", "metadata": {}}
+{"timestamp": 1765929034.6601532, "datetime": "2025-12-17T00:50:34.660153", "type": "streaming", "content": " This", "metadata": {}}
+{"timestamp": 1765929034.6800275, "datetime": "2025-12-17T00:50:34.680027", "type": "streaming", "content": " align", "metadata": {}}
+{"timestamp": 1765929034.6919334, "datetime": "2025-12-17T00:50:34.691933", "type": "streaming", "content": "s", "metadata": {}}
+{"timestamp": 1765929034.7174702, "datetime": "2025-12-17T00:50:34.717470", "type": "streaming", "content": " with", "metadata": {}}
+{"timestamp": 1765929034.723469, "datetime": "2025-12-17T00:50:34.723469", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929034.7595422, "datetime": "2025-12-17T00:50:34.759542", "type": "streaming", "content": " specified", "metadata": {}}
+{"timestamp": 1765929034.773651, "datetime": "2025-12-17T00:50:34.773651", "type": "streaming", "content": " constraints", "metadata": {}}
+{"timestamp": 1765929034.7900453, "datetime": "2025-12-17T00:50:34.790045", "type": "streaming", "content": ".\n\n", "metadata": {}}
+{"timestamp": 1765929034.7977257, "datetime": "2025-12-17T00:50:34.797725", "type": "streaming", "content": "However", "metadata": {}}
+{"timestamp": 1765929034.8301015, "datetime": "2025-12-17T00:50:34.830101", "type": "streaming", "content": ",", "metadata": {}}
+{"timestamp": 1765929034.8387823, "datetime": "2025-12-17T00:50:34.838782", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929034.8636084, "datetime": "2025-12-17T00:50:34.863608", "type": "streaming", "content": " task", "metadata": {}}
+{"timestamp": 1765929034.875637, "datetime": "2025-12-17T00:50:34.875637", "type": "streaming", "content": " also", "metadata": {}}
+{"timestamp": 1765929034.8993826, "datetime": "2025-12-17T00:50:34.899382", "type": "streaming", "content": " requires", "metadata": {}}
+{"timestamp": 1765929034.9051206, "datetime": "2025-12-17T00:50:34.905120", "type": "streaming", "content": " running", "metadata": {}}
+{"timestamp": 1765929034.9466734, "datetime": "2025-12-17T00:50:34.946673", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929034.9545515, "datetime": "2025-12-17T00:50:34.954551", "type": "streaming", "content": " '", "metadata": {}}
+{"timestamp": 1765929034.9717577, "datetime": "2025-12-17T00:50:34.971757", "type": "streaming", "content": "app", "metadata": {}}
+{"timestamp": 1765929034.9778929, "datetime": "2025-12-17T00:50:34.977892", "type": "streaming", "content": ".py", "metadata": {}}
+{"timestamp": 1765929035.009189, "datetime": "2025-12-17T00:50:35.009188", "type": "streaming", "content": "'", "metadata": {}}
+{"timestamp": 1765929035.0163205, "datetime": "2025-12-17T00:50:35.016320", "type": "streaming", "content": " file", "metadata": {}}
+{"timestamp": 1765929035.0562189, "datetime": "2025-12-17T00:50:35.056218", "type": "streaming", "content": " in", "metadata": {}}
+{"timestamp": 1765929035.0697846, "datetime": "2025-12-17T00:50:35.069784", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929035.0829444, "datetime": "2025-12-17T00:50:35.082944", "type": "streaming", "content": " '", "metadata": {}}
+{"timestamp": 1765929035.0889893, "datetime": "2025-12-17T00:50:35.088989", "type": "streaming", "content": "p", "metadata": {}}
+{"timestamp": 1765929035.1183066, "datetime": "2025-12-17T00:50:35.118306", "type": "streaming", "content": "og", "metadata": {}}
+{"timestamp": 1765929035.1248133, "datetime": "2025-12-17T00:50:35.124813", "type": "streaming", "content": "oda", "metadata": {}}
+{"timestamp": 1765929035.170048, "datetime": "2025-12-17T00:50:35.170048", "type": "streaming", "content": "-dashboard", "metadata": {}}
+{"timestamp": 1765929035.1855645, "datetime": "2025-12-17T00:50:35.185564", "type": "streaming", "content": "'", "metadata": {}}
+{"timestamp": 1765929035.1977942, "datetime": "2025-12-17T00:50:35.197794", "type": "streaming", "content": " directory", "metadata": {}}
+{"timestamp": 1765929035.2073207, "datetime": "2025-12-17T00:50:35.207320", "type": "streaming", "content": ",", "metadata": {}}
+{"timestamp": 1765929035.2302413, "datetime": "2025-12-17T00:50:35.230241", "type": "streaming", "content": " which", "metadata": {}}
+{"timestamp": 1765929035.2419238, "datetime": "2025-12-17T00:50:35.241923", "type": "streaming", "content": " has", "metadata": {}}
+{"timestamp": 1765929035.266397, "datetime": "2025-12-17T00:50:35.266397", "type": "streaming", "content": " not", "metadata": {}}
+{"timestamp": 1765929035.27858, "datetime": "2025-12-17T00:50:35.278580", "type": "streaming", "content": " been", "metadata": {}}
+{"timestamp": 1765929035.3031676, "datetime": "2025-12-17T00:50:35.303167", "type": "streaming", "content": " addressed", "metadata": {}}
+{"timestamp": 1765929035.3108175, "datetime": "2025-12-17T00:50:35.310817", "type": "streaming", "content": " in", "metadata": {}}
+{"timestamp": 1765929035.3413517, "datetime": "2025-12-17T00:50:35.341351", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929035.3478632, "datetime": "2025-12-17T00:50:35.347863", "type": "streaming", "content": " provided", "metadata": {}}
+{"timestamp": 1765929035.376686, "datetime": "2025-12-17T00:50:35.376686", "type": "streaming", "content": " output", "metadata": {}}
+{"timestamp": 1765929035.3832119, "datetime": "2025-12-17T00:50:35.383211", "type": "streaming", "content": ".", "metadata": {}}
+{"timestamp": 1765929035.4150999, "datetime": "2025-12-17T00:50:35.415099", "type": "streaming", "content": " The", "metadata": {}}
+{"timestamp": 1765929035.4266171, "datetime": "2025-12-17T00:50:35.426617", "type": "streaming", "content": " verification", "metadata": {}}
+{"timestamp": 1765929035.4547043, "datetime": "2025-12-17T00:50:35.454704", "type": "streaming", "content": " step", "metadata": {}}
+{"timestamp": 1765929035.4607048, "datetime": "2025-12-17T00:50:35.460704", "type": "streaming", "content": " involves", "metadata": {}}
+{"timestamp": 1765929035.49228, "datetime": "2025-12-17T00:50:35.492280", "type": "streaming", "content": " checking", "metadata": {}}
+{"timestamp": 1765929035.4994054, "datetime": "2025-12-17T00:50:35.499405", "type": "streaming", "content": " if", "metadata": {}}
+{"timestamp": 1765929035.52456, "datetime": "2025-12-17T00:50:35.524559", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929035.5302348, "datetime": "2025-12-17T00:50:35.530234", "type": "streaming", "content": " output", "metadata": {}}
+{"timestamp": 1765929035.5653238, "datetime": "2025-12-17T00:50:35.565323", "type": "streaming", "content": " contains", "metadata": {}}
+{"timestamp": 1765929035.5779152, "datetime": "2025-12-17T00:50:35.577915", "type": "streaming", "content": " '", "metadata": {}}
+{"timestamp": 1765929035.5915532, "datetime": "2025-12-17T00:50:35.591553", "type": "streaming", "content": "Weather", "metadata": {}}
+{"timestamp": 1765929035.5973048, "datetime": "2025-12-17T00:50:35.597304", "type": "streaming", "content": " Dashboard", "metadata": {}}
+{"timestamp": 1765929035.6244605, "datetime": "2025-12-17T00:50:35.624460", "type": "streaming", "content": " Initialized", "metadata": {}}
+{"timestamp": 1765929035.6307662, "datetime": "2025-12-17T00:50:35.630766", "type": "streaming", "content": "',", "metadata": {}}
+{"timestamp": 1765929035.660637, "datetime": "2025-12-17T00:50:35.660636", "type": "streaming", "content": " which", "metadata": {}}
+{"timestamp": 1765929035.6721475, "datetime": "2025-12-17T00:50:35.672147", "type": "streaming", "content": " can", "metadata": {}}
+{"timestamp": 1765929035.6973763, "datetime": "2025-12-17T00:50:35.697376", "type": "streaming", "content": " only", "metadata": {}}
+{"timestamp": 1765929035.7126231, "datetime": "2025-12-17T00:50:35.712623", "type": "streaming", "content": " be", "metadata": {}}
+{"timestamp": 1765929035.7426016, "datetime": "2025-12-17T00:50:35.742601", "type": "streaming", "content": " verified", "metadata": {}}
+{"timestamp": 1765929035.7493465, "datetime": "2025-12-17T00:50:35.749346", "type": "streaming", "content": " by", "metadata": {}}
+{"timestamp": 1765929035.7655125, "datetime": "2025-12-17T00:50:35.765512", "type": "streaming", "content": " running", "metadata": {}}
+{"timestamp": 1765929035.7815886, "datetime": "2025-12-17T00:50:35.781588", "type": "streaming", "content": " '", "metadata": {}}
+{"timestamp": 1765929035.8075912, "datetime": "2025-12-17T00:50:35.807591", "type": "streaming", "content": "app", "metadata": {}}
+{"timestamp": 1765929035.8244956, "datetime": "2025-12-17T00:50:35.824495", "type": "streaming", "content": ".py", "metadata": {}}
+{"timestamp": 1765929035.8459969, "datetime": "2025-12-17T00:50:35.845996", "type": "streaming", "content": "'.\n\n", "metadata": {}}
+{"timestamp": 1765929035.859652, "datetime": "2025-12-17T00:50:35.859652", "type": "streaming", "content": "Since", "metadata": {}}
+{"timestamp": 1765929035.876676, "datetime": "2025-12-17T00:50:35.876676", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929035.8949301, "datetime": "2025-12-17T00:50:35.894930", "type": "streaming", "content": " task", "metadata": {}}
+{"timestamp": 1765929035.9114747, "datetime": "2025-12-17T00:50:35.911474", "type": "streaming", "content": " of", "metadata": {}}
+{"timestamp": 1765929035.923515, "datetime": "2025-12-17T00:50:35.923515", "type": "streaming", "content": " running", "metadata": {}}
+{"timestamp": 1765929035.940432, "datetime": "2025-12-17T00:50:35.940432", "type": "streaming", "content": " '", "metadata": {}}
+{"timestamp": 1765929035.9486523, "datetime": "2025-12-17T00:50:35.948652", "type": "streaming", "content": "app", "metadata": {}}
+{"timestamp": 1765929035.9783976, "datetime": "2025-12-17T00:50:35.978397", "type": "streaming", "content": ".py", "metadata": {}}
+{"timestamp": 1765929035.9917102, "datetime": "2025-12-17T00:50:35.991710", "type": "streaming", "content": "'", "metadata": {}}
+{"timestamp": 1765929036.0119808, "datetime": "2025-12-17T00:50:36.011980", "type": "streaming", "content": " is", "metadata": {}}
+{"timestamp": 1765929036.0305207, "datetime": "2025-12-17T00:50:36.030520", "type": "streaming", "content": " not", "metadata": {}}
+{"timestamp": 1765929036.0478065, "datetime": "2025-12-17T00:50:36.047806", "type": "streaming", "content": " completed", "metadata": {}}
+{"timestamp": 1765929036.0549233, "datetime": "2025-12-17T00:50:36.054923", "type": "streaming", "content": ",", "metadata": {}}
+{"timestamp": 1765929036.0817242, "datetime": "2025-12-17T00:50:36.081724", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929036.0934968, "datetime": "2025-12-17T00:50:36.093496", "type": "streaming", "content": " goal", "metadata": {}}
+{"timestamp": 1765929036.1140647, "datetime": "2025-12-17T00:50:36.114064", "type": "streaming", "content": " of", "metadata": {}}
+{"timestamp": 1765929036.1250794, "datetime": "2025-12-17T00:50:36.125079", "type": "streaming", "content": " setting", "metadata": {}}
+{"timestamp": 1765929036.1517558, "datetime": "2025-12-17T00:50:36.151755", "type": "streaming", "content": " up", "metadata": {}}
+{"timestamp": 1765929036.1597643, "datetime": "2025-12-17T00:50:36.159764", "type": "streaming", "content": " and", "metadata": {}}
+{"timestamp": 1765929036.1877544, "datetime": "2025-12-17T00:50:36.187754", "type": "streaming", "content": " running", "metadata": {}}
+{"timestamp": 1765929036.1967795, "datetime": "2025-12-17T00:50:36.196779", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929036.2273262, "datetime": "2025-12-17T00:50:36.227326", "type": "streaming", "content": " weather", "metadata": {}}
+{"timestamp": 1765929036.2415326, "datetime": "2025-12-17T00:50:36.241532", "type": "streaming", "content": " dashboard", "metadata": {}}
+{"timestamp": 1765929036.2567723, "datetime": "2025-12-17T00:50:36.256772", "type": "streaming", "content": " application", "metadata": {}}
+{"timestamp": 1765929036.263781, "datetime": "2025-12-17T00:50:36.263781", "type": "streaming", "content": " is", "metadata": {}}
+{"timestamp": 1765929036.291238, "datetime": "2025-12-17T00:50:36.291238", "type": "streaming", "content": " not", "metadata": {}}
+{"timestamp": 1765929036.2985713, "datetime": "2025-12-17T00:50:36.298571", "type": "streaming", "content": " fully", "metadata": {}}
+{"timestamp": 1765929036.3277256, "datetime": "2025-12-17T00:50:36.327725", "type": "streaming", "content": " met", "metadata": {}}
+{"timestamp": 1765929036.3428705, "datetime": "2025-12-17T00:50:36.342870", "type": "streaming", "content": ".\n\n", "metadata": {}}
+{"timestamp": 1765929036.372858, "datetime": "2025-12-17T00:50:36.372858", "type": "streaming", "content": "**", "metadata": {}}
+{"timestamp": 1765929036.3820622, "datetime": "2025-12-17T00:50:36.382062", "type": "streaming", "content": "RE", "metadata": {}}
+{"timestamp": 1765929036.406065, "datetime": "2025-12-17T00:50:36.406064", "type": "streaming", "content": "JECTED", "metadata": {}}
+{"timestamp": 1765929036.4127986, "datetime": "2025-12-17T00:50:36.412798", "type": "streaming", "content": ":", "metadata": {}}
+{"timestamp": 1765929036.4323387, "datetime": "2025-12-17T00:50:36.432338", "type": "streaming", "content": " The", "metadata": {}}
+{"timestamp": 1765929036.444232, "datetime": "2025-12-17T00:50:36.444231", "type": "streaming", "content": " setup", "metadata": {}}
+{"timestamp": 1765929036.4650486, "datetime": "2025-12-17T00:50:36.465048", "type": "streaming", "content": " is", "metadata": {}}
+{"timestamp": 1765929036.476382, "datetime": "2025-12-17T00:50:36.476382", "type": "streaming", "content": " incomplete", "metadata": {}}
+{"timestamp": 1765929036.4998136, "datetime": "2025-12-17T00:50:36.499813", "type": "streaming", "content": " as", "metadata": {}}
+{"timestamp": 1765929036.511489, "datetime": "2025-12-17T00:50:36.511489", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929036.5373678, "datetime": "2025-12-17T00:50:36.537367", "type": "streaming", "content": " '", "metadata": {}}
+{"timestamp": 1765929036.543375, "datetime": "2025-12-17T00:50:36.543375", "type": "streaming", "content": "app", "metadata": {}}
+{"timestamp": 1765929036.570515, "datetime": "2025-12-17T00:50:36.570514", "type": "streaming", "content": ".py", "metadata": {}}
+{"timestamp": 1765929036.5820248, "datetime": "2025-12-17T00:50:36.582024", "type": "streaming", "content": "'", "metadata": {}}
+{"timestamp": 1765929036.6100764, "datetime": "2025-12-17T00:50:36.610076", "type": "streaming", "content": " file", "metadata": {}}
+{"timestamp": 1765929036.6170762, "datetime": "2025-12-17T00:50:36.617076", "type": "streaming", "content": " has", "metadata": {}}
+{"timestamp": 1765929036.6617138, "datetime": "2025-12-17T00:50:36.661714", "type": "streaming", "content": " not", "metadata": {}}
+{"timestamp": 1765929036.6722236, "datetime": "2025-12-17T00:50:36.672223", "type": "streaming", "content": " been", "metadata": {}}
+{"timestamp": 1765929036.679403, "datetime": "2025-12-17T00:50:36.679402", "type": "streaming", "content": " run", "metadata": {}}
+{"timestamp": 1765929036.6940162, "datetime": "2025-12-17T00:50:36.694016", "type": "streaming", "content": ".", "metadata": {}}
+{"timestamp": 1765929036.70988, "datetime": "2025-12-17T00:50:36.709880", "type": "streaming", "content": " Please", "metadata": {}}
+{"timestamp": 1765929036.7234123, "datetime": "2025-12-17T00:50:36.723412", "type": "streaming", "content": " execute", "metadata": {}}
+{"timestamp": 1765929036.7528977, "datetime": "2025-12-17T00:50:36.752897", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929036.7596898, "datetime": "2025-12-17T00:50:36.759689", "type": "streaming", "content": " command", "metadata": {}}
+{"timestamp": 1765929036.7802188, "datetime": "2025-12-17T00:50:36.780219", "type": "streaming", "content": " to", "metadata": {}}
+{"timestamp": 1765929036.7897158, "datetime": "2025-12-17T00:50:36.789715", "type": "streaming", "content": " run", "metadata": {}}
+{"timestamp": 1765929036.816106, "datetime": "2025-12-17T00:50:36.816106", "type": "streaming", "content": " '", "metadata": {}}
+{"timestamp": 1765929036.8306181, "datetime": "2025-12-17T00:50:36.830618", "type": "streaming", "content": "app", "metadata": {}}
+{"timestamp": 1765929036.86269, "datetime": "2025-12-17T00:50:36.862690", "type": "streaming", "content": ".py", "metadata": {}}
+{"timestamp": 1765929036.9131963, "datetime": "2025-12-17T00:50:36.913196", "type": "streaming", "content": "'", "metadata": {}}
+{"timestamp": 1765929036.9290087, "datetime": "2025-12-17T00:50:36.929008", "type": "streaming", "content": " in", "metadata": {}}
+{"timestamp": 1765929036.9571593, "datetime": "2025-12-17T00:50:36.957159", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765929036.977914, "datetime": "2025-12-17T00:50:36.977914", "type": "streaming", "content": " '", "metadata": {}}
+{"timestamp": 1765929036.9905705, "datetime": "2025-12-17T00:50:36.990570", "type": "streaming", "content": "p", "metadata": {}}
+{"timestamp": 1765929036.9970872, "datetime": "2025-12-17T00:50:36.997087", "type": "streaming", "content": "og", "metadata": {}}
+{"timestamp": 1765929037.0097332, "datetime": "2025-12-17T00:50:37.009733", "type": "streaming", "content": "oda", "metadata": {}}
+{"timestamp": 1765929037.0162456, "datetime": "2025-12-17T00:50:37.016245", "type": "streaming", "content": "-dashboard", "metadata": {}}
+{"timestamp": 1765929037.029757, "datetime": "2025-12-17T00:50:37.029756", "type": "streaming", "content": "'", "metadata": {}}
+{"timestamp": 1765929037.139682, "datetime": "2025-12-17T00:50:37.139682", "type": "streaming", "content": " directory", "metadata": {}}
+{"timestamp": 1765929037.1477757, "datetime": "2025-12-17T00:50:37.147775", "type": "streaming", "content": " and", "metadata": {}}
+{"timestamp": 1765929037.1542916, "datetime": "2025-12-17T00:50:37.154291", "type": "streaming", "content": " ensure", "metadata": {}}
+{"timestamp": 1765929037.160081, "datetime": "2025-12-17T00:50:37.160080", "type": "streaming", "content": " it", "metadata": {}}
+{"timestamp": 1765929037.1752708, "datetime": "2025-12-17T00:50:37.175270", "type": "streaming", "content": " outputs", "metadata": {}}
+{"timestamp": 1765929037.1928804, "datetime": "2025-12-17T00:50:37.192880", "type": "streaming", "content": " '", "metadata": {}}
+{"timestamp": 1765929037.2087035, "datetime": "2025-12-17T00:50:37.208703", "type": "streaming", "content": "Weather", "metadata": {}}
+{"timestamp": 1765929037.2152107, "datetime": "2025-12-17T00:50:37.215210", "type": "streaming", "content": " Dashboard", "metadata": {}}
+{"timestamp": 1765929037.2322307, "datetime": "2025-12-17T00:50:37.232230", "type": "streaming", "content": " Initialized", "metadata": {}}
+{"timestamp": 1765929037.2458735, "datetime": "2025-12-17T00:50:37.245873", "type": "streaming", "content": "'", "metadata": {}}
+{"timestamp": 1765929037.259049, "datetime": "2025-12-17T00:50:37.259049", "type": "streaming", "content": " to", "metadata": {}}
+{"timestamp": 1765929037.2650485, "datetime": "2025-12-17T00:50:37.265048", "type": "streaming", "content": " confirm", "metadata": {}}
+{"timestamp": 1765929037.2791991, "datetime": "2025-12-17T00:50:37.279199", "type": "streaming", "content": " successful", "metadata": {}}
+{"timestamp": 1765929037.2942255, "datetime": "2025-12-17T00:50:37.294225", "type": "streaming", "content": " start", "metadata": {}}
+{"timestamp": 1765929037.3123713, "datetime": "2025-12-17T00:50:37.312371", "type": "streaming", "content": ".", "metadata": {}}
+{"timestamp": 1765929037.3273935, "datetime": "2025-12-17T00:50:37.327393", "type": "streaming", "content": "**", "metadata": {}}
+{"timestamp": 1765929037.3640437, "datetime": "2025-12-17T00:50:37.364043", "type": "stats", "content": "Tokens used: 818 (gpt-4-turbo)", "metadata": {"model_id": "gpt-4-turbo", "prompt": 637, "completion": 181, "total": 818, "role": "reviewer"}}
+{"timestamp": 1765929037.3801243, "datetime": "2025-12-17T00:50:37.380124", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 10053, "mistral-small:24b": 5539, "gpt-4-turbo": 2324}}}
+{"timestamp": 1765929037.386123, "datetime": "2025-12-17T00:50:37.386122", "type": "log", "content": "Verification Failed. Retrying (3/3)...", "metadata": {"role": "system", "style": "bold red"}}
+{"timestamp": 1765929037.3932326, "datetime": "2025-12-17T00:50:37.393232", "type": "todo_update", "content": "", "metadata": {"id": "task_1", "status": "failed"}}
+{"timestamp": 1765929037.3987694, "datetime": "2025-12-17T00:50:37.398769", "type": "text", "content": "🏁 FINAL REPORT (developer):\n<tool_code>\n{\n    \"name\": \"run_shell_command\",\n    \"arguments\": {\"command\": \"cd pogoda-dashboard && pip install -r requirements.txt\", \"background\": false}\n}\n</tool_code>", "metadata": {"role": "developer"}}
+{"timestamp": 1765929037.4179602, "datetime": "2025-12-17T00:50:37.417960", "type": "status", "content": "Thinking (openai_cloud)...", "metadata": {}}
+{"timestamp": 1765929037.6834998, "datetime": "2025-12-17T00:50:37.683499", "type": "error", "content": "Provider error: litellm.BadRequestError: OpenAIException - An assistant message with 'tool_calls' must be followed by tool messages responding to each 'tool_call_id'. The following tool_call_ids did not have response messages: call_7CcxoJiTQJnxFVdnpWYJc3KP", "metadata": {}}
+{"timestamp": 1765929037.6978278, "datetime": "2025-12-17T00:50:37.697827", "type": "log", "content": "Failover: Switching provider openai_cloud -> ollama_codestral, keeping model gpt-4o", "metadata": {"role": "system", "from_provider": "openai_cloud", "to_provider": "ollama_codestral", "model_id": "gpt-4o"}}
+{"timestamp": 1765929038.4655595, "datetime": "2025-12-17T00:50:38.465559", "type": "error", "content": "Provider error: litellm.APIConnectionError: OllamaException - 'messages'", "metadata": {}}
+{"timestamp": 1765929038.4802308, "datetime": "2025-12-17T00:50:38.480230", "type": "log", "content": "Failover: Switching provider ollama_codestral -> ollama_fallback, keeping model gpt-4o", "metadata": {"role": "system", "from_provider": "ollama_codestral", "to_provider": "ollama_fallback", "model_id": "gpt-4o"}}
+{"timestamp": 1765929038.524849, "datetime": "2025-12-17T00:50:38.524848", "type": "error", "content": "Provider error: litellm.APIConnectionError: OllamaException - 'messages'", "metadata": {}}
+{"timestamp": 1765929038.5299876, "datetime": "2025-12-17T00:50:38.529987", "type": "log", "content": "Failover: Switching provider ollama_fallback -> ollama_local, keeping model gpt-4o", "metadata": {"role": "system", "from_provider": "ollama_fallback", "to_provider": "ollama_local", "model_id": "gpt-4o"}}
+{"timestamp": 1765929038.5866444, "datetime": "2025-12-17T00:50:38.586644", "type": "error", "content": "Provider error: litellm.APIConnectionError: OllamaException - 'messages'", "metadata": {}}
+{"timestamp": 1765929038.5929518, "datetime": "2025-12-17T00:50:38.592951", "type": "log", "content": "Failover: Switching provider ollama_local -> ollama_qwen3, keeping model gpt-4o", "metadata": {"role": "system", "from_provider": "ollama_local", "to_provider": "ollama_qwen3", "model_id": "gpt-4o"}}
+{"timestamp": 1765929038.6290112, "datetime": "2025-12-17T00:50:38.629011", "type": "error", "content": "Provider error: litellm.APIConnectionError: OllamaException - 'messages'", "metadata": {}}
+{"timestamp": 1765929038.6341326, "datetime": "2025-12-17T00:50:38.634132", "type": "error", "content": "No fallback available (all providers tried).", "metadata": {}}

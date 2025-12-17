@@ -3,284 +3,67 @@ Screen {
     layout: grid;
     grid-size: 1 2;
     grid-rows: 1fr auto;
-    background: #000000;
-}
-
-.title-label {
-    text-style: bold;
-    text-align: center;
-    width: 100%;
-    color: $accent;
-}
-
-.main-title {
-    text-style: bold;
-    text-align: center;
-    width: 100%;
-    color: $accent;
-    padding: 1;
+    background: #1e1e1e;
 }
 
 /* ====== CHAT AREA ====== */
 #chat_container {
     height: 1fr;
+    width: 100%;
     overflow-y: scroll;
-    padding: 1;
-    background: #000000;
-}
-
-/* Message Item */
-ChatMessage {
-    layout: vertical;
-    background: #000000;
-    margin-bottom: 1;
-    padding: 1;
-    border-left: wide $primary;
-}
-
-ChatMessage.role-architect { border-left: wide #9b59b6; } /* Purple */
-ChatMessage.role-developer { border-left: wide #3498db; } /* Blue */
-ChatMessage.role-reviewer { border-left: wide #e67e22; }  /* Orange */
-ChatMessage.role-system { border-left: wide #95a5a6; }    /* Grey */
-ChatMessage.role-user { border-left: wide #2ecc71; }      /* Green */
-
-/* Role Header */
-RoleBadge {
-    dock: top;
-    width: 100%;
-    height: 1;
-    text-style: bold;
-    color: $text-secondary;
-    margin-bottom: 1;
-}
-
-/* Message Content */
-.message-content {
-    color: $text-muted;
-}
-
-/* Code Blocks (Collapsible) */
-Collapsible {
-    background: #000000;
-    margin-top: 1;
-    border: solid $secondary;
-}
-
-CollapsibleTitle {
-    color: $secondary-lighten-2;
-    text-style: bold;
-}
-
-/* Thinking Indicator */
-ThinkingIndicator {
-    height: 1;
-    margin: 1;
-    color: $accent;
-    text-style: italic;
-}
-
-/* ====== INPUT AREA ====== */
-#user_input {
-    dock: bottom;
-    width: 100%;
-    height: 3;
-    border: round $primary-darken-1;
-    background: #000000;
     padding: 0 1;
-    margin: 0 1 1 1;
+    background: #1e1e1e;
+    scrollbar-size: 1 1;
 }
 
-#user_input:focus {
-    border: round $accent;
+/* Message Widget - Claude Code minimal style */
+MessageWidget {
+    background: #1e1e1e;
+    margin-bottom: 0;
+    padding: 0 1;
+    height: auto;
 }
 
-/* ====== MAIN LAYOUT (Claude Code Style) ====== */
-#main_container {
-    height: 1fr;
-    width: 100%;
+/* Highlighted Code/Tool Blocks */
+.code-block {
+    background: #0d0d0d;
+    border: solid #333333;
+    color: #ce9178; /* VS Code string color style */
+    padding: 0 1;
+    margin: 0;
 }
 
-#chat_area {
-    width: 1fr;
-    height: 100%;
-}
+/* Role colors handled in Python - no borders needed */
 
-#todo_panel {
-    width: 32;
-    min-width: 28;
-    max-width: 40;
-    height: 100%;
-    border-left: solid $accent-darken-1;
-    background: $surface-darken-1;
-    padding: 1;
-}
+/* Existing Global Styles maintained below where relevant */
 
 /* ====== STATUS BAR (Enhanced) ====== */
 #status_bar {
     height: 1;
-    background: $surface-darken-2;
-    color: $text-muted;
+    background: #007acc; /* VS Code Blue for status */
+    color: #ffffff;
     padding: 0 1;
-}
-
-#status_bar .status-section {
-    margin-right: 2;
 }
 
 #status_bar #timer-label {
-    color: $accent;
     text-style: bold;
+    color: #ffffff;
 }
 
 #status_bar #model-stats {
-    color: $text;
+    color: #eeeeee;
 }
 
-/* ====== BUTTONS (Outline Style) ====== */
-Button {
-    min-width: 12;
-    height: 3;
-    border: round $primary;
-    background: transparent;
-    color: $text;
-    padding: 0 2;
-    margin: 0 1;
-    text-style: bold;
-}
-
-Button:hover {
-    background: $primary;
-    color: $background;
-    border: round $primary;
-}
-
-Button:focus {
-    border: round $accent;
-    background: transparent;
-}
-
-/* Primary Variant - outline style */
-Button.-primary {
-    border: round $primary;
-    background: transparent;
-    color: $primary;
-}
-
-Button.-primary:hover {
-    background: $primary;
-    color: $background;
-}
-
-/* Success Variant - outline style */
-Button.-success {
-    border: round $success;
-    background: transparent;
-    color: $success;
-}
-
-Button.-success:hover {
-    background: $success;
-    color: $background;
-}
-
-/* Error Variant - outline style */
-Button.-error {
-    border: round $error;
-    background: transparent;
-    color: $error;
-}
-
-Button.-error:hover {
-    background: $error;
-    color: $background;
-}
-
-/* Specific Buttons */
-#cancel_btn {
-    min-width: 8;
-    border: round $error;
-    background: transparent;
-    color: $error;
-}
-
-#cancel_btn:hover {
-    background: $error;
-    color: white;
-}
-
-/* Modal Buttons - Outline Style */
-ModalScreen Button {
-    min-width: 14;
-    height: 3;
-    margin: 1;
-    border: round $primary;
-    background: transparent;
-}
-
-ModalScreen #save {
-    border: round $success;
-    background: transparent;
-    color: $success;
-}
-
-ModalScreen #save:hover {
-    background: $success;
-    color: $background;
-}
-
-ModalScreen #cancel {
-    border: round $surface-darken-2;
-    background: transparent;
-    color: $text-muted;
-}
-
-ModalScreen #cancel:hover {
-    background: $surface-darken-1;
-    color: $text;
-    border: round $primary;
-}
-
-/* Model loading indicator */
-#model_loading {
-    color: $text-muted;
-    text-style: italic;
-}
-
-/* ====== ACTIVITY WIDGET DETAILS ====== */
-/* Szczegóły narzędzi */
-.step-tool-detail {
-    color: $text-muted;
-    margin-left: 4;
-    text-style: italic;
-}
-
-/* Iteracje delegacji */
-.step-iteration {
-    color: $secondary;
-    margin-left: 2;
-}
-
-/* Wyniki poleceń */
-.step-result-success {
-    color: $success;
-}
-
-.step-result-error {
-    color: $error;
-}
-
-/* Bloki kodu w szczegółach */
-.detail-code {
-    background: $surface-darken-2;
-    padding: 1;
-    margin: 1 0;
-    border-left: solid $accent;
-}
-
-/* Markdown w ActivityWidget */
-ActivityWidget Markdown {
-    background: $surface-darken-2;
+/* ====== ACTIVITY WIDGET (Minimalist Stream) ====== */
+ActivityWidget {
+    height: auto;
+    margin: 0;
+    background: #1e1e1e;
     padding: 0 1;
-    margin: 0 0 0 2;
-    color: $text-muted;
+    border-left: wide #444444; 
 }
+
+.step { color: #888888; }
+.step-running { color: #007acc; } /* Blue */
+.step-done { color: #2ecc71; }
+.step-error { color: #e74c3c; }

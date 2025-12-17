@@ -1,0 +1,519 @@
+{"event": "session_start", "timestamp": 1765930772.3337042}
+{"timestamp": 1765930772.3481948, "datetime": "2025-12-17T01:19:32.348194", "type": "init", "content": "Session initialized for role: architect", "metadata": {"provider": "openai_cloud"}}
+{"timestamp": 1765930772.4538941, "datetime": "2025-12-17T01:19:32.453894", "type": "status", "content": "Initializing MCP Servers...", "metadata": {}}
+{"timestamp": 1765930772.614454, "datetime": "2025-12-17T01:19:32.614453", "type": "status", "content": "Connected to internal_fs (6 tools)", "metadata": {}}
+{"timestamp": 1765930775.7615387, "datetime": "2025-12-17T01:19:35.761538", "type": "user_msg", "content": "STATUS REVIEW: Check files and logs to determine next steps.", "metadata": {}}
+{"timestamp": 1765930775.7773805, "datetime": "2025-12-17T01:19:35.777380", "type": "status", "content": "Thinking (openai_cloud)...", "metadata": {}}
+{"timestamp": 1765930777.731489, "datetime": "2025-12-17T01:19:37.731488", "type": "stats", "content": "Tokens used: 1080 (gpt-4o)", "metadata": {"model_id": "gpt-4o", "prompt": 1066, "completion": 14, "total": 1080, "role": "architect"}}
+{"timestamp": 1765930777.7442389, "datetime": "2025-12-17T01:19:37.744238", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 1080}}}
+{"timestamp": 1765930777.7520366, "datetime": "2025-12-17T01:19:37.752036", "type": "tool_call", "content": "Using tool: glob", "metadata": {"name": "glob", "role": "architect", "model_id": "gpt-4o", "arguments": {"pattern": "**/"}}}
+{"timestamp": 1765930777.966837, "datetime": "2025-12-17T01:19:37.966837", "type": "tool_result", "content": "Result: demo_project\\\ndemo_project\\pogoda-dashboard\\\ndemo_project\\pogoda-dashboard\\node_modules\\\ndemo_projec...", "metadata": {"role": "architect", "model_id": "gpt-4o", "name": "glob", "full_result": "demo_project\\\ndemo_project\\pogoda-dashboard\\\ndemo_project\\pogoda-dashboard\\node_modules\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\code-frame\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\code-frame\\lib\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\compat-data\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\compat-data\\data\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\core\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\core\\lib\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\core\\lib\\config\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\core\\lib\\config\\files\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\core\\lib\\config\\helpers\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\core\\lib\\config\\validation\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\core\\lib\\errors\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\core\\lib\\gensync-utils\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\core\\lib\\parser\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\core\\lib\\parser\\util\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\core\\lib\\tools\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\core\\lib\\transformation\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\core\\lib\\transformation\\file\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\core\\lib\\transformation\\util\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\core\\lib\\vendor\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\core\\src\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\core\\src\\config\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\core\\src\\config\\files\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\generator\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\generator\\lib\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\generator\\lib\\generators\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\generator\\lib\\node\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\helper-compilation-targets\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\helper-compilation-targets\\lib\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\helper-globals\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\helper-globals\\data\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\helper-module-imports\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\helper-module-imports\\lib\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\helper-module-transforms\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\helper-module-transforms\\lib\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\helper-plugin-utils\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\helper-plugin-utils\\lib\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\helper-string-parser\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\helper-string-parser\\lib\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\helper-validator-identifier\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\helper-validator-identifier\\lib\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\helper-validator-option\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\helper-validator-option\\lib\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\helpers\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\helpers\\lib\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\helpers\\lib\\helpers\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\parser\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\parser\\bin\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\parser\\lib\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\parser\\typings\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\plugin-transform-react-jsx-self\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\plugin-transform-react-jsx-self\\lib\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\plugin-transform-react-jsx-source\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\plugin-transform-react-jsx-source\\lib\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\template\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\template\\lib\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\traverse\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\traverse\\lib\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\traverse\\lib\\path\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\traverse\\lib\\path\\inference\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\traverse\\lib\\path\\lib\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\traverse\\lib\\scope\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\traverse\\lib\\scope\\lib\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\types\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\types\\lib\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\types\\lib\\asserts\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\types\\lib\\asserts\\generated\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\types\\lib\\ast-types\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\types\\lib\\ast-types\\generated\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\types\\lib\\builders\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\types\\lib\\builders\\flow\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\types\\lib\\builders\\generated\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\types\\lib\\builders\\react\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\types\\lib\\builders\\typescript\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\types\\lib\\clone\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\types\\lib\\comments\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\types\\lib\\constants\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\types\\lib\\constants\\generated\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\types\\lib\\converters\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\types\\lib\\definitions\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\types\\lib\\modifications\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\types\\lib\\modifications\\flow\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\types\\lib\\modifications\\typescript\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\types\\lib\\retrievers\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\types\\lib\\traverse\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\types\\lib\\utils\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\types\\lib\\utils\\react\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\types\\lib\\validators\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\types\\lib\\validators\\generated\\\ndemo_project\\pogoda-dashboard\\node_modules\\@babel\\types\\lib\\validators\\react\\\ndemo_project\\pogoda-dashboard\\node_modules\\@esbuild\\\ndemo_project\\pogoda-dashboard\\node_modules\\@esbuild\\win32-x64\\\ndemo_project\\pogoda-dashboard\\node_modules\\@eslint\\\ndemo_project\\pogoda-dashboard\\node_modules\\@eslint\\config-array\\\ndemo_project\\pogoda-dashboard\\node_modules\\@eslint\\config-array\\dist\\\ndemo_project\\pogoda-dashboard\\node_modules\\@eslint\\config-array\\dist\\cjs\\\ndemo_project\\pogoda-dashboard\\node_modules\\@eslint\\config-array\\dist\\cjs\\std__path\\\n... (600 more)"}}
+{"timestamp": 1765930777.9860983, "datetime": "2025-12-17T01:19:37.986098", "type": "status", "content": "Thinking (openai_cloud)...", "metadata": {}}
+{"timestamp": 1765930778.7840633, "datetime": "2025-12-17T01:19:38.784063", "type": "stats", "content": "Tokens used: 2969 (gpt-4o)", "metadata": {"model_id": "gpt-4o", "prompt": 2950, "completion": 19, "total": 2969, "role": "architect"}}
+{"timestamp": 1765930778.7984421, "datetime": "2025-12-17T01:19:38.798442", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 4049}}}
+{"timestamp": 1765930778.808473, "datetime": "2025-12-17T01:19:38.808473", "type": "tool_call", "content": "Using tool: list_directory", "metadata": {"name": "list_directory", "role": "architect", "model_id": "gpt-4o", "arguments": {"path": "demo_project/pogoda-dashboard"}}}
+{"timestamp": 1765930778.8169258, "datetime": "2025-12-17T01:19:38.816925", "type": "tool_result", "content": "Result: .gitignore\neslint.config.js\nindex.html\nnode_modules\npackage-lock.json\npackage.json\npublic\nREADME.md\n...", "metadata": {"role": "architect", "model_id": "gpt-4o", "name": "list_directory", "full_result": ".gitignore\neslint.config.js\nindex.html\nnode_modules\npackage-lock.json\npackage.json\npublic\nREADME.md\nsrc\nvite.config.js\n_task_result.txt"}}
+{"timestamp": 1765930778.8229249, "datetime": "2025-12-17T01:19:38.822924", "type": "status", "content": "Thinking (openai_cloud)...", "metadata": {}}
+{"timestamp": 1765930779.8098733, "datetime": "2025-12-17T01:19:39.809873", "type": "stats", "content": "Tokens used: 3033 (gpt-4o)", "metadata": {"model_id": "gpt-4o", "prompt": 3011, "completion": 22, "total": 3033, "role": "architect"}}
+{"timestamp": 1765930779.8248327, "datetime": "2025-12-17T01:19:39.824832", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 7082}}}
+{"timestamp": 1765930779.8323748, "datetime": "2025-12-17T01:19:39.832374", "type": "tool_call", "content": "Using tool: read_file", "metadata": {"name": "read_file", "role": "architect", "model_id": "gpt-4o", "arguments": {"path": "demo_project/pogoda-dashboard/README.md"}}}
+{"timestamp": 1765930779.838478, "datetime": "2025-12-17T01:19:39.838478", "type": "tool_result", "content": "Result: # React + Vite\n\nThis template provides a minimal setup to get React working in Vite with HMR and som...", "metadata": {"role": "architect", "model_id": "gpt-4o", "name": "read_file", "full_result": "# React + Vite\n\nThis template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.\n\nCurrently, two official plugins are available:\n\n- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh\n- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh\n\n## React Compiler\n\nThe React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).\n\n## Expanding the ESLint configuration\n\nIf you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.\n"}}
+{"timestamp": 1765930779.8434792, "datetime": "2025-12-17T01:19:39.843479", "type": "status", "content": "Thinking (openai_cloud)...", "metadata": {}}
+{"timestamp": 1765930783.9023242, "datetime": "2025-12-17T01:19:43.902324", "type": "stats", "content": "Tokens used: 3553 (gpt-4o)", "metadata": {"model_id": "gpt-4o", "prompt": 3315, "completion": 238, "total": 3553, "role": "architect"}}
+{"timestamp": 1765930783.933349, "datetime": "2025-12-17T01:19:43.933348", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 10635}}}
+{"timestamp": 1765930783.9448595, "datetime": "2025-12-17T01:19:43.944859", "type": "text", "content": "### Plan to Run the Weather Dashboard Application\n\n1. **Verify Application Setup**:\n   - Check the project structure and dependencies in `demo_project/pogoda-dashboard` to ensure all necessary files and configurations are present for running a React + Vite application.\n\n2. **Identify Entry Point**:\n   - Review the `package.json` file to identify the scripts available for starting the application, typically involving a `dev` or `start` script using Vite.\n\n3. **Check Network and Port Configuration**:\n   - Examine the `vite.config.js` for any specific network or port configurations required for running the application locally.\n\n4. **Run the Application**:\n   - Execute the appropriate script to start the application and verify it runs without errors.\n\n5. **Verify Application Functionality**:\n   - Confirm that the application displays the weather dashboard with actual weather data and no placeholder content.\n\nI will now seek your approval to proceed with this plan.", "metadata": {"role": "architect", "model_id": "gpt-4o", "provider": "openai_cloud"}}
+{"timestamp": 1765930783.9783049, "datetime": "2025-12-17T01:19:43.978304", "type": "log", "content": "Detected text-based question in PLAN mode (pattern: 'proceed with this plan')", "metadata": {"style": "dim cyan"}}
+{"timestamp": 1765930784.0859945, "datetime": "2025-12-17T01:19:44.085994", "type": "question", "content": "Do you approve the plan to run and verify the weather dashboard application using React and Vite?", "metadata": {"role": "architect", "options": ["Yes", "No"], "reason": "plan_approval"}}
+{"timestamp": 1765930786.4406266, "datetime": "2025-12-17T01:19:46.440626", "type": "user_msg", "content": "Yes", "metadata": {}}
+{"timestamp": 1765930786.459281, "datetime": "2025-12-17T01:19:46.459280", "type": "status", "content": "✓ Plan approved. Entering EXECUTE mode.", "metadata": {"style": "green bold"}}
+{"timestamp": 1765930786.4648647, "datetime": "2025-12-17T01:19:46.464864", "type": "log", "content": "[MODE TRANSITION] PLAN → EXECUTE (user said: Yes)", "metadata": {"style": "green"}}
+{"timestamp": 1765930786.4944425, "datetime": "2025-12-17T01:19:46.494442", "type": "status", "content": "Thinking (openai_cloud)...", "metadata": {}}
+{"timestamp": 1765930787.5668173, "datetime": "2025-12-17T01:19:47.566817", "type": "stats", "content": "Tokens used: 1794 (gpt-4o)", "metadata": {"model_id": "gpt-4o", "prompt": 1773, "completion": 21, "total": 1794, "role": "architect"}}
+{"timestamp": 1765930787.5827644, "datetime": "2025-12-17T01:19:47.582764", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 12429}}}
+{"timestamp": 1765930787.594926, "datetime": "2025-12-17T01:19:47.594926", "type": "tool_call", "content": "Using tool: read_file", "metadata": {"name": "read_file", "role": "architect", "model_id": "gpt-4o", "arguments": {"path": "demo_project/pogoda-dashboard/package.json"}}}
+{"timestamp": 1765930787.6033359, "datetime": "2025-12-17T01:19:47.603336", "type": "tool_result", "content": "Result: {\n  \"name\": \"pogoda-dashboard\",\n  \"private\": true,\n  \"version\": \"0.0.0\",\n  \"type\": \"module\",\n  \"scri...", "metadata": {"role": "architect", "model_id": "gpt-4o", "name": "read_file", "full_result": "{\n  \"name\": \"pogoda-dashboard\",\n  \"private\": true,\n  \"version\": \"0.0.0\",\n  \"type\": \"module\",\n  \"scripts\": {\n    \"dev\": \"vite\",\n    \"build\": \"vite build\",\n    \"lint\": \"eslint .\",\n    \"preview\": \"vite preview\"\n  },\n  \"dependencies\": {\n    \"react\": \"^19.2.0\",\n    \"react-dom\": \"^19.2.0\"\n  },\n  \"devDependencies\": {\n    \"@eslint/js\": \"^9.39.1\",\n    \"@types/react\": \"^19.2.5\",\n    \"@types/react-dom\": \"^19.2.3\",\n    \"@vitejs/plugin-react\": \"^5.1.1\",\n    \"eslint\": \"^9.39.1\",\n    \"eslint-plugin-react-hooks\": \"^7.0.1\",\n    \"eslint-plugin-react-refresh\": \"^0.4.24\",\n    \"globals\": \"^16.5.0\",\n    \"vite\": \"^7.2.4\"\n  },\n  \"description\": \"This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.\",\n  \"main\": \"eslint.config.js\",\n  \"keywords\": [],\n  \"author\": \"\",\n  \"license\": \"ISC\"\n}\n"}}
+{"timestamp": 1765930787.6107335, "datetime": "2025-12-17T01:19:47.610733", "type": "status", "content": "Thinking (openai_cloud)...", "metadata": {}}
+{"timestamp": 1765930788.9920838, "datetime": "2025-12-17T01:19:48.992083", "type": "stats", "content": "Tokens used: 2167 (gpt-4o)", "metadata": {"model_id": "gpt-4o", "prompt": 2078, "completion": 89, "total": 2167, "role": "architect"}}
+{"timestamp": 1765930789.008353, "datetime": "2025-12-17T01:19:49.008352", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 14596}}}
+{"timestamp": 1765930789.0148573, "datetime": "2025-12-17T01:19:49.014857", "type": "tool_call", "content": "Using tool: delegate_task", "metadata": {"name": "delegate_task", "role": "architect", "model_id": "gpt-4o", "arguments": {"goal": "Run the weather dashboard application using Vite.", "constraints": ["Use the 'dev' script in package.json to start the application."], "focus_files": ["demo_project/pogoda-dashboard/package.json"], "verification_steps": ["Ensure the application starts without errors.", "Verify the application is accessible on localhost and displays the weather dashboard.", "Check that the dashboard shows actual weather data and no placeholder content."]}}}
+{"timestamp": 1765930789.0303755, "datetime": "2025-12-17T01:19:49.030375", "type": "log", "content": "Refining Plan -> Developer: Run the weather dashboard application using Vite.", "metadata": {"role": "architect", "style": "bold magenta"}}
+{"timestamp": 1765930789.0385978, "datetime": "2025-12-17T01:19:49.038597", "type": "todo_add", "content": "Run the weather dashboard application using Vite.", "metadata": {"id": "task_1", "status": "pending"}}
+{"timestamp": 1765930789.0445986, "datetime": "2025-12-17T01:19:49.044598", "type": "todo_update", "content": "", "metadata": {"id": "task_1", "status": "in_progress"}}
+{"timestamp": 1765930789.0618844, "datetime": "2025-12-17T01:19:49.061884", "type": "status", "content": "Developer Attempt 1/3", "metadata": {"role": "developer", "model_id": "mistral-small:24b", "iteration": 1, "max_iterations": 3}}
+{"timestamp": 1765930789.082496, "datetime": "2025-12-17T01:19:49.082495", "type": "status", "content": "Developer Attempt 1/3 (Iter 1)", "metadata": {"role": "developer", "model_id": "mistral-small:24b", "iteration": 1, "max_iterations": 3}}
+{"timestamp": 1765930802.6625426, "datetime": "2025-12-17T01:20:02.662542", "type": "streaming", "content": "<", "metadata": {}}
+{"timestamp": 1765930802.6969585, "datetime": "2025-12-17T01:20:02.696958", "type": "streaming", "content": "tool", "metadata": {}}
+{"timestamp": 1765930802.7119095, "datetime": "2025-12-17T01:20:02.711909", "type": "streaming", "content": "_code", "metadata": {}}
+{"timestamp": 1765930802.721163, "datetime": "2025-12-17T01:20:02.721162", "type": "streaming", "content": ">\n", "metadata": {}}
+{"timestamp": 1765930802.7276735, "datetime": "2025-12-17T01:20:02.727673", "type": "streaming", "content": "{\n", "metadata": {}}
+{"timestamp": 1765930802.7386706, "datetime": "2025-12-17T01:20:02.738670", "type": "streaming", "content": "   ", "metadata": {}}
+{"timestamp": 1765930802.7459846, "datetime": "2025-12-17T01:20:02.745984", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765930802.778593, "datetime": "2025-12-17T01:20:02.778593", "type": "streaming", "content": "name", "metadata": {}}
+{"timestamp": 1765930802.7892096, "datetime": "2025-12-17T01:20:02.789209", "type": "streaming", "content": "\":", "metadata": {}}
+{"timestamp": 1765930802.7957618, "datetime": "2025-12-17T01:20:02.795761", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765930802.8046412, "datetime": "2025-12-17T01:20:02.804641", "type": "streaming", "content": "list", "metadata": {}}
+{"timestamp": 1765930802.8129098, "datetime": "2025-12-17T01:20:02.812909", "type": "streaming", "content": "_directory", "metadata": {}}
+{"timestamp": 1765930802.8257296, "datetime": "2025-12-17T01:20:02.825729", "type": "streaming", "content": "\",\n", "metadata": {}}
+{"timestamp": 1765930802.8377748, "datetime": "2025-12-17T01:20:02.837774", "type": "streaming", "content": "   ", "metadata": {}}
+{"timestamp": 1765930802.8451087, "datetime": "2025-12-17T01:20:02.845108", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765930802.8623493, "datetime": "2025-12-17T01:20:02.862349", "type": "streaming", "content": "arguments", "metadata": {}}
+{"timestamp": 1765930802.8728657, "datetime": "2025-12-17T01:20:02.872865", "type": "streaming", "content": "\":", "metadata": {}}
+{"timestamp": 1765930802.8793762, "datetime": "2025-12-17T01:20:02.879376", "type": "streaming", "content": " {\n", "metadata": {}}
+{"timestamp": 1765930802.8900902, "datetime": "2025-12-17T01:20:02.890090", "type": "streaming", "content": "       ", "metadata": {}}
+{"timestamp": 1765930802.8982978, "datetime": "2025-12-17T01:20:02.898297", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765930802.9233553, "datetime": "2025-12-17T01:20:02.923355", "type": "streaming", "content": "path", "metadata": {}}
+{"timestamp": 1765930802.9316316, "datetime": "2025-12-17T01:20:02.931631", "type": "streaming", "content": "\":", "metadata": {}}
+{"timestamp": 1765930802.9482248, "datetime": "2025-12-17T01:20:02.948224", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765930802.9628582, "datetime": "2025-12-17T01:20:02.962858", "type": "streaming", "content": "demo", "metadata": {}}
+{"timestamp": 1765930802.9781926, "datetime": "2025-12-17T01:20:02.978192", "type": "streaming", "content": "_project", "metadata": {}}
+{"timestamp": 1765930802.9978085, "datetime": "2025-12-17T01:20:02.997808", "type": "streaming", "content": "/p", "metadata": {}}
+{"timestamp": 1765930803.0116844, "datetime": "2025-12-17T01:20:03.011684", "type": "streaming", "content": "og", "metadata": {}}
+{"timestamp": 1765930803.1350844, "datetime": "2025-12-17T01:20:03.135084", "type": "streaming", "content": "oda", "metadata": {}}
+{"timestamp": 1765930803.152741, "datetime": "2025-12-17T01:20:03.152740", "type": "streaming", "content": "-d", "metadata": {}}
+{"timestamp": 1765930803.1597388, "datetime": "2025-12-17T01:20:03.159738", "type": "streaming", "content": "ashboard", "metadata": {}}
+{"timestamp": 1765930803.1722233, "datetime": "2025-12-17T01:20:03.172223", "type": "streaming", "content": "\"\n", "metadata": {}}
+{"timestamp": 1765930803.1803014, "datetime": "2025-12-17T01:20:03.180301", "type": "streaming", "content": "   ", "metadata": {}}
+{"timestamp": 1765930803.2103117, "datetime": "2025-12-17T01:20:03.210311", "type": "streaming", "content": " }\n", "metadata": {}}
+{"timestamp": 1765930803.2295632, "datetime": "2025-12-17T01:20:03.229563", "type": "streaming", "content": "}\n", "metadata": {}}
+{"timestamp": 1765930803.253523, "datetime": "2025-12-17T01:20:03.253523", "type": "streaming", "content": "</", "metadata": {}}
+{"timestamp": 1765930803.2635756, "datetime": "2025-12-17T01:20:03.263575", "type": "streaming", "content": "tool", "metadata": {}}
+{"timestamp": 1765930803.273087, "datetime": "2025-12-17T01:20:03.273087", "type": "streaming", "content": "_code", "metadata": {}}
+{"timestamp": 1765930803.282107, "datetime": "2025-12-17T01:20:03.282107", "type": "streaming", "content": ">", "metadata": {}}
+{"timestamp": 1765930803.3146322, "datetime": "2025-12-17T01:20:03.314632", "type": "stats", "content": "Tokens used: 2570 (mistral-small:24b)", "metadata": {"model_id": "mistral-small:24b", "prompt": 2531, "completion": 39, "total": 2570, "role": "developer"}}
+{"timestamp": 1765930803.3232312, "datetime": "2025-12-17T01:20:03.323231", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 14596, "mistral-small:24b": 2570}}}
+{"timestamp": 1765930803.344707, "datetime": "2025-12-17T01:20:03.344707", "type": "log", "content": "Reviewing work...", "metadata": {"role": "system", "style": "bold yellow"}}
+{"timestamp": 1765930804.3503785, "datetime": "2025-12-17T01:20:04.350378", "type": "stats", "content": "Tokens used: 663 (gpt-4-turbo)", "metadata": {"model_id": "gpt-4-turbo", "prompt": 644, "completion": 19, "total": 663, "role": "reviewer"}}
+{"timestamp": 1765930804.3656306, "datetime": "2025-12-17T01:20:04.365630", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 14596, "mistral-small:24b": 2570, "gpt-4-turbo": 663}}}
+{"timestamp": 1765930804.3791413, "datetime": "2025-12-17T01:20:04.379141", "type": "log", "content": "Verification Failed. Retrying (1/3)...", "metadata": {"role": "system", "style": "bold red"}}
+{"timestamp": 1765930804.390156, "datetime": "2025-12-17T01:20:04.390156", "type": "status", "content": "Developer Attempt 2/3", "metadata": {"role": "developer", "model_id": "mistral-small:24b", "iteration": 2, "max_iterations": 3}}
+{"timestamp": 1765930804.3991272, "datetime": "2025-12-17T01:20:04.399127", "type": "status", "content": "Developer Attempt 2/3 (Iter 1)", "metadata": {"role": "developer", "model_id": "mistral-small:24b", "iteration": 2, "max_iterations": 3}}
+{"timestamp": 1765930804.9789991, "datetime": "2025-12-17T01:20:04.978999", "type": "streaming", "content": "<", "metadata": {}}
+{"timestamp": 1765930805.002244, "datetime": "2025-12-17T01:20:05.002244", "type": "streaming", "content": "tool", "metadata": {}}
+{"timestamp": 1765930805.009958, "datetime": "2025-12-17T01:20:05.009958", "type": "streaming", "content": "_code", "metadata": {}}
+{"timestamp": 1765930805.0164676, "datetime": "2025-12-17T01:20:05.016467", "type": "streaming", "content": ">\n", "metadata": {}}
+{"timestamp": 1765930805.0232525, "datetime": "2025-12-17T01:20:05.023252", "type": "streaming", "content": "{\n", "metadata": {}}
+{"timestamp": 1765930805.032281, "datetime": "2025-12-17T01:20:05.032280", "type": "streaming", "content": "   ", "metadata": {}}
+{"timestamp": 1765930805.0626986, "datetime": "2025-12-17T01:20:05.062698", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765930805.0745165, "datetime": "2025-12-17T01:20:05.074516", "type": "streaming", "content": "name", "metadata": {}}
+{"timestamp": 1765930805.0887084, "datetime": "2025-12-17T01:20:05.088708", "type": "streaming", "content": "\":", "metadata": {}}
+{"timestamp": 1765930805.1057553, "datetime": "2025-12-17T01:20:05.105755", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765930805.1256526, "datetime": "2025-12-17T01:20:05.125652", "type": "streaming", "content": "read", "metadata": {}}
+{"timestamp": 1765930805.1465297, "datetime": "2025-12-17T01:20:05.146529", "type": "streaming", "content": "_file", "metadata": {}}
+{"timestamp": 1765930805.1659029, "datetime": "2025-12-17T01:20:05.165902", "type": "streaming", "content": "\",\n", "metadata": {}}
+{"timestamp": 1765930805.187316, "datetime": "2025-12-17T01:20:05.187315", "type": "streaming", "content": "   ", "metadata": {}}
+{"timestamp": 1765930805.2081003, "datetime": "2025-12-17T01:20:05.208100", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765930805.2282188, "datetime": "2025-12-17T01:20:05.228218", "type": "streaming", "content": "arguments", "metadata": {}}
+{"timestamp": 1765930805.2556992, "datetime": "2025-12-17T01:20:05.255699", "type": "streaming", "content": "\":", "metadata": {}}
+{"timestamp": 1765930805.2727227, "datetime": "2025-12-17T01:20:05.272722", "type": "streaming", "content": " {\n", "metadata": {}}
+{"timestamp": 1765930805.2938364, "datetime": "2025-12-17T01:20:05.293836", "type": "streaming", "content": "       ", "metadata": {}}
+{"timestamp": 1765930805.3116913, "datetime": "2025-12-17T01:20:05.311691", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765930805.338579, "datetime": "2025-12-17T01:20:05.338578", "type": "streaming", "content": "path", "metadata": {}}
+{"timestamp": 1765930805.352964, "datetime": "2025-12-17T01:20:05.352963", "type": "streaming", "content": "\":", "metadata": {}}
+{"timestamp": 1765930805.3749812, "datetime": "2025-12-17T01:20:05.374981", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765930805.3946767, "datetime": "2025-12-17T01:20:05.394676", "type": "streaming", "content": "demo", "metadata": {}}
+{"timestamp": 1765930805.4147131, "datetime": "2025-12-17T01:20:05.414713", "type": "streaming", "content": "_project", "metadata": {}}
+{"timestamp": 1765930805.4372325, "datetime": "2025-12-17T01:20:05.437232", "type": "streaming", "content": "/p", "metadata": {}}
+{"timestamp": 1765930805.4583125, "datetime": "2025-12-17T01:20:05.458312", "type": "streaming", "content": "og", "metadata": {}}
+{"timestamp": 1765930805.477719, "datetime": "2025-12-17T01:20:05.477719", "type": "streaming", "content": "oda", "metadata": {}}
+{"timestamp": 1765930805.5041966, "datetime": "2025-12-17T01:20:05.504196", "type": "streaming", "content": "-d", "metadata": {}}
+{"timestamp": 1765930805.520326, "datetime": "2025-12-17T01:20:05.520326", "type": "streaming", "content": "ashboard", "metadata": {}}
+{"timestamp": 1765930805.5404918, "datetime": "2025-12-17T01:20:05.540491", "type": "streaming", "content": "/package", "metadata": {}}
+{"timestamp": 1765930805.5614634, "datetime": "2025-12-17T01:20:05.561463", "type": "streaming", "content": ".json", "metadata": {}}
+{"timestamp": 1765930805.5891008, "datetime": "2025-12-17T01:20:05.589100", "type": "streaming", "content": "\"\n", "metadata": {}}
+{"timestamp": 1765930805.6138594, "datetime": "2025-12-17T01:20:05.613859", "type": "streaming", "content": "   ", "metadata": {}}
+{"timestamp": 1765930805.6249824, "datetime": "2025-12-17T01:20:05.624982", "type": "streaming", "content": " }\n", "metadata": {}}
+{"timestamp": 1765930805.6467626, "datetime": "2025-12-17T01:20:05.646762", "type": "streaming", "content": "}\n", "metadata": {}}
+{"timestamp": 1765930805.6647003, "datetime": "2025-12-17T01:20:05.664700", "type": "streaming", "content": "</", "metadata": {}}
+{"timestamp": 1765930805.6884356, "datetime": "2025-12-17T01:20:05.688435", "type": "streaming", "content": "tool", "metadata": {}}
+{"timestamp": 1765930805.7066693, "datetime": "2025-12-17T01:20:05.706669", "type": "streaming", "content": "_code", "metadata": {}}
+{"timestamp": 1765930805.7261083, "datetime": "2025-12-17T01:20:05.726108", "type": "streaming", "content": ">", "metadata": {}}
+{"timestamp": 1765930805.7611587, "datetime": "2025-12-17T01:20:05.761158", "type": "stats", "content": "Tokens used: 2636 (mistral-small:24b)", "metadata": {"model_id": "mistral-small:24b", "prompt": 2595, "completion": 41, "total": 2636, "role": "developer"}}
+{"timestamp": 1765930805.7687614, "datetime": "2025-12-17T01:20:05.768761", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 14596, "mistral-small:24b": 5206, "gpt-4-turbo": 663}}}
+{"timestamp": 1765930805.7797863, "datetime": "2025-12-17T01:20:05.779786", "type": "log", "content": "Reviewing work...", "metadata": {"role": "system", "style": "bold yellow"}}
+{"timestamp": 1765930808.2333927, "datetime": "2025-12-17T01:20:08.233392", "type": "stats", "content": "Tokens used: 667 (gpt-4-turbo)", "metadata": {"model_id": "gpt-4-turbo", "prompt": 646, "completion": 21, "total": 667, "role": "reviewer"}}
+{"timestamp": 1765930808.2481241, "datetime": "2025-12-17T01:20:08.248124", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 14596, "mistral-small:24b": 5206, "gpt-4-turbo": 1330}}}
+{"timestamp": 1765930808.2586956, "datetime": "2025-12-17T01:20:08.258695", "type": "log", "content": "Verification Failed. Retrying (2/3)...", "metadata": {"role": "system", "style": "bold red"}}
+{"timestamp": 1765930808.2672074, "datetime": "2025-12-17T01:20:08.267207", "type": "status", "content": "Developer Attempt 3/3", "metadata": {"role": "developer", "model_id": "mistral-small:24b", "iteration": 3, "max_iterations": 3}}
+{"timestamp": 1765930808.273206, "datetime": "2025-12-17T01:20:08.273206", "type": "status", "content": "Developer Attempt 3/3 (Iter 1)", "metadata": {"role": "developer", "model_id": "mistral-small:24b", "iteration": 3, "max_iterations": 3}}
+{"timestamp": 1765930808.8969486, "datetime": "2025-12-17T01:20:08.896948", "type": "streaming", "content": "<", "metadata": {}}
+{"timestamp": 1765930808.9130473, "datetime": "2025-12-17T01:20:08.913047", "type": "streaming", "content": "tool", "metadata": {}}
+{"timestamp": 1765930808.9209642, "datetime": "2025-12-17T01:20:08.920964", "type": "streaming", "content": "_code", "metadata": {}}
+{"timestamp": 1765930808.9276824, "datetime": "2025-12-17T01:20:08.927682", "type": "streaming", "content": ">\n", "metadata": {}}
+{"timestamp": 1765930808.9404159, "datetime": "2025-12-17T01:20:08.940415", "type": "streaming", "content": "{\n", "metadata": {}}
+{"timestamp": 1765930808.9469166, "datetime": "2025-12-17T01:20:08.946916", "type": "streaming", "content": "   ", "metadata": {}}
+{"timestamp": 1765930808.9715178, "datetime": "2025-12-17T01:20:08.971517", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765930808.978724, "datetime": "2025-12-17T01:20:08.978724", "type": "streaming", "content": "name", "metadata": {}}
+{"timestamp": 1765930808.9902477, "datetime": "2025-12-17T01:20:08.990247", "type": "streaming", "content": "\":", "metadata": {}}
+{"timestamp": 1765930808.998778, "datetime": "2025-12-17T01:20:08.998778", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765930809.0138848, "datetime": "2025-12-17T01:20:09.013884", "type": "streaming", "content": "run", "metadata": {}}
+{"timestamp": 1765930809.0284328, "datetime": "2025-12-17T01:20:09.028433", "type": "streaming", "content": "_s", "metadata": {}}
+{"timestamp": 1765930809.0388997, "datetime": "2025-12-17T01:20:09.038899", "type": "streaming", "content": "hell", "metadata": {}}
+{"timestamp": 1765930809.0469153, "datetime": "2025-12-17T01:20:09.046915", "type": "streaming", "content": "_command", "metadata": {}}
+{"timestamp": 1765930809.0600688, "datetime": "2025-12-17T01:20:09.060068", "type": "streaming", "content": "\",\n", "metadata": {}}
+{"timestamp": 1765930809.0712976, "datetime": "2025-12-17T01:20:09.071297", "type": "streaming", "content": "   ", "metadata": {}}
+{"timestamp": 1765930809.0784912, "datetime": "2025-12-17T01:20:09.078491", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765930809.0953546, "datetime": "2025-12-17T01:20:09.095354", "type": "streaming", "content": "arguments", "metadata": {}}
+{"timestamp": 1765930809.1132534, "datetime": "2025-12-17T01:20:09.113253", "type": "streaming", "content": "\":", "metadata": {}}
+{"timestamp": 1765930809.1255133, "datetime": "2025-12-17T01:20:09.125513", "type": "streaming", "content": " {\n", "metadata": {}}
+{"timestamp": 1765930809.139783, "datetime": "2025-12-17T01:20:09.139782", "type": "streaming", "content": "       ", "metadata": {}}
+{"timestamp": 1765930809.1465445, "datetime": "2025-12-17T01:20:09.146544", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765930809.1712697, "datetime": "2025-12-17T01:20:09.171269", "type": "streaming", "content": "command", "metadata": {}}
+{"timestamp": 1765930809.1887748, "datetime": "2025-12-17T01:20:09.188775", "type": "streaming", "content": "\":", "metadata": {}}
+{"timestamp": 1765930809.2070308, "datetime": "2025-12-17T01:20:09.207030", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765930809.2270374, "datetime": "2025-12-17T01:20:09.227037", "type": "streaming", "content": "npm", "metadata": {}}
+{"timestamp": 1765930809.247845, "datetime": "2025-12-17T01:20:09.247844", "type": "streaming", "content": " run", "metadata": {}}
+{"timestamp": 1765930809.268925, "datetime": "2025-12-17T01:20:09.268924", "type": "streaming", "content": " dev", "metadata": {}}
+{"timestamp": 1765930809.2890818, "datetime": "2025-12-17T01:20:09.289081", "type": "streaming", "content": "\",\n", "metadata": {}}
+{"timestamp": 1765930809.3120012, "datetime": "2025-12-17T01:20:09.312001", "type": "streaming", "content": "       ", "metadata": {}}
+{"timestamp": 1765930809.33136, "datetime": "2025-12-17T01:20:09.331359", "type": "streaming", "content": " \"", "metadata": {}}
+{"timestamp": 1765930809.3544974, "datetime": "2025-12-17T01:20:09.354497", "type": "streaming", "content": "background", "metadata": {}}
+{"timestamp": 1765930809.3755488, "datetime": "2025-12-17T01:20:09.375548", "type": "streaming", "content": "\":", "metadata": {}}
+{"timestamp": 1765930809.3932242, "datetime": "2025-12-17T01:20:09.393224", "type": "streaming", "content": " true", "metadata": {}}
+{"timestamp": 1765930809.41323, "datetime": "2025-12-17T01:20:09.413229", "type": "streaming", "content": "\n", "metadata": {}}
+{"timestamp": 1765930809.4343028, "datetime": "2025-12-17T01:20:09.434302", "type": "streaming", "content": "   ", "metadata": {}}
+{"timestamp": 1765930809.4551747, "datetime": "2025-12-17T01:20:09.455174", "type": "streaming", "content": " }\n", "metadata": {}}
+{"timestamp": 1765930809.47933, "datetime": "2025-12-17T01:20:09.479330", "type": "streaming", "content": "}\n", "metadata": {}}
+{"timestamp": 1765930809.5084753, "datetime": "2025-12-17T01:20:09.508475", "type": "streaming", "content": "</", "metadata": {}}
+{"timestamp": 1765930809.5348718, "datetime": "2025-12-17T01:20:09.534871", "type": "streaming", "content": "tool", "metadata": {}}
+{"timestamp": 1765930809.547053, "datetime": "2025-12-17T01:20:09.547053", "type": "streaming", "content": "_code", "metadata": {}}
+{"timestamp": 1765930809.5734694, "datetime": "2025-12-17T01:20:09.573469", "type": "streaming", "content": ">", "metadata": {}}
+{"timestamp": 1765930809.5993056, "datetime": "2025-12-17T01:20:09.599305", "type": "stats", "content": "Tokens used: 2704 (mistral-small:24b)", "metadata": {"model_id": "mistral-small:24b", "prompt": 2661, "completion": 43, "total": 2704, "role": "developer"}}
+{"timestamp": 1765930809.7240524, "datetime": "2025-12-17T01:20:09.724052", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 14596, "mistral-small:24b": 7910, "gpt-4-turbo": 1330}}}
+{"timestamp": 1765930809.729739, "datetime": "2025-12-17T01:20:09.729739", "type": "log", "content": "Reviewing work...", "metadata": {"role": "system", "style": "bold yellow"}}
+{"timestamp": 1765930810.7032926, "datetime": "2025-12-17T01:20:10.703292", "type": "streaming", "content": "To", "metadata": {}}
+{"timestamp": 1765930810.71917, "datetime": "2025-12-17T01:20:10.719170", "type": "streaming", "content": " verify", "metadata": {}}
+{"timestamp": 1765930810.7560387, "datetime": "2025-12-17T01:20:10.756038", "type": "streaming", "content": " if", "metadata": {}}
+{"timestamp": 1765930810.76255, "datetime": "2025-12-17T01:20:10.762549", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765930810.8292072, "datetime": "2025-12-17T01:20:10.829207", "type": "streaming", "content": " developer", "metadata": {}}
+{"timestamp": 1765930810.839318, "datetime": "2025-12-17T01:20:10.839317", "type": "streaming", "content": "'s", "metadata": {}}
+{"timestamp": 1765930810.9042444, "datetime": "2025-12-17T01:20:10.904244", "type": "streaming", "content": " output", "metadata": {}}
+{"timestamp": 1765930810.9229276, "datetime": "2025-12-17T01:20:10.922927", "type": "streaming", "content": " meets", "metadata": {}}
+{"timestamp": 1765930810.9316194, "datetime": "2025-12-17T01:20:10.931619", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765930810.9376178, "datetime": "2025-12-17T01:20:10.937617", "type": "streaming", "content": " original", "metadata": {}}
+{"timestamp": 1765930810.9751048, "datetime": "2025-12-17T01:20:10.975104", "type": "streaming", "content": " specification", "metadata": {}}
+{"timestamp": 1765930810.9821258, "datetime": "2025-12-17T01:20:10.982125", "type": "streaming", "content": ",", "metadata": {}}
+{"timestamp": 1765930811.0033674, "datetime": "2025-12-17T01:20:11.003367", "type": "streaming", "content": " we", "metadata": {}}
+{"timestamp": 1765930811.0110035, "datetime": "2025-12-17T01:20:11.011003", "type": "streaming", "content": " need", "metadata": {}}
+{"timestamp": 1765930811.037632, "datetime": "2025-12-17T01:20:11.037631", "type": "streaming", "content": " to", "metadata": {}}
+{"timestamp": 1765930811.0457246, "datetime": "2025-12-17T01:20:11.045724", "type": "streaming", "content": " consider", "metadata": {}}
+{"timestamp": 1765930811.0748043, "datetime": "2025-12-17T01:20:11.074804", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765930811.0883584, "datetime": "2025-12-17T01:20:11.088358", "type": "streaming", "content": " following", "metadata": {}}
+{"timestamp": 1765930811.1122668, "datetime": "2025-12-17T01:20:11.112266", "type": "streaming", "content": ":\n\n", "metadata": {}}
+{"timestamp": 1765930811.1237764, "datetime": "2025-12-17T01:20:11.123776", "type": "streaming", "content": "1", "metadata": {}}
+{"timestamp": 1765930811.1472843, "datetime": "2025-12-17T01:20:11.147284", "type": "streaming", "content": ".", "metadata": {}}
+{"timestamp": 1765930811.1758294, "datetime": "2025-12-17T01:20:11.175829", "type": "streaming", "content": " **", "metadata": {}}
+{"timestamp": 1765930811.1948574, "datetime": "2025-12-17T01:20:11.194857", "type": "streaming", "content": "Goal", "metadata": {}}
+{"timestamp": 1765930811.207699, "datetime": "2025-12-17T01:20:11.207698", "type": "streaming", "content": "**:", "metadata": {}}
+{"timestamp": 1765930811.2302527, "datetime": "2025-12-17T01:20:11.230252", "type": "streaming", "content": " The", "metadata": {}}
+{"timestamp": 1765930811.2487276, "datetime": "2025-12-17T01:20:11.248727", "type": "streaming", "content": " goal", "metadata": {}}
+{"timestamp": 1765930811.2570822, "datetime": "2025-12-17T01:20:11.257082", "type": "streaming", "content": " is", "metadata": {}}
+{"timestamp": 1765930811.2770047, "datetime": "2025-12-17T01:20:11.277004", "type": "streaming", "content": " to", "metadata": {}}
+{"timestamp": 1765930811.2885115, "datetime": "2025-12-17T01:20:11.288511", "type": "streaming", "content": " run", "metadata": {}}
+{"timestamp": 1765930811.2989645, "datetime": "2025-12-17T01:20:11.298964", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765930811.3279696, "datetime": "2025-12-17T01:20:11.327969", "type": "streaming", "content": " weather", "metadata": {}}
+{"timestamp": 1765930811.3354824, "datetime": "2025-12-17T01:20:11.335482", "type": "streaming", "content": " dashboard", "metadata": {}}
+{"timestamp": 1765930811.368616, "datetime": "2025-12-17T01:20:11.368616", "type": "streaming", "content": " application", "metadata": {}}
+{"timestamp": 1765930811.378718, "datetime": "2025-12-17T01:20:11.378718", "type": "streaming", "content": " using", "metadata": {}}
+{"timestamp": 1765930811.4306834, "datetime": "2025-12-17T01:20:11.430683", "type": "streaming", "content": " V", "metadata": {}}
+{"timestamp": 1765930811.4441953, "datetime": "2025-12-17T01:20:11.444195", "type": "streaming", "content": "ite", "metadata": {}}
+{"timestamp": 1765930811.4512546, "datetime": "2025-12-17T01:20:11.451254", "type": "streaming", "content": ".\n", "metadata": {}}
+{"timestamp": 1765930811.4578335, "datetime": "2025-12-17T01:20:11.457833", "type": "streaming", "content": "2", "metadata": {}}
+{"timestamp": 1765930811.464831, "datetime": "2025-12-17T01:20:11.464831", "type": "streaming", "content": ".", "metadata": {}}
+{"timestamp": 1765930811.4793913, "datetime": "2025-12-17T01:20:11.479391", "type": "streaming", "content": " **", "metadata": {}}
+{"timestamp": 1765930811.4926145, "datetime": "2025-12-17T01:20:11.492614", "type": "streaming", "content": "Constraints", "metadata": {}}
+{"timestamp": 1765930811.4983814, "datetime": "2025-12-17T01:20:11.498381", "type": "streaming", "content": "**:", "metadata": {}}
+{"timestamp": 1765930811.5120494, "datetime": "2025-12-17T01:20:11.512049", "type": "streaming", "content": " The", "metadata": {}}
+{"timestamp": 1765930811.5230734, "datetime": "2025-12-17T01:20:11.523073", "type": "streaming", "content": " application", "metadata": {}}
+{"timestamp": 1765930811.5451477, "datetime": "2025-12-17T01:20:11.545147", "type": "streaming", "content": " must", "metadata": {}}
+{"timestamp": 1765930811.5578651, "datetime": "2025-12-17T01:20:11.557865", "type": "streaming", "content": " be", "metadata": {}}
+{"timestamp": 1765930811.5756273, "datetime": "2025-12-17T01:20:11.575627", "type": "streaming", "content": " started", "metadata": {}}
+{"timestamp": 1765930811.5926652, "datetime": "2025-12-17T01:20:11.592665", "type": "streaming", "content": " using", "metadata": {}}
+{"timestamp": 1765930811.6056166, "datetime": "2025-12-17T01:20:11.605616", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765930811.6127732, "datetime": "2025-12-17T01:20:11.612773", "type": "streaming", "content": " '", "metadata": {}}
+{"timestamp": 1765930811.6698306, "datetime": "2025-12-17T01:20:11.669830", "type": "streaming", "content": "dev", "metadata": {}}
+{"timestamp": 1765930811.6844106, "datetime": "2025-12-17T01:20:11.684410", "type": "streaming", "content": "'", "metadata": {}}
+{"timestamp": 1765930811.7042267, "datetime": "2025-12-17T01:20:11.704226", "type": "streaming", "content": " script", "metadata": {}}
+{"timestamp": 1765930811.7102318, "datetime": "2025-12-17T01:20:11.710231", "type": "streaming", "content": " in", "metadata": {}}
+{"timestamp": 1765930811.7384298, "datetime": "2025-12-17T01:20:11.738429", "type": "streaming", "content": " `", "metadata": {}}
+{"timestamp": 1765930811.7454293, "datetime": "2025-12-17T01:20:11.745429", "type": "streaming", "content": "package", "metadata": {}}
+{"timestamp": 1765930811.7725887, "datetime": "2025-12-17T01:20:11.772588", "type": "streaming", "content": ".json", "metadata": {}}
+{"timestamp": 1765930811.780107, "datetime": "2025-12-17T01:20:11.780107", "type": "streaming", "content": "`.\n", "metadata": {}}
+{"timestamp": 1765930811.810342, "datetime": "2025-12-17T01:20:11.810342", "type": "streaming", "content": "3", "metadata": {}}
+{"timestamp": 1765930811.8206346, "datetime": "2025-12-17T01:20:11.820634", "type": "streaming", "content": ".", "metadata": {}}
+{"timestamp": 1765930811.8397613, "datetime": "2025-12-17T01:20:11.839761", "type": "streaming", "content": " **", "metadata": {}}
+{"timestamp": 1765930811.846858, "datetime": "2025-12-17T01:20:11.846857", "type": "streaming", "content": "Focus", "metadata": {}}
+{"timestamp": 1765930811.8624656, "datetime": "2025-12-17T01:20:11.862465", "type": "streaming", "content": " Files", "metadata": {}}
+{"timestamp": 1765930811.9759579, "datetime": "2025-12-17T01:20:11.975957", "type": "streaming", "content": "**:", "metadata": {}}
+{"timestamp": 1765930811.986159, "datetime": "2025-12-17T01:20:11.986159", "type": "streaming", "content": " The", "metadata": {}}
+{"timestamp": 1765930811.992673, "datetime": "2025-12-17T01:20:11.992672", "type": "streaming", "content": " relevant", "metadata": {}}
+{"timestamp": 1765930811.99819, "datetime": "2025-12-17T01:20:11.998189", "type": "streaming", "content": " file", "metadata": {}}
+{"timestamp": 1765930812.0245245, "datetime": "2025-12-17T01:20:12.024524", "type": "streaming", "content": " is", "metadata": {}}
+{"timestamp": 1765930812.0321379, "datetime": "2025-12-17T01:20:12.032138", "type": "streaming", "content": " `", "metadata": {}}
+{"timestamp": 1765930812.0436513, "datetime": "2025-12-17T01:20:12.043651", "type": "streaming", "content": "demo", "metadata": {}}
+{"timestamp": 1765930812.0571315, "datetime": "2025-12-17T01:20:12.057131", "type": "streaming", "content": "_project", "metadata": {}}
+{"timestamp": 1765930812.062838, "datetime": "2025-12-17T01:20:12.062838", "type": "streaming", "content": "/p", "metadata": {}}
+{"timestamp": 1765930812.0743814, "datetime": "2025-12-17T01:20:12.074381", "type": "streaming", "content": "og", "metadata": {}}
+{"timestamp": 1765930812.0813508, "datetime": "2025-12-17T01:20:12.082455", "type": "streaming", "content": "oda", "metadata": {}}
+{"timestamp": 1765930812.0951304, "datetime": "2025-12-17T01:20:12.095130", "type": "streaming", "content": "-dashboard", "metadata": {}}
+{"timestamp": 1765930812.1046863, "datetime": "2025-12-17T01:20:12.104686", "type": "streaming", "content": "/package", "metadata": {}}
+{"timestamp": 1765930812.112095, "datetime": "2025-12-17T01:20:12.112095", "type": "streaming", "content": ".json", "metadata": {}}
+{"timestamp": 1765930812.1216116, "datetime": "2025-12-17T01:20:12.121611", "type": "streaming", "content": "`.\n", "metadata": {}}
+{"timestamp": 1765930812.1454525, "datetime": "2025-12-17T01:20:12.145452", "type": "streaming", "content": "4", "metadata": {}}
+{"timestamp": 1765930812.157693, "datetime": "2025-12-17T01:20:12.157693", "type": "streaming", "content": ".", "metadata": {}}
+{"timestamp": 1765930812.1708045, "datetime": "2025-12-17T01:20:12.170804", "type": "streaming", "content": " **", "metadata": {}}
+{"timestamp": 1765930812.178355, "datetime": "2025-12-17T01:20:12.178355", "type": "streaming", "content": "Verification", "metadata": {}}
+{"timestamp": 1765930812.2234504, "datetime": "2025-12-17T01:20:12.223450", "type": "streaming", "content": " Steps", "metadata": {}}
+{"timestamp": 1765930812.2397225, "datetime": "2025-12-17T01:20:12.239722", "type": "streaming", "content": "**", "metadata": {}}
+{"timestamp": 1765930812.2486572, "datetime": "2025-12-17T01:20:12.248657", "type": "streaming", "content": ":\n", "metadata": {}}
+{"timestamp": 1765930812.2622206, "datetime": "2025-12-17T01:20:12.262220", "type": "streaming", "content": "  ", "metadata": {}}
+{"timestamp": 1765930812.284333, "datetime": "2025-12-17T01:20:12.284333", "type": "streaming", "content": " -", "metadata": {}}
+{"timestamp": 1765930812.2908509, "datetime": "2025-12-17T01:20:12.290850", "type": "streaming", "content": " Ensure", "metadata": {}}
+{"timestamp": 1765930812.299462, "datetime": "2025-12-17T01:20:12.299462", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765930812.306471, "datetime": "2025-12-17T01:20:12.306471", "type": "streaming", "content": " application", "metadata": {}}
+{"timestamp": 1765930812.3292615, "datetime": "2025-12-17T01:20:12.329261", "type": "streaming", "content": " starts", "metadata": {}}
+{"timestamp": 1765930812.3431787, "datetime": "2025-12-17T01:20:12.343178", "type": "streaming", "content": " without", "metadata": {}}
+{"timestamp": 1765930812.3565989, "datetime": "2025-12-17T01:20:12.356598", "type": "streaming", "content": " errors", "metadata": {}}
+{"timestamp": 1765930812.3658328, "datetime": "2025-12-17T01:20:12.365832", "type": "streaming", "content": ".\n", "metadata": {}}
+{"timestamp": 1765930812.3989182, "datetime": "2025-12-17T01:20:12.398918", "type": "streaming", "content": "  ", "metadata": {}}
+{"timestamp": 1765930812.407876, "datetime": "2025-12-17T01:20:12.407876", "type": "streaming", "content": " -", "metadata": {}}
+{"timestamp": 1765930812.4349263, "datetime": "2025-12-17T01:20:12.434926", "type": "streaming", "content": " Verify", "metadata": {}}
+{"timestamp": 1765930812.442361, "datetime": "2025-12-17T01:20:12.442361", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765930812.4597983, "datetime": "2025-12-17T01:20:12.459798", "type": "streaming", "content": " application", "metadata": {}}
+{"timestamp": 1765930812.473841, "datetime": "2025-12-17T01:20:12.473841", "type": "streaming", "content": " is", "metadata": {}}
+{"timestamp": 1765930812.4957323, "datetime": "2025-12-17T01:20:12.495732", "type": "streaming", "content": " accessible", "metadata": {}}
+{"timestamp": 1765930812.5079532, "datetime": "2025-12-17T01:20:12.507953", "type": "streaming", "content": " on", "metadata": {}}
+{"timestamp": 1765930812.5245414, "datetime": "2025-12-17T01:20:12.524541", "type": "streaming", "content": " localhost", "metadata": {}}
+{"timestamp": 1765930812.5322866, "datetime": "2025-12-17T01:20:12.532286", "type": "streaming", "content": " and", "metadata": {}}
+{"timestamp": 1765930812.5640635, "datetime": "2025-12-17T01:20:12.564063", "type": "streaming", "content": " displays", "metadata": {}}
+{"timestamp": 1765930812.5813608, "datetime": "2025-12-17T01:20:12.581360", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765930812.6129646, "datetime": "2025-12-17T01:20:12.612964", "type": "streaming", "content": " weather", "metadata": {}}
+{"timestamp": 1765930812.6273324, "datetime": "2025-12-17T01:20:12.627332", "type": "streaming", "content": " dashboard", "metadata": {}}
+{"timestamp": 1765930812.6395864, "datetime": "2025-12-17T01:20:12.639586", "type": "streaming", "content": ".\n", "metadata": {}}
+{"timestamp": 1765930812.6456327, "datetime": "2025-12-17T01:20:12.645632", "type": "streaming", "content": "  ", "metadata": {}}
+{"timestamp": 1765930812.7519422, "datetime": "2025-12-17T01:20:12.751942", "type": "streaming", "content": " -", "metadata": {}}
+{"timestamp": 1765930812.7590673, "datetime": "2025-12-17T01:20:12.759067", "type": "streaming", "content": " Check", "metadata": {}}
+{"timestamp": 1765930812.7887516, "datetime": "2025-12-17T01:20:12.788751", "type": "streaming", "content": " that", "metadata": {}}
+{"timestamp": 1765930812.7958307, "datetime": "2025-12-17T01:20:12.795830", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765930812.8146057, "datetime": "2025-12-17T01:20:12.814605", "type": "streaming", "content": " dashboard", "metadata": {}}
+{"timestamp": 1765930812.8272114, "datetime": "2025-12-17T01:20:12.827211", "type": "streaming", "content": " shows", "metadata": {}}
+{"timestamp": 1765930812.8530102, "datetime": "2025-12-17T01:20:12.853010", "type": "streaming", "content": " actual", "metadata": {}}
+{"timestamp": 1765930812.8616855, "datetime": "2025-12-17T01:20:12.861685", "type": "streaming", "content": " weather", "metadata": {}}
+{"timestamp": 1765930812.882323, "datetime": "2025-12-17T01:20:12.882322", "type": "streaming", "content": " data", "metadata": {}}
+{"timestamp": 1765930812.8949146, "datetime": "2025-12-17T01:20:12.894914", "type": "streaming", "content": " and", "metadata": {}}
+{"timestamp": 1765930812.9121668, "datetime": "2025-12-17T01:20:12.912166", "type": "streaming", "content": " no", "metadata": {}}
+{"timestamp": 1765930812.9237459, "datetime": "2025-12-17T01:20:12.923745", "type": "streaming", "content": " placeholder", "metadata": {}}
+{"timestamp": 1765930812.9455862, "datetime": "2025-12-17T01:20:12.945586", "type": "streaming", "content": " content", "metadata": {}}
+{"timestamp": 1765930812.9591272, "datetime": "2025-12-17T01:20:12.959127", "type": "streaming", "content": ".\n\n", "metadata": {}}
+{"timestamp": 1765930812.9944422, "datetime": "2025-12-17T01:20:12.994442", "type": "streaming", "content": "The", "metadata": {}}
+{"timestamp": 1765930813.0045705, "datetime": "2025-12-17T01:20:13.004570", "type": "streaming", "content": " developer", "metadata": {}}
+{"timestamp": 1765930813.012079, "datetime": "2025-12-17T01:20:13.012079", "type": "streaming", "content": "'s", "metadata": {}}
+{"timestamp": 1765930813.022918, "datetime": "2025-12-17T01:20:13.022917", "type": "streaming", "content": " output", "metadata": {}}
+{"timestamp": 1765930813.0440528, "datetime": "2025-12-17T01:20:13.044052", "type": "streaming", "content": " shows", "metadata": {}}
+{"timestamp": 1765930813.05575, "datetime": "2025-12-17T01:20:13.055749", "type": "streaming", "content": " a", "metadata": {}}
+{"timestamp": 1765930813.0769746, "datetime": "2025-12-17T01:20:13.076974", "type": "streaming", "content": " command", "metadata": {}}
+{"timestamp": 1765930813.0890815, "datetime": "2025-12-17T01:20:13.089081", "type": "streaming", "content": " to", "metadata": {}}
+{"timestamp": 1765930813.1297784, "datetime": "2025-12-17T01:20:13.129778", "type": "streaming", "content": " run", "metadata": {}}
+{"timestamp": 1765930813.1433773, "datetime": "2025-12-17T01:20:13.143377", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765930813.1503956, "datetime": "2025-12-17T01:20:13.150395", "type": "streaming", "content": " application", "metadata": {}}
+{"timestamp": 1765930813.1559777, "datetime": "2025-12-17T01:20:13.155977", "type": "streaming", "content": " using", "metadata": {}}
+{"timestamp": 1765930813.1801105, "datetime": "2025-12-17T01:20:13.180110", "type": "streaming", "content": " `", "metadata": {}}
+{"timestamp": 1765930813.1917126, "datetime": "2025-12-17T01:20:13.191712", "type": "streaming", "content": "npm", "metadata": {}}
+{"timestamp": 1765930813.2088249, "datetime": "2025-12-17T01:20:13.208824", "type": "streaming", "content": " run", "metadata": {}}
+{"timestamp": 1765930813.2220552, "datetime": "2025-12-17T01:20:13.222055", "type": "streaming", "content": " dev", "metadata": {}}
+{"timestamp": 1765930813.2633533, "datetime": "2025-12-17T01:20:13.263353", "type": "streaming", "content": "`,", "metadata": {}}
+{"timestamp": 1765930813.2718701, "datetime": "2025-12-17T01:20:13.271870", "type": "streaming", "content": " which", "metadata": {}}
+{"timestamp": 1765930813.3406324, "datetime": "2025-12-17T01:20:13.340632", "type": "streaming", "content": " align", "metadata": {}}
+{"timestamp": 1765930813.3581905, "datetime": "2025-12-17T01:20:13.358190", "type": "streaming", "content": "s", "metadata": {}}
+{"timestamp": 1765930813.36523, "datetime": "2025-12-17T01:20:13.365230", "type": "streaming", "content": " with", "metadata": {}}
+{"timestamp": 1765930813.3732285, "datetime": "2025-12-17T01:20:13.373228", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765930813.3961072, "datetime": "2025-12-17T01:20:13.396107", "type": "streaming", "content": " specified", "metadata": {}}
+{"timestamp": 1765930813.4126475, "datetime": "2025-12-17T01:20:13.412647", "type": "streaming", "content": " constraint", "metadata": {}}
+{"timestamp": 1765930813.486338, "datetime": "2025-12-17T01:20:13.486337", "type": "streaming", "content": " to", "metadata": {}}
+{"timestamp": 1765930813.505107, "datetime": "2025-12-17T01:20:13.505107", "type": "streaming", "content": " use", "metadata": {}}
+{"timestamp": 1765930813.5121114, "datetime": "2025-12-17T01:20:13.512111", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765930813.5186245, "datetime": "2025-12-17T01:20:13.518624", "type": "streaming", "content": " '", "metadata": {}}
+{"timestamp": 1765930813.5246263, "datetime": "2025-12-17T01:20:13.524626", "type": "streaming", "content": "dev", "metadata": {}}
+{"timestamp": 1765930813.5301235, "datetime": "2025-12-17T01:20:13.530123", "type": "streaming", "content": "'", "metadata": {}}
+{"timestamp": 1765930813.5448358, "datetime": "2025-12-17T01:20:13.544835", "type": "streaming", "content": " script", "metadata": {}}
+{"timestamp": 1765930813.5586877, "datetime": "2025-12-17T01:20:13.558687", "type": "streaming", "content": " in", "metadata": {}}
+{"timestamp": 1765930813.5747232, "datetime": "2025-12-17T01:20:13.574723", "type": "streaming", "content": " `", "metadata": {}}
+{"timestamp": 1765930813.5818036, "datetime": "2025-12-17T01:20:13.581803", "type": "streaming", "content": "package", "metadata": {}}
+{"timestamp": 1765930813.5974047, "datetime": "2025-12-17T01:20:13.597404", "type": "streaming", "content": ".json", "metadata": {}}
+{"timestamp": 1765930813.6228313, "datetime": "2025-12-17T01:20:13.622831", "type": "streaming", "content": "`.", "metadata": {}}
+{"timestamp": 1765930813.630146, "datetime": "2025-12-17T01:20:13.630146", "type": "streaming", "content": " However", "metadata": {}}
+{"timestamp": 1765930813.6453488, "datetime": "2025-12-17T01:20:13.645348", "type": "streaming", "content": ",", "metadata": {}}
+{"timestamp": 1765930813.6635454, "datetime": "2025-12-17T01:20:13.663545", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765930813.6786118, "datetime": "2025-12-17T01:20:13.678611", "type": "streaming", "content": " output", "metadata": {}}
+{"timestamp": 1765930813.690767, "datetime": "2025-12-17T01:20:13.690767", "type": "streaming", "content": " does", "metadata": {}}
+{"timestamp": 1765930813.696768, "datetime": "2025-12-17T01:20:13.696768", "type": "streaming", "content": " not", "metadata": {}}
+{"timestamp": 1765930813.7089603, "datetime": "2025-12-17T01:20:13.708960", "type": "streaming", "content": " provide", "metadata": {}}
+{"timestamp": 1765930813.7149644, "datetime": "2025-12-17T01:20:13.714964", "type": "streaming", "content": " evidence", "metadata": {}}
+{"timestamp": 1765930813.7436142, "datetime": "2025-12-17T01:20:13.743614", "type": "streaming", "content": " that", "metadata": {}}
+{"timestamp": 1765930813.7547002, "datetime": "2025-12-17T01:20:13.754700", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765930813.774715, "datetime": "2025-12-17T01:20:13.774715", "type": "streaming", "content": " other", "metadata": {}}
+{"timestamp": 1765930813.7818315, "datetime": "2025-12-17T01:20:13.781831", "type": "streaming", "content": " verification", "metadata": {}}
+{"timestamp": 1765930813.8207302, "datetime": "2025-12-17T01:20:13.820730", "type": "streaming", "content": " steps", "metadata": {}}
+{"timestamp": 1765930813.8279188, "datetime": "2025-12-17T01:20:13.827918", "type": "streaming", "content": " are", "metadata": {}}
+{"timestamp": 1765930813.8894424, "datetime": "2025-12-17T01:20:13.889442", "type": "streaming", "content": " met", "metadata": {}}
+{"timestamp": 1765930813.8969996, "datetime": "2025-12-17T01:20:13.896999", "type": "streaming", "content": ",", "metadata": {}}
+{"timestamp": 1765930813.920801, "datetime": "2025-12-17T01:20:13.920800", "type": "streaming", "content": " such", "metadata": {}}
+{"timestamp": 1765930813.9279065, "datetime": "2025-12-17T01:20:13.927906", "type": "streaming", "content": " as", "metadata": {}}
+{"timestamp": 1765930813.9576123, "datetime": "2025-12-17T01:20:13.957612", "type": "streaming", "content": " checking", "metadata": {}}
+{"timestamp": 1765930813.9647067, "datetime": "2025-12-17T01:20:13.964706", "type": "streaming", "content": " for", "metadata": {}}
+{"timestamp": 1765930813.9935396, "datetime": "2025-12-17T01:20:13.993539", "type": "streaming", "content": " errors", "metadata": {}}
+{"timestamp": 1765930814.0085998, "datetime": "2025-12-17T01:20:14.008599", "type": "streaming", "content": ",", "metadata": {}}
+{"timestamp": 1765930814.0161142, "datetime": "2025-12-17T01:20:14.016114", "type": "streaming", "content": " accessibility", "metadata": {}}
+{"timestamp": 1765930814.0317316, "datetime": "2025-12-17T01:20:14.031731", "type": "streaming", "content": " on", "metadata": {}}
+{"timestamp": 1765930814.0580153, "datetime": "2025-12-17T01:20:14.058015", "type": "streaming", "content": " localhost", "metadata": {}}
+{"timestamp": 1765930814.0659418, "datetime": "2025-12-17T01:20:14.065941", "type": "streaming", "content": ",", "metadata": {}}
+{"timestamp": 1765930814.1587543, "datetime": "2025-12-17T01:20:14.158754", "type": "streaming", "content": " and", "metadata": {}}
+{"timestamp": 1765930814.1667507, "datetime": "2025-12-17T01:20:14.166750", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765930814.2941928, "datetime": "2025-12-17T01:20:14.294193", "type": "streaming", "content": " display", "metadata": {}}
+{"timestamp": 1765930814.3085208, "datetime": "2025-12-17T01:20:14.308520", "type": "streaming", "content": " of", "metadata": {}}
+{"timestamp": 1765930814.3230364, "datetime": "2025-12-17T01:20:14.323036", "type": "streaming", "content": " actual", "metadata": {}}
+{"timestamp": 1765930814.3431988, "datetime": "2025-12-17T01:20:14.343198", "type": "streaming", "content": " weather", "metadata": {}}
+{"timestamp": 1765930814.3590095, "datetime": "2025-12-17T01:20:14.359009", "type": "streaming", "content": " data", "metadata": {}}
+{"timestamp": 1765930814.3776171, "datetime": "2025-12-17T01:20:14.377617", "type": "streaming", "content": " instead", "metadata": {}}
+{"timestamp": 1765930814.391861, "datetime": "2025-12-17T01:20:14.391861", "type": "streaming", "content": " of", "metadata": {}}
+{"timestamp": 1765930814.408508, "datetime": "2025-12-17T01:20:14.408508", "type": "streaming", "content": " placeholders", "metadata": {}}
+{"timestamp": 1765930814.415012, "datetime": "2025-12-17T01:20:14.415011", "type": "streaming", "content": ".\n\n", "metadata": {}}
+{"timestamp": 1765930814.4375098, "datetime": "2025-12-17T01:20:14.437509", "type": "streaming", "content": "To", "metadata": {}}
+{"timestamp": 1765930814.4445944, "datetime": "2025-12-17T01:20:14.444594", "type": "streaming", "content": " fully", "metadata": {}}
+{"timestamp": 1765930814.4645922, "datetime": "2025-12-17T01:20:14.464592", "type": "streaming", "content": " approve", "metadata": {}}
+{"timestamp": 1765930814.4782517, "datetime": "2025-12-17T01:20:14.478251", "type": "streaming", "content": " this", "metadata": {}}
+{"timestamp": 1765930814.4903445, "datetime": "2025-12-17T01:20:14.490344", "type": "streaming", "content": " task", "metadata": {}}
+{"timestamp": 1765930814.496921, "datetime": "2025-12-17T01:20:14.496921", "type": "streaming", "content": ",", "metadata": {}}
+{"timestamp": 1765930814.5060198, "datetime": "2025-12-17T01:20:14.506019", "type": "streaming", "content": " we", "metadata": {}}
+{"timestamp": 1765930814.5123036, "datetime": "2025-12-17T01:20:14.512303", "type": "streaming", "content": " need", "metadata": {}}
+{"timestamp": 1765930814.524818, "datetime": "2025-12-17T01:20:14.524818", "type": "streaming", "content": " to", "metadata": {}}
+{"timestamp": 1765930814.5322483, "datetime": "2025-12-17T01:20:14.532248", "type": "streaming", "content": " ensure", "metadata": {}}
+{"timestamp": 1765930814.5561826, "datetime": "2025-12-17T01:20:14.556182", "type": "streaming", "content": " that", "metadata": {}}
+{"timestamp": 1765930814.562187, "datetime": "2025-12-17T01:20:14.562187", "type": "streaming", "content": " all", "metadata": {}}
+{"timestamp": 1765930814.573691, "datetime": "2025-12-17T01:20:14.573691", "type": "streaming", "content": " verification", "metadata": {}}
+{"timestamp": 1765930814.5802968, "datetime": "2025-12-17T01:20:14.580296", "type": "streaming", "content": " steps", "metadata": {}}
+{"timestamp": 1765930814.590511, "datetime": "2025-12-17T01:20:14.590511", "type": "streaming", "content": " are", "metadata": {}}
+{"timestamp": 1765930814.5965126, "datetime": "2025-12-17T01:20:14.596512", "type": "streaming", "content": " met", "metadata": {}}
+{"timestamp": 1765930814.607613, "datetime": "2025-12-17T01:20:14.607613", "type": "streaming", "content": ".", "metadata": {}}
+{"timestamp": 1765930814.6226962, "datetime": "2025-12-17T01:20:14.622696", "type": "streaming", "content": " Since", "metadata": {}}
+{"timestamp": 1765930814.6287236, "datetime": "2025-12-17T01:20:14.628723", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765930814.6536334, "datetime": "2025-12-17T01:20:14.653633", "type": "streaming", "content": " developer", "metadata": {}}
+{"timestamp": 1765930814.6606326, "datetime": "2025-12-17T01:20:14.660632", "type": "streaming", "content": "'s", "metadata": {}}
+{"timestamp": 1765930814.6884654, "datetime": "2025-12-17T01:20:14.688465", "type": "streaming", "content": " output", "metadata": {}}
+{"timestamp": 1765930814.6950185, "datetime": "2025-12-17T01:20:14.695018", "type": "streaming", "content": " only", "metadata": {}}
+{"timestamp": 1765930814.8779624, "datetime": "2025-12-17T01:20:14.877962", "type": "streaming", "content": " covers", "metadata": {}}
+{"timestamp": 1765930814.897651, "datetime": "2025-12-17T01:20:14.897650", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765930814.981011, "datetime": "2025-12-17T01:20:14.981010", "type": "streaming", "content": " execution", "metadata": {}}
+{"timestamp": 1765930815.000164, "datetime": "2025-12-17T01:20:15.000164", "type": "streaming", "content": " of", "metadata": {}}
+{"timestamp": 1765930815.022991, "datetime": "2025-12-17T01:20:15.022990", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765930815.0315135, "datetime": "2025-12-17T01:20:15.031513", "type": "streaming", "content": " '", "metadata": {}}
+{"timestamp": 1765930815.0718374, "datetime": "2025-12-17T01:20:15.071837", "type": "streaming", "content": "dev", "metadata": {}}
+{"timestamp": 1765930815.078857, "datetime": "2025-12-17T01:20:15.078857", "type": "streaming", "content": "'", "metadata": {}}
+{"timestamp": 1765930815.1132665, "datetime": "2025-12-17T01:20:15.113266", "type": "streaming", "content": " script", "metadata": {}}
+{"timestamp": 1765930815.1237812, "datetime": "2025-12-17T01:20:15.123781", "type": "streaming", "content": " and", "metadata": {}}
+{"timestamp": 1765930815.1576002, "datetime": "2025-12-17T01:20:15.157600", "type": "streaming", "content": " does", "metadata": {}}
+{"timestamp": 1765930815.164793, "datetime": "2025-12-17T01:20:15.164793", "type": "streaming", "content": " not", "metadata": {}}
+{"timestamp": 1765930815.2036855, "datetime": "2025-12-17T01:20:15.203685", "type": "streaming", "content": " provide", "metadata": {}}
+{"timestamp": 1765930815.2112901, "datetime": "2025-12-17T01:20:15.211290", "type": "streaming", "content": " information", "metadata": {}}
+{"timestamp": 1765930815.2632108, "datetime": "2025-12-17T01:20:15.263210", "type": "streaming", "content": " on", "metadata": {}}
+{"timestamp": 1765930815.2707205, "datetime": "2025-12-17T01:20:15.270720", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765930815.2903643, "datetime": "2025-12-17T01:20:15.290364", "type": "streaming", "content": " application", "metadata": {}}
+{"timestamp": 1765930815.2968762, "datetime": "2025-12-17T01:20:15.296876", "type": "streaming", "content": "'s", "metadata": {}}
+{"timestamp": 1765930815.3244596, "datetime": "2025-12-17T01:20:15.324459", "type": "streaming", "content": " functionality", "metadata": {}}
+{"timestamp": 1765930815.3319905, "datetime": "2025-12-17T01:20:15.331990", "type": "streaming", "content": " or", "metadata": {}}
+{"timestamp": 1765930815.3720238, "datetime": "2025-12-17T01:20:15.372023", "type": "streaming", "content": " error", "metadata": {}}
+{"timestamp": 1765930815.380094, "datetime": "2025-12-17T01:20:15.380094", "type": "streaming", "content": " handling", "metadata": {}}
+{"timestamp": 1765930815.3967192, "datetime": "2025-12-17T01:20:15.396719", "type": "streaming", "content": ",", "metadata": {}}
+{"timestamp": 1765930815.4108355, "datetime": "2025-12-17T01:20:15.410835", "type": "streaming", "content": " further", "metadata": {}}
+{"timestamp": 1765930815.4403317, "datetime": "2025-12-17T01:20:15.440331", "type": "streaming", "content": " verification", "metadata": {}}
+{"timestamp": 1765930815.4468462, "datetime": "2025-12-17T01:20:15.446846", "type": "streaming", "content": " is", "metadata": {}}
+{"timestamp": 1765930815.4748163, "datetime": "2025-12-17T01:20:15.474816", "type": "streaming", "content": " required", "metadata": {}}
+{"timestamp": 1765930815.48956, "datetime": "2025-12-17T01:20:15.489559", "type": "streaming", "content": ".\n\n", "metadata": {}}
+{"timestamp": 1765930815.5157843, "datetime": "2025-12-17T01:20:15.515784", "type": "streaming", "content": "**", "metadata": {}}
+{"timestamp": 1765930815.5279942, "datetime": "2025-12-17T01:20:15.527994", "type": "streaming", "content": "Conclusion", "metadata": {}}
+{"timestamp": 1765930815.5611548, "datetime": "2025-12-17T01:20:15.561154", "type": "streaming", "content": "**:", "metadata": {}}
+{"timestamp": 1765930815.5688558, "datetime": "2025-12-17T01:20:15.568855", "type": "streaming", "content": " The", "metadata": {}}
+{"timestamp": 1765930815.5894554, "datetime": "2025-12-17T01:20:15.589455", "type": "streaming", "content": " task", "metadata": {}}
+{"timestamp": 1765930815.5970635, "datetime": "2025-12-17T01:20:15.597063", "type": "streaming", "content": " is", "metadata": {}}
+{"timestamp": 1765930815.6381516, "datetime": "2025-12-17T01:20:15.638151", "type": "streaming", "content": " **", "metadata": {}}
+{"timestamp": 1765930815.6452231, "datetime": "2025-12-17T01:20:15.645223", "type": "streaming", "content": "RE", "metadata": {}}
+{"timestamp": 1765930815.6766925, "datetime": "2025-12-17T01:20:15.676692", "type": "streaming", "content": "JECTED", "metadata": {}}
+{"timestamp": 1765930815.6827788, "datetime": "2025-12-17T01:20:15.682779", "type": "streaming", "content": "**", "metadata": {}}
+{"timestamp": 1765930815.7261102, "datetime": "2025-12-17T01:20:15.726110", "type": "streaming", "content": " because", "metadata": {}}
+{"timestamp": 1765930815.7407284, "datetime": "2025-12-17T01:20:15.740728", "type": "streaming", "content": " while", "metadata": {}}
+{"timestamp": 1765930815.7518647, "datetime": "2025-12-17T01:20:15.751864", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765930815.7579122, "datetime": "2025-12-17T01:20:15.757912", "type": "streaming", "content": " developer", "metadata": {}}
+{"timestamp": 1765930815.784689, "datetime": "2025-12-17T01:20:15.784688", "type": "streaming", "content": "'s", "metadata": {}}
+{"timestamp": 1765930815.7917292, "datetime": "2025-12-17T01:20:15.791729", "type": "streaming", "content": " output", "metadata": {}}
+{"timestamp": 1765930815.8251042, "datetime": "2025-12-17T01:20:15.825104", "type": "streaming", "content": " meets", "metadata": {}}
+{"timestamp": 1765930815.838401, "datetime": "2025-12-17T01:20:15.838400", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765930815.872714, "datetime": "2025-12-17T01:20:15.872713", "type": "streaming", "content": " constraint", "metadata": {}}
+{"timestamp": 1765930815.8799884, "datetime": "2025-12-17T01:20:15.879988", "type": "streaming", "content": " of", "metadata": {}}
+{"timestamp": 1765930815.9052079, "datetime": "2025-12-17T01:20:15.905207", "type": "streaming", "content": " using", "metadata": {}}
+{"timestamp": 1765930815.9112132, "datetime": "2025-12-17T01:20:15.911213", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765930815.949757, "datetime": "2025-12-17T01:20:15.949757", "type": "streaming", "content": " '", "metadata": {}}
+{"timestamp": 1765930815.9577293, "datetime": "2025-12-17T01:20:15.957729", "type": "streaming", "content": "dev", "metadata": {}}
+{"timestamp": 1765930815.9765458, "datetime": "2025-12-17T01:20:15.976545", "type": "streaming", "content": "'", "metadata": {}}
+{"timestamp": 1765930815.9920938, "datetime": "2025-12-17T01:20:15.992093", "type": "streaming", "content": " script", "metadata": {}}
+{"timestamp": 1765930816.022902, "datetime": "2025-12-17T01:20:16.022901", "type": "streaming", "content": ",", "metadata": {}}
+{"timestamp": 1765930816.0299914, "datetime": "2025-12-17T01:20:16.029991", "type": "streaming", "content": " it", "metadata": {}}
+{"timestamp": 1765930816.0416365, "datetime": "2025-12-17T01:20:16.041636", "type": "streaming", "content": " does", "metadata": {}}
+{"timestamp": 1765930816.049304, "datetime": "2025-12-17T01:20:16.049304", "type": "streaming", "content": " not", "metadata": {}}
+{"timestamp": 1765930816.0780966, "datetime": "2025-12-17T01:20:16.078096", "type": "streaming", "content": " provide", "metadata": {}}
+{"timestamp": 1765930816.0846064, "datetime": "2025-12-17T01:20:16.084606", "type": "streaming", "content": " evidence", "metadata": {}}
+{"timestamp": 1765930816.117728, "datetime": "2025-12-17T01:20:16.117728", "type": "streaming", "content": " that", "metadata": {}}
+{"timestamp": 1765930816.1302357, "datetime": "2025-12-17T01:20:16.130235", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765930816.151019, "datetime": "2025-12-17T01:20:16.151019", "type": "streaming", "content": " application", "metadata": {}}
+{"timestamp": 1765930816.1585302, "datetime": "2025-12-17T01:20:16.158530", "type": "streaming", "content": " starts", "metadata": {}}
+{"timestamp": 1765930816.1833138, "datetime": "2025-12-17T01:20:16.183314", "type": "streaming", "content": " without", "metadata": {}}
+{"timestamp": 1765930816.1968346, "datetime": "2025-12-17T01:20:16.196834", "type": "streaming", "content": " errors", "metadata": {}}
+{"timestamp": 1765930816.222928, "datetime": "2025-12-17T01:20:16.222928", "type": "streaming", "content": ",", "metadata": {}}
+{"timestamp": 1765930816.237532, "datetime": "2025-12-17T01:20:16.237532", "type": "streaming", "content": " is", "metadata": {}}
+{"timestamp": 1765930816.2562342, "datetime": "2025-12-17T01:20:16.256234", "type": "streaming", "content": " accessible", "metadata": {}}
+{"timestamp": 1765930816.2634356, "datetime": "2025-12-17T01:20:16.263435", "type": "streaming", "content": " on", "metadata": {}}
+{"timestamp": 1765930816.299078, "datetime": "2025-12-17T01:20:16.299077", "type": "streaming", "content": " localhost", "metadata": {}}
+{"timestamp": 1765930816.320397, "datetime": "2025-12-17T01:20:16.320396", "type": "streaming", "content": ",", "metadata": {}}
+{"timestamp": 1765930816.3307302, "datetime": "2025-12-17T01:20:16.330730", "type": "streaming", "content": " and", "metadata": {}}
+{"timestamp": 1765930816.3383908, "datetime": "2025-12-17T01:20:16.338390", "type": "streaming", "content": " displays", "metadata": {}}
+{"timestamp": 1765930816.3737636, "datetime": "2025-12-17T01:20:16.373763", "type": "streaming", "content": " actual", "metadata": {}}
+{"timestamp": 1765930816.3827894, "datetime": "2025-12-17T01:20:16.382789", "type": "streaming", "content": " weather", "metadata": {}}
+{"timestamp": 1765930816.4084194, "datetime": "2025-12-17T01:20:16.408419", "type": "streaming", "content": " data", "metadata": {}}
+{"timestamp": 1765930816.4284759, "datetime": "2025-12-17T01:20:16.428476", "type": "streaming", "content": ".", "metadata": {}}
+{"timestamp": 1765930816.4440634, "datetime": "2025-12-17T01:20:16.444063", "type": "streaming", "content": " The", "metadata": {}}
+{"timestamp": 1765930816.4601128, "datetime": "2025-12-17T01:20:16.460112", "type": "streaming", "content": " developer", "metadata": {}}
+{"timestamp": 1765930816.4744816, "datetime": "2025-12-17T01:20:16.474481", "type": "streaming", "content": " needs", "metadata": {}}
+{"timestamp": 1765930816.481262, "datetime": "2025-12-17T01:20:16.481262", "type": "streaming", "content": " to", "metadata": {}}
+{"timestamp": 1765930816.5060816, "datetime": "2025-12-17T01:20:16.506081", "type": "streaming", "content": " provide", "metadata": {}}
+{"timestamp": 1765930816.5127287, "datetime": "2025-12-17T01:20:16.512728", "type": "streaming", "content": " logs", "metadata": {}}
+{"timestamp": 1765930816.5481875, "datetime": "2025-12-17T01:20:16.548187", "type": "streaming", "content": " or", "metadata": {}}
+{"timestamp": 1765930816.559937, "datetime": "2025-12-17T01:20:16.559937", "type": "streaming", "content": " other", "metadata": {}}
+{"timestamp": 1765930816.6819715, "datetime": "2025-12-17T01:20:16.681971", "type": "streaming", "content": " forms", "metadata": {}}
+{"timestamp": 1765930816.6904814, "datetime": "2025-12-17T01:20:16.690481", "type": "streaming", "content": " of", "metadata": {}}
+{"timestamp": 1765930816.697034, "datetime": "2025-12-17T01:20:16.697034", "type": "streaming", "content": " evidence", "metadata": {}}
+{"timestamp": 1765930816.7117686, "datetime": "2025-12-17T01:20:16.711768", "type": "streaming", "content": " to", "metadata": {}}
+{"timestamp": 1765930816.7232804, "datetime": "2025-12-17T01:20:16.723280", "type": "streaming", "content": " confirm", "metadata": {}}
+{"timestamp": 1765930816.7308626, "datetime": "2025-12-17T01:20:16.730862", "type": "streaming", "content": " that", "metadata": {}}
+{"timestamp": 1765930816.7441368, "datetime": "2025-12-17T01:20:16.744136", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765930816.7575562, "datetime": "2025-12-17T01:20:16.757556", "type": "streaming", "content": " application", "metadata": {}}
+{"timestamp": 1765930816.7635627, "datetime": "2025-12-17T01:20:16.763562", "type": "streaming", "content": " meets", "metadata": {}}
+{"timestamp": 1765930816.7765808, "datetime": "2025-12-17T01:20:16.776580", "type": "streaming", "content": " all", "metadata": {}}
+{"timestamp": 1765930816.7881436, "datetime": "2025-12-17T01:20:16.788143", "type": "streaming", "content": " the", "metadata": {}}
+{"timestamp": 1765930816.7961485, "datetime": "2025-12-17T01:20:16.796148", "type": "streaming", "content": " specified", "metadata": {}}
+{"timestamp": 1765930816.809888, "datetime": "2025-12-17T01:20:16.809887", "type": "streaming", "content": " verification", "metadata": {}}
+{"timestamp": 1765930816.8230293, "datetime": "2025-12-17T01:20:16.823029", "type": "streaming", "content": " steps", "metadata": {}}
+{"timestamp": 1765930816.8315544, "datetime": "2025-12-17T01:20:16.831554", "type": "streaming", "content": ".", "metadata": {}}
+{"timestamp": 1765930816.878301, "datetime": "2025-12-17T01:20:16.878300", "type": "stats", "content": "Tokens used: 970 (gpt-4-turbo)", "metadata": {"model_id": "gpt-4-turbo", "prompt": 648, "completion": 322, "total": 970, "role": "reviewer"}}
+{"timestamp": 1765930816.891903, "datetime": "2025-12-17T01:20:16.891903", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 14596, "mistral-small:24b": 7910, "gpt-4-turbo": 2300}}}
+{"timestamp": 1765930816.8984127, "datetime": "2025-12-17T01:20:16.898412", "type": "log", "content": "Verification Failed. Retrying (3/3)...", "metadata": {"role": "system", "style": "bold red"}}
+{"timestamp": 1765930816.9034305, "datetime": "2025-12-17T01:20:16.903430", "type": "todo_update", "content": "", "metadata": {"id": "task_1", "status": "failed"}}
+{"timestamp": 1765930816.9084296, "datetime": "2025-12-17T01:20:16.908429", "type": "text", "content": "🏁 FINAL REPORT (developer):\n<tool_code>\n{\n    \"name\": \"run_shell_command\",\n    \"arguments\": {\n        \"command\": \"npm run dev\",\n        \"background\": true\n    }\n}\n</tool_code>", "metadata": {"role": "developer"}}
+{"timestamp": 1765930816.9170861, "datetime": "2025-12-17T01:20:16.917086", "type": "status", "content": "Thinking (openai_cloud)...", "metadata": {}}
+{"timestamp": 1765930817.212892, "datetime": "2025-12-17T01:20:17.212892", "type": "error", "content": "Provider error: litellm.BadRequestError: OpenAIException - An assistant message with 'tool_calls' must be followed by tool messages responding to each 'tool_call_id'. The following tool_call_ids did not have response messages: call_bKunHHSkgrrdnaF1k9d1HhDW", "metadata": {}}
+{"timestamp": 1765930817.2287269, "datetime": "2025-12-17T01:20:17.228726", "type": "log", "content": "Failover: Switching provider openai_cloud -> ollama_codestral, keeping model gpt-4o", "metadata": {"role": "system", "from_provider": "openai_cloud", "to_provider": "ollama_codestral", "model_id": "gpt-4o"}}
+{"timestamp": 1765930817.9119964, "datetime": "2025-12-17T01:20:17.911996", "type": "error", "content": "Provider error: litellm.APIConnectionError: OllamaException - 'messages'", "metadata": {}}
+{"timestamp": 1765930817.9270167, "datetime": "2025-12-17T01:20:17.927016", "type": "log", "content": "Failover: Switching provider ollama_codestral -> ollama_fallback, keeping model gpt-4o", "metadata": {"role": "system", "from_provider": "ollama_codestral", "to_provider": "ollama_fallback", "model_id": "gpt-4o"}}
+{"timestamp": 1765930817.9575615, "datetime": "2025-12-17T01:20:17.957561", "type": "error", "content": "Provider error: litellm.APIConnectionError: OllamaException - 'messages'", "metadata": {}}
+{"timestamp": 1765930817.9635625, "datetime": "2025-12-17T01:20:17.963562", "type": "log", "content": "Failover: Switching provider ollama_fallback -> ollama_local, keeping model gpt-4o", "metadata": {"role": "system", "from_provider": "ollama_fallback", "to_provider": "ollama_local", "model_id": "gpt-4o"}}
+{"timestamp": 1765930818.015016, "datetime": "2025-12-17T01:20:18.015016", "type": "error", "content": "Provider error: litellm.APIConnectionError: OllamaException - 'messages'", "metadata": {}}
+{"timestamp": 1765930818.0200212, "datetime": "2025-12-17T01:20:18.020021", "type": "log", "content": "Failover: Switching provider ollama_local -> ollama_qwen3, keeping model gpt-4o", "metadata": {"role": "system", "from_provider": "ollama_local", "to_provider": "ollama_qwen3", "model_id": "gpt-4o"}}
+{"timestamp": 1765930818.0515504, "datetime": "2025-12-17T01:20:18.051550", "type": "error", "content": "Provider error: litellm.APIConnectionError: OllamaException - 'messages'", "metadata": {}}
+{"timestamp": 1765930818.056547, "datetime": "2025-12-17T01:20:18.056546", "type": "error", "content": "No fallback available (all providers tried).", "metadata": {}}

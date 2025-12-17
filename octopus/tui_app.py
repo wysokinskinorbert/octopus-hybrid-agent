@@ -1,6 +1,72 @@
 import re
 from textual.app import App, ComposeResult
-from textual.widgets import Header, Footer, Input, Static, Label, Button, DataTable, TabbedContent, TabPane, Select, SelectionList, TextArea, LoadingIndicator, Markdown
+from textual.widgets import Header, Footer, Input, Static, Label, Button, DataTable, TabbedContent, TabPane, Select, SelectionList, TextArea, LoadingIndicator, Markdown, RichLog
+from textual.containers import Vertical, Horizontal, Grid, VerticalScroll
+
+# ... (other imports) ...
+
+class CollapsibleLog(Vertical):
+    """Collapsible widget for verbose logs (e.g. shell output)."""
+    
+    DEFAULT_CSS = """
+    CollapsibleLog {
+        height: auto;
+        margin-top: 1;
+        border-left: solid $accent;
+    }
+    CollapsibleLog .header {
+        width: 100%;
+        height: 1;
+        background: $surface;
+        color: $text;
+        padding: 0 1;
+    }
+    CollapsibleLog .header:hover {
+        background: $surface-lighten-1;
+    }
+    CollapsibleLog RichLog {
+        height: auto;
+        max-height: 20;  /* Limit max height by default */
+        min-height: 5;
+        background: $surface-darken-2;
+        display: none;   /* Hidden by default */
+        padding: 0 1;
+        border-top: solid $secondary;
+    }
+    CollapsibleLog.expanded RichLog {
+        display: block;
+    }
+    """
+    
+    def __init__(self, title: str, **kwargs):
+        super().__init__(**kwargs)
+        self.title_text = title
+        self.is_expanded = False
+        self.log_widget = RichLog(markup=True, wrap=True)
+        self.header = Static(f"▶ {title}", classes="header")
+        
+    def compose(self) -> ComposeResult:
+        yield self.header
+        yield self.log_widget
+        
+    def on_click(self):
+        """Toggle expansion on click."""
+        self.is_expanded = not self.is_expanded
+        self.toggle_class("expanded")
+        icon = "▼" if self.is_expanded else "▶"
+        self.header.update(f"{icon} {self.title_text}")
+        if self.is_expanded:
+            self.log_widget.scroll_end(animate=False)
+            
+    def write(self, content: str):
+        """Append text to the log."""
+        self.log_widget.write(content)
+        
+    def update_status(self, new_title: str):
+        """Update header title (e.g. to show status)."""
+        self.title_text = new_title
+        icon = "▼" if self.is_expanded else "▶"
+        self.header.update(f"{icon} {self.title_text}")
 from textual.containers import Vertical, Horizontal, Grid, VerticalScroll
 from textual.screen import Screen, ModalScreen
 from textual.worker import Worker, get_current_worker
@@ -20,11 +86,83 @@ from typing import Dict, List, Tuple
 from .core.session import OctopusSession
 from .core.config_store import ConfigStore, ProviderConfig, RoleConfig, MCPServerConfig
 from .core.commands import SlashCommandRegistry
+from .ui.remediation_components import ErrorRecoveryModal, LiveTimerLabel, ConfirmModal, MarkdownModal
+from .ui.tool_monitor import ToolExecutionMonitor
 
 # Calculate absolute path to CSS to avoid CWD dependency
 _CSS_PATH = os.path.join(os.path.dirname(__file__), "ui", "styles.tcss")
 
 # --- CUSTOM WIDGETS ---
+
+class ModeHeader(Static):
+    """Displays current session mode (PLAN | EXECUTE | REVIEW) - Claude Code minimal style."""
+    DEFAULT_CSS = """
+    ModeHeader {
+        dock: top;
+        height: 1;
+        background: #1e1e1e;
+        padding: 0 1;
+        color: #888888;
+    }
+    .mode-plan { color: #9b59b6; }
+    .mode-execute { color: #007acc; }
+    .mode-review { color: #2ecc71; }
+    """
+    mode = reactive("plan")
+
+    def compose(self) -> ComposeResult:
+        mode_text = f"MODE: {self.mode.upper()}"
+        yield Label(mode_text, id="mode-label", classes=f"mode-{self.mode}")
+
+    def watch_mode(self, mode: str):
+        """Update mode display when mode changes."""
+        try:
+            label = self.query_one("#mode-label", Label)
+            label.update(f"MODE: {mode.upper()}")
+            label.remove_class("mode-plan", "mode-execute", "mode-review")
+            label.add_class(f"mode-{mode}")
+        except Exception:
+            pass
+
+class ShellInput(Input):
+    """Input with command history support."""
+    
+    BINDINGS = [
+        ("up", "history_up", "Previous command"),
+        ("down", "history_down", "Next command"),
+    ]
+    
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.history = []
+        self.history_index = -1
+        self.current_input = ""
+
+    def action_history_up(self):
+        if not self.history: return
+        if self.history_index == -1:
+            self.current_input = self.value
+            self.history_index = len(self.history) - 1
+        else:
+            self.history_index = max(0, self.history_index - 1)
+        self.value = self.history[self.history_index]
+        self.cursor_position = len(self.value)
+
+    def action_history_down(self):
+        if self.history_index == -1: return
+        if self.history_index == len(self.history) - 1:
+            self.history_index = -1
+            self.value = self.current_input
+        else:
+            self.history_index += 1
+            self.value = self.history[self.history_index]
+        self.cursor_position = len(self.value)
+        
+    def add_to_history(self, cmd: str):
+        if cmd and (not self.history or self.history[-1] != cmd):
+            self.history.append(cmd)
+        self.history_index = -1
+        self.current_input = ""
 
 class CodeBlock(Vertical):
     """Collapsible Code Block."""
@@ -71,24 +209,34 @@ class CodeBlock(Vertical):
 
 
 class MessageWidget(Vertical):
-    """Widget for a single chat message."""
+    """Widget for a single chat message with enhanced styling."""
     DEFAULT_CSS = """
     MessageWidget {
         background: $surface;
-        padding: 1;
         margin-bottom: 1;
+        padding: 0;
         border-left: wide $primary;
         height: auto;
-        max-height: 60;
-        overflow-y: auto;
     }
-    .role-header {
-        text-style: bold;
-        margin-bottom: 1;
+    
+    .header {
+        dock: top;
+        background: $surface-darken-1;
+        padding: 0 1;
+        height: 1;
+        color: $text-secondary;
     }
-    .content {
-        color: $text-muted;
-        width: 100%;
+    
+    .content-box {
+        padding: 1;
+        background: $surface;
+    }
+    
+    .code-block {
+        margin: 1 0;
+        border: solid $secondary;
+        background: #1e1e1e;
+        padding: 1;
     }
     """
 
@@ -98,39 +246,36 @@ class MessageWidget(Vertical):
         self.content = content
         self.model_id = model_id
 
-    def on_mount(self):
-        # Role Styling
-        role_colors = {
-            "architect": "#9b59b6", # Purple
-            "developer": "#3498db", # Blue
-            "reviewer": "#e67e22",  # Orange
-            "user": "#2ecc71",      # Green
-            "system": "#7f8c8d"     # Grey
+    def compose(self):
+        # Role prefixes (Claude Code style)
+        role_prefixes = {
+            "architect": "[arch]",
+            "developer": "[dev]",
+            "reviewer": "[✓]",
+            "user": "[user]",
+            "system": "[sys]"
         }
-        color = role_colors.get(self.role, "white")
-        self.styles.border_left = ("solid", color)
-
-        # Header with model_id if available
-        header_text = self.role.upper()
-        if self.model_id:
-            header_text += f" [{self.model_id}]"
-        self.mount(Label(header_text, classes="role-header"))
-
-        # Content Parsing (Split Code Blocks)
-        # Regex to find ```lang ... ```
-        parts = re.split(r'```(\w+)?\n(.*?)```', self.content, flags=re.DOTALL)
         
-        if len(parts) == 1:
-            # No code blocks
-            self.mount(Markdown(self.content, classes="content"))
-        else:
-            for i, part in enumerate(parts):
-                if i % 3 == 0: # Text
-                    if part.strip():
-                        self.mount(Markdown(part, classes="content"))
-                elif i % 3 == 2: # Code Content
-                    lang = parts[i-1] or "text"
-                    self.mount(CodeBlock(part, lang))
+        role_colors = {
+            "architect": "#888888",  # Muted
+            "developer": "#007acc",  # Primary blue
+            "reviewer": "#2ecc71",   # Success green
+            "user": "#007acc",       # Primary blue
+            "system": "#888888"      # Muted
+        }
+        
+        color = role_colors.get(self.role, "#888888")
+        prefix = role_prefixes.get(self.role, f"[{self.role}]")
+        
+        # Strip whitespace to avoid extra vertical gaps
+        content = self.content.strip()
+        
+        # Format: [role] content
+        # Optionally show model in verbose mode (can be toggled later)
+        full_content = f"{prefix} {content}"
+        
+        # Render as simple markdown without header badge
+        yield Markdown(full_content)
 
 
 # --- TODO WIDGETS (Claude Code Style) ---
@@ -336,11 +481,33 @@ class EnhancedStatusBar(Horizontal):
         self.cwd = cwd
         self.start_time = time.time()
         self.model_stats: Dict[str, int] = {}
+        self.current_model = "N/A"
+        self.git_branch = self._get_git_branch()
+
+    def _get_git_branch(self) -> str:
+        """Get current git branch name."""
+        try:
+            import subprocess
+            result = subprocess.run(
+                ['git', 'branch', '--show-current'],
+                cwd=self.cwd,
+                capture_output=True,
+                text=True,
+                timeout=1
+            )
+            if result.returncode == 0:
+                return result.stdout.strip() or "main"
+        except Exception:
+            pass
+        return "N/A"
 
     def compose(self) -> ComposeResult:
-        yield Static(f"📁 {self.cwd}", id="cwd-label", classes="status-section")
-        yield Static("⏱ 00:00", id="timer-label", classes="status-section")
-        yield Static("", id="model-stats", classes="status-section")
+        # Yield labels directly - EnhancedStatusBar is already Horizontal
+        yield Label(f"📁 {self.cwd}", id="cwd-label")
+        yield Label(f"🔀 {self.git_branch}", id="git-label")
+        yield Label("⏱ 00:00:00", id="timer-label")
+        yield Label("🧠 N/A", id="model-label")
+        yield Label("", id="model-stats")
 
     def update_timer(self):
         """Update session timer display."""
@@ -355,6 +522,14 @@ class EnhancedStatusBar(Horizontal):
             self.query_one("#timer-label").update(timer_str)
         except Exception:
             pass
+
+    def on_mount(self):
+        """Start refresh timer for status bar updates (300ms)."""
+        self.set_interval(0.3, self.refresh_display)
+
+    def refresh_display(self):
+        """Refresh timer display (called every 300ms)."""
+        self.update_timer()
 
     def update_model_stats(self, stats: Dict[str, int]):
         """Update per-model token statistics."""
@@ -455,61 +630,80 @@ class ActivityWidget(Vertical):
         self._streaming_active = False
 
     def add_step(self, text: str, tool_name: str = None, arguments: dict = None) -> str:
-        """Add a new step with optional tool name, timestamp, and arguments."""
-        from datetime import datetime
+        """Add a new step (Claude Code minimal style - single line)."""
         self.step_counter += 1
         step_id = f"step_{self.step_counter}"
-
-        # Zachowaj oryginalny tekst
         self.step_texts[step_id] = text
-
-        # Format: [HH:MM:SS] ⟳ tool_name → description
-        parts = []
-        if self.show_timestamps:
-            parts.append(f"[dim]{datetime.now().strftime('%H:%M:%S')}[/dim]")
-        parts.append("⟳")
-        if tool_name:
-            parts.append(f"[bold cyan]{tool_name}[/bold cyan]")
-        if text:
-            parts.append(f"→ {text}")
-
-        self.mount(Label(" ".join(parts), id=step_id, classes="step step-running"))
-
-        # Szczegóły argumentów (Claude Code style - pokazuj max 3 argumenty)
-        if arguments and len(arguments) > 0:
-            for key, value in list(arguments.items())[:3]:
-                val_str = str(value)
-                # Skróć długie wartości
-                if len(val_str) > 60:
-                    val_str = val_str[:57] + "..."
-                # Usuń newlines
-                val_str = val_str.replace('\n', ' ').replace('\r', '')
-                self.mount(Label(f"    [dim]{key}:[/dim] {val_str}", classes="step-arg"))
-
         self.current_step_id = step_id
+
+        # Determine display text
+        is_shell = False
+        display_text = text
+        if tool_name == "run_shell_command" and arguments and "command" in arguments:
+            is_shell = True
+            cmd = arguments["command"]
+            if len(cmd) > 80: cmd = cmd[:77] + "..."
+            display_text = f"⟳ {cmd}"
+        elif tool_name:
+            display_text = f"⟳ {tool_name}..."
+        else:
+            display_text = f"⟳ {text}..."
+
+        # Use CollapsibleLog for shell commands
+        if is_shell:
+            widget = CollapsibleLog(display_text, id=step_id, classes="step step-running")
+            self.mount(widget)
+            self.call_after_refresh(self.scroll_end)
+            return step_id
+
+        self.mount(Label(display_text, id=step_id, classes="step step-running"))
         return step_id
 
     def update_step(self, step_id: str, suffix: str, status: str = "done"):
         """Aktualizuje krok zachowując oryginalny tekst i dodając suffix."""
         try:
-            lbl = self.query_one(f"#{step_id}", Label)
+            widget = self.query_one(f"#{step_id}")
             icon = "✓" if status == "done" else "✗"
             cls = "step-done" if status == "done" else "step-error"
 
-            # Pobierz oryginalny tekst z cache
-            original = self.step_texts.get(step_id, "")
+            widget.remove_class("step-running")
+            widget.add_class(cls)
+            
+            try:
+                 self.stop_tool_indicator()
+            except: pass
 
-            # Zachowaj oryginalny tekst, dodaj suffix
-            new_text = f"{icon} {original} {suffix}"
+            if isinstance(widget, CollapsibleLog):
+                # Update header title
+                # Extract cmd from original title if possible, or just use suffix
+                # We kept original text in step_texts[step_id]
+                original = self.step_texts[step_id]
+                
+                # Logic to format final status
+                clean_status = suffix
+                # Check for exit code pattern
+                if "Exit 0" in suffix:
+                     clean_status = "Done"
+                
+                # Construct new title
+                if "⟳" in widget.title_text:
+                     base_title = widget.title_text.replace("⟳ ", "").replace("...", "")
+                else:
+                     base_title = "Command"
+                     
+                new_title = f"{base_title} ({clean_status})"
+                widget.update_status(new_title)
+                
+            elif isinstance(widget, Label):
+                # Standard label update
+                original = self.step_texts.get(step_id, "Step")
+                if status == "done":
+                    widget.update(f"{icon} {original} {suffix}")
+                else:
+                    widget.update(f"{icon} {original} ({suffix})")
 
-            # Ogranicz całość do rozsądnej długości
-            if len(new_text) > 120:
-                new_text = new_text[:117] + "..."
-
-            lbl.update(new_text)
-            lbl.set_classes(f"step {cls}")
         except Exception:
-            pass  # Widget might be gone
+            pass # Widget might be gone
 
     def log(self, text: str):
         """Add a simple log line (info)."""
@@ -519,6 +713,10 @@ class ActivityWidget(Vertical):
         """Add detailed reasoning/thought block."""
         prefix = f"[{model}] " if model else ""
         self.mount(Label(f"{prefix}{text}", classes="step step-reasoning"))
+    
+    def log_thinking(self, model: str):
+        """Show model is thinking/generating."""
+        self.mount(Label(f"💭 Thinking ({model})...", classes="step step-running"))
 
     def add_detail(self, content: str):
         """Add expandable detail block (e.g. diffs, logs)."""
@@ -1741,9 +1939,13 @@ class OctopusApp(App):
         ("f4", "cancel", "Stop")
     ]
 
-    def __init__(self):
+    def __init__(self, auto_approve: bool = False):
         super().__init__()
-        self.session = OctopusSession()
+        self.session = OctopusSession(auto_approve=auto_approve)
+        
+        # Connect async event callback for real-time streaming
+        self.session.on_event_callback = self.handle_async_event
+        
         self.worker = None
         self.activity_widget = None
         self.cwd = os.getcwd()  # Store CWD
@@ -1751,14 +1953,12 @@ class OctopusApp(App):
         self.command_registry = None  # Initialized after mount
 
     def compose(self) -> ComposeResult:
-        """Create the main UI layout with TODO panel (Claude Code style)."""
-        yield Header()
-        with Horizontal(id="main_container"):
-            with Vertical(id="chat_area"):
-                yield VerticalScroll(id="chat_container")
-                yield Input(placeholder="Enter message... | /help /clear /todo /model", id="user_input")
-            yield TodoWidget(id="todo_panel")
-        # EnhancedStatusBar zamiast Footer - pokazuje timer, CWD i statystyki
+        """Create the main UI layout (Claude Code style - No Sidebar, Minimal)."""
+        yield ModeHeader(id="mode_header")
+        with Vertical(id="main_container"):
+            yield VerticalScroll(id="chat_container")
+            yield ShellInput(placeholder=">> Enter command... | /help", id="user_input")
+        # EnhancedStatusBar zamiast Footer
         yield EnhancedStatusBar(cwd=self.cwd, id="status_bar")
 
     def get_or_create_activity_widget(self):
@@ -1898,11 +2098,22 @@ class OctopusApp(App):
         if not message.value.strip():
             return
         user_msg = message.value.strip()
-        self.query_one("#user_input").value = ""
+        
+        inp = self.query_one("#user_input", ShellInput)
+        inp.add_to_history(user_msg)
+        inp.value = ""
 
         # Handle exit commands
         if user_msg.lower() in ["/exit", "exit", "/quit", "quit"]:
             self.exit()
+            return
+            
+        # Handle Debug Toggle
+        if user_msg.lower() == "/debug":
+            current = self.session.debug_mode
+            self.session.debug_mode = not current
+            state = "ON" if not current else "OFF"
+            self.show_system_message(f"🛠️ Debug Mode: **{state}**", style="bold orange" if not current else "dim")
             return
 
         # Handle slash commands FIRST (Claude Code style)
@@ -1994,6 +2205,16 @@ class OctopusApp(App):
         try:
             status_bar = self.query_one("#status_bar", EnhancedStatusBar)
             status_bar.update_timer()
+            
+            # Update Mode Header
+            try:
+                mode_header = self.query_one("#mode_header", ModeHeader)
+                if hasattr(self.session, 'session_mode'):
+                    current_mode = self.session.session_mode.value
+                    if mode_header.mode != current_mode:
+                        mode_header.mode = current_mode
+            except: pass
+
         except Exception:
             pass
 
@@ -2036,9 +2257,14 @@ class OctopusApp(App):
                 if event.type == "text":
                     # Close activity block visually
                     self.call_from_thread(self.close_activity_widget)
-                    model_id = event.metadata.get("model_id")
-                    self.call_from_thread(chat.mount, MessageWidget(role, event.content, model_id=model_id))
-                    self.call_from_thread(chat.scroll_end)
+                    def _mount_and_scroll():
+                        model_id = event.metadata.get("model_id")
+                        msg_widget = MessageWidget(role, event.content, model_id=model_id)
+                        chat.mount(msg_widget)
+                        # Use call_after_refresh for reliable scroll (waits for render)
+                        chat.call_after_refresh(lambda: chat.scroll_end(animate=False))
+
+                    self.call_from_thread(_mount_and_scroll)
                 
                 elif event.type == "reasoning":
                     # Display model thoughts/plans inside the activity widget
@@ -2048,36 +2274,67 @@ class OctopusApp(App):
                         aw.log_reasoning(txt, model)
                     self.call_from_thread(_log_reasoning, event.content, r_model)
 
+                elif event.type == "streaming":
+                    # Stream content to activity widget
+                    s_content = event.content
+                    def _stream_output(txt):
+                        aw = self.get_or_create_activity_widget()
+                        aw.append_streaming(txt)
+                    self.call_from_thread(_stream_output, s_content)
+
                 elif event.type == "status":
                     s_model = event.metadata.get('model_id', '')
                     s_role = event.metadata.get('role', '')
                     iteration = event.metadata.get('iteration')
                     max_iterations = event.metadata.get('max_iterations')
 
-                    # Sprawdź czy to event iteracji (delegacja)
+                    # Check if this is an iteration event (delegation)
                     if iteration is not None and max_iterations is not None:
+                        # Claude Code style: Compact iteration status as text
                         def _show_iteration(role, model, cur, mx):
                             aw = self.get_or_create_activity_widget()
-                            # Znajdź istniejący IterationProgress lub utwórz nowy
-                            try:
-                                prog = aw.query_one(IterationProgress)
-                                prog.update_progress(cur, mx)
-                            except Exception:
-                                # Nie ma jeszcze - utwórz
-                                aw.mount(IterationProgress(role or "worker", model or "model", cur, mx))
+                            # Simple text instead of heavy widget
+                            iter_text = f"[dim]{role} ({model}) iteration {cur}/{mx}[/dim]"
+                            aw.log(iter_text)
                         self.call_from_thread(_show_iteration, s_role, s_model, iteration, max_iterations)
                     else:
-                        # Zwykły status - loguj jako tekst
+                        # Regular status - log as text
                         def _log_status(txt, model):
                             aw = self.get_or_create_activity_widget()
                             prefix = f"[{model}] " if model else ""
                             aw.log(f"[dim]{prefix}{txt}[/dim]")
                         self.call_from_thread(_log_status, event.content, s_model)
 
+                elif event.type == "stats":
+                    # Update status bar with model token usage
+                    stats = event.metadata.get("stats", {})
+                    def _update_stats_ui(s):
+                        try:
+                            self.query_one("#status_bar", EnhancedStatusBar).update_model_stats(s)
+                            # self.notify(f"Stats updated: {s}") # Debug
+                        except: pass
+                    self.call_from_thread(_update_stats_ui, stats)
+
                 elif event.type == "tool_call":
                     t_name = event.metadata.get('name')
                     t_model = event.metadata.get('model_id')
                     t_args = event.metadata.get('arguments', {})
+
+                    # --- STAGE 3: Tool Execution Monitor ---
+                    # --- STAGE 3: Tool Execution Monitor ---
+                    cmd = t_args.get('command', '')
+                    def _start_monitor(t_start_name, t_start_cmd):
+                        self.current_monitor = ToolExecutionMonitor(
+                            app=self,
+                            tool_name=t_start_name,
+                            command=t_start_cmd,
+                            timeout=300
+                        )
+                        self.current_monitor.start()
+                    
+                    self.call_from_thread(_start_monitor, t_name, cmd)
+                    # ---------------------------------------
+                    # ---------------------------------------
 
                     def _add_tool_step(name, model, args):
                         aw = self.get_or_create_activity_widget()
@@ -2128,8 +2385,41 @@ class OctopusApp(App):
                     self.call_from_thread(_add_tool_step, t_name, t_model, t_args)
 
                 elif event.type == "tool_result":
+                    # --- STAGE 3: Stop Monitor ---
+                    def _stop_monitor():
+                        if self.current_monitor:
+                            self.current_monitor.stop()
+                            self.current_monitor = None
+                    self.call_from_thread(_stop_monitor)
+                    # -----------------------------
+
                     full_result = event.metadata.get('full_result', event.content)
                     tool_name = event.metadata.get('name', '')
+                    
+                    # --- STAGE 2: Error Detection ---
+                    content = event.content
+                    is_error = any([
+                        "Error:" in content,
+                        "Failed" in content,
+                        "Exception" in content,
+                        event.metadata.get("is_error", False),
+                        ("exit code" in content.lower() and 
+                         not any(x in content.lower() for x in ["exit code: 0", "exit code 0"]))
+                    ])
+                    
+                    if is_error:
+                        self.session.last_error = content
+                        
+                        def _show_recovery(err_text, t_name):
+                            self.push_screen(
+                                ErrorRecoveryModal(
+                                    error_text=err_text[:500] + "..." if len(err_text) > 500 else err_text,
+                                    tool_name=t_name or "Unknown Tool"
+                                ),
+                                callback=self.handle_error_recovery
+                            )
+                        self.call_from_thread(_show_recovery, content, tool_name)
+                    # --------------------------------
 
                     def _finish_tool_step(res, full, name):
                         aw = self.get_or_create_activity_widget()
@@ -2224,26 +2514,30 @@ class OctopusApp(App):
 
                 elif event.type == "todo_add":
                     # Claude Code style: add TODO item to panel
-                    todo_id = event.metadata.get("id", f"todo_{len(self.query_one('#todo_panel').todos)}")
-                    content = event.content
-                    status = event.metadata.get("status", "pending")
-                    def _add_todo(tid, txt, st):
-                        try:
-                            self.query_one("#todo_panel").add_todo(tid, txt, st)
-                        except Exception:
-                            pass
-                    self.call_from_thread(_add_todo, todo_id, content, status)
+                    # [DISABLED] Panel removed in minimalist UI
+                    # todo_id = event.metadata.get("id", f"todo_{len(self.query_one('#todo_panel').todos)}")
+                    # content = event.content
+                    # status = event.metadata.get("status", "pending")
+                    # def _add_todo(tid, txt, st):
+                    #     try:
+                    #         self.query_one("#todo_panel").add_todo(tid, txt, st)
+                    #     except Exception:
+                    #         pass
+                    # self.call_from_thread(_add_todo, todo_id, content, status)
+                    pass
 
                 elif event.type == "todo_update":
                     # Claude Code style: update TODO item status
-                    todo_id = event.metadata.get("id")
-                    status = event.metadata.get("status")
-                    def _update_todo(tid, st):
-                        try:
-                            self.query_one("#todo_panel").update_todo(tid, st)
-                        except Exception:
-                            pass
-                    self.call_from_thread(_update_todo, todo_id, status)
+                    # [DISABLED] Panel removed in minimalist UI
+                    # todo_id = event.metadata.get("id")
+                    # status = event.metadata.get("status")
+                    # def _update_todo(tid, st):
+                    #     try:
+                    #         self.query_one("#todo_panel").update_todo(tid, st)
+                    #     except Exception:
+                    #         pass
+                    # self.call_from_thread(_update_todo, todo_id, status)
+                    pass
 
                 elif event.type == "todo_clear":
                     # Clear all TODOs
@@ -2294,3 +2588,145 @@ class OctopusApp(App):
 if __name__ == "__main__":
     app = OctopusApp()
     app.run()
+    # --- SLASH COMMAND HANDLERS (Stage 4) ---
+
+    def handle_slash_command(self, cmd: str):
+        """Route slash commands to handlers."""
+        # Simple parsing
+        parts = cmd.split()
+        base_cmd = parts[0]
+        
+        handler = self.slash_commands.get(base_cmd)
+        if handler:
+            handler()
+        else:
+            self.notify(f"Unknown command: {base_cmd}. Type /help for available commands.")
+
+    def show_system_status(self):
+        """Display current system status."""
+        status = self.session.get_current_status()
+        
+        status_text = f"""
+# System Status
+
+- **Mode**: {status['mode'].upper()}
+- **Current Task**: {status['task'] or 'None'}
+- **Elapsed Time**: {status['elapsed']:.1f}s
+- **Active Model**: {status['model']}
+- **Role**: {status['role']}
+- **Last Error**: {status['last_error'] or 'None'}
+        """
+        
+        self.push_screen(MarkdownModal(status_text, title="System Status"))
+
+    def show_debug_info(self):
+        """Show last error and debug information."""
+        last_error = getattr(self.session, 'last_error', None) or "No recent errors"
+        
+        debug_text = f"""
+# Debug Information
+
+### Last Error
+```
+{last_error}
+```
+
+- **Session Log**: `{self.session.logger.log_file}`
+- **Trajectory**: `logs/trajectory_{self.session.trajectory.session_id}.json`
+        """
+        
+        self.push_screen(MarkdownModal(debug_text, title="Debug Info"))
+
+    def show_trajectory(self):
+        """Show agent trajectory summary."""
+        summary = self.session.trajectory.get_summary()
+        
+        text = f"""
+# Agent Trajectory Summary
+
+- **Total Steps**: {summary['total_steps']}
+- **Duration**: {summary.get('duration', 0):.1f}s
+- **Decision Types**:
+```json
+{json.dumps(summary.get('decision_types', {}), indent=2)}
+```
+        """
+        
+        self.push_screen(MarkdownModal(text, title="Trajectory"))
+
+    def show_logs(self):
+        """Open log viewer modal."""
+        log_file = self.session.logger.log_file
+        self.notify(f"Session log: {log_file}")
+        # Ideally we would show content, but for now just notify path
+
+    def retry_last_operation(self):
+        """Retry last failed operation."""
+        # Placeholder for deeper retry logic
+        self.notify("🔄 Retry initiated (via command)")
+
+    def cancel_operation(self):
+        """Cancel current operation."""
+        try:
+            self.session.abort()
+            self.notify("❌ Operation cancelled")
+        except Exception as e:
+            self.notify(f"Cancellation failed: {e}", severity="error")
+
+    def show_slash_help(self):
+        """Show available slash commands."""
+        help_text = """
+# Available Slash Commands
+
+- `/status` - Show current task status
+- `/debug` - Show last error details
+- `/logs` - View session logs path
+- `/trajectory` - View agent decisions
+- `/retry` - Retry last failed operation
+- `/cancel` - Cancel current operation
+- `/help` - Show this help
+        """
+        self.push_screen(MarkdownModal(help_text, title="Slash Commands"))
+
+    # --- ERROR RECOVERY HANDLERS (Stage 2) ---
+
+    def handle_error_recovery(self, choice: str):
+        """Handle user's error recovery choice."""
+        if choice == "retry":
+            self.notify("🔄 Retrying last operation...")
+            # Trigger retry logic here
+            
+        elif choice == "skip":
+            self.notify("⏭ Skipping failed operation, continuing...")
+            # Continue logic here
+            
+        elif choice == "abort":
+            self.notify("❌ Aborting task...")
+            self.session.abort()
+
+    # ==================== Async Event Handlers ====================
+
+    def handle_async_event(self, event):
+        """Handle async events from session (e.g. streaming from background threads)."""
+        if event.type == "streaming":
+            def _update_ui(content):
+                aw = self.get_or_create_activity_widget()
+                if aw:
+                    aw.append_streaming(content)
+            self.call_from_thread(_update_ui, event.content)
+
+    def _log_event(self, text, style="dim", model=None, role=None):
+        """Log event to activity widget."""
+        def _do_log(txt, st, mdl, rl):
+            # Check if app is closing
+            if not self.is_running: return
+            try:
+                aw = self.get_or_create_activity_widget()
+                prefix = f"[{mdl}] " if mdl else ""
+                aw.log(f"[{st}]{prefix}{txt}[/{st}]")
+            except: pass
+            
+        self.call_from_thread(_do_log, text, style, model, role)
+            
+        elif choice == "logs":
+            self.show_debug_info()

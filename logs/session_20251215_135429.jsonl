@@ -1,0 +1,4 @@
+{"event": "session_start", "timestamp": 1765803269.789252}
+{"timestamp": 1765803269.7922537, "datetime": "2025-12-15T13:54:29.792253", "type": "init", "content": "Session initialized for role: architect", "metadata": {"provider": "openai_cloud"}}
+{"timestamp": 1765803269.8257833, "datetime": "2025-12-15T13:54:29.825783", "type": "status", "content": "Initializing MCP Servers...", "metadata": {}}
+{"timestamp": 1765803270.0087068, "datetime": "2025-12-15T13:54:30.008706", "type": "status", "content": "Connected to internal_fs (4 tools)", "metadata": {}}

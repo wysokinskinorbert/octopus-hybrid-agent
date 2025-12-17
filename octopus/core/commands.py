@@ -63,32 +63,39 @@ class SlashCommandRegistry:
             usage="/todo [show|hide]"
         )
         self.register(
-            "style",
-            "Set output style (minimal/balanced/detailed)",
-            self._cmd_style,
-            aliases=["s"],
-            usage="/style [minimal|balanced|detailed]"
+            "verbose",
+            "Toggle verbose output mode",
+            self._cmd_verbose,
+            aliases=["v"],
+            usage="/verbose [on|off]"
         )
         self.register(
-            "model",
-            "Show or switch active model",
-            self._cmd_model,
-            aliases=["m"],
-            usage="/model [model_name]"
-        )
-        self.register(
-            "role",
-            "Show or switch active role",
-            self._cmd_role,
-            aliases=["r"],
-            usage="/role [architect|developer|reviewer]"
+            "theme",
+            "Switch color theme",
+            self._cmd_theme,
+            aliases=["th"],
+            usage="/theme [dark|light|minimal]"
         )
         self.register(
             "status",
-            "Show session status and statistics",
-            self._cmd_status,
+            "Configure status bar display",
+            self._cmd_status_bar,
             aliases=["stat"],
-            usage="/status"
+            usage="/status [compact|full]"
+        )
+        self.register(
+            "export",
+            "Export session as markdown",
+            self._cmd_export,
+            aliases=["save", "exp"],
+            usage="/export [filename]"
+        )
+        self.register(
+            "debug",
+            "Toggle debug mode",
+            self._cmd_debug,
+            aliases=["dbg"],
+            usage="/debug"
         )
         self.register(
             "config",
@@ -102,7 +109,7 @@ class SlashCommandRegistry:
             "Reset conversation history",
             self._cmd_reset,
             aliases=[],
-            usage="/reset"
+            usage="/reset confirm"
         )
 
     def register(self, name: str, description: str, handler: Callable,
@@ -376,10 +383,127 @@ Usage: `{cmd.usage}`
 
         self._show_message(status_info)
 
+    def _cmd_verbose(self, args: str):
+        """Toggle verbose output mode (Stage 3 feature)."""
+        mode = args.strip().lower()
+        
+        current = getattr(self.app, 'verbose_mode', False)
+        
+        if not mode or mode == "toggle":
+            new_mode = not current
+        elif mode in ["on", "true", "1"]:
+            new_mode = True
+        elif mode in ["off", "false", "0"]:
+            new_mode = False
+        else:
+            self._show_error(f"Invalid mode. Use: on, off, or toggle")
+            return
+        
+        self.app.verbose_mode = new_mode
+        status = "enabled" if new_mode else "disabled"
+        self._show_message(f"Verbose mode {status}. Tool outputs will be {'detailed' if new_mode else 'compact'}.")
+
+    def _cmd_theme(self, args: str):
+        """Switch color theme (Stage 4 feature)."""
+        theme = args.strip().lower()
+        valid_themes = ["dark", "light", "minimal"]
+        
+        if not theme:
+            current = getattr(self.app, 'current_theme', 'dark')
+            self._show_message(
+                f"**Themes:**\n\n"
+                f"  Current: `{current}`\n\n"
+                f"  Available: {', '.join(valid_themes)}\n\n"
+                f"Usage: `/theme <theme_name>`"
+            )
+            return
+        
+        if theme not in valid_themes:
+            self._show_error(f"Invalid theme. Choose from: {', '.join(valid_themes)}")
+            return
+        
+        self.app.current_theme = theme
+        self._show_message(f"Theme set to: {theme}. Restart app to apply.")
+
+    def _cmd_status_bar(self, args: str):
+        """Configure status bar display (Stage 4 feature)."""
+        mode = args.strip().lower()
+        valid_modes = ["compact", "full"]
+        
+        if not mode:
+            current = getattr(self.app, 'status_bar_mode', 'full')
+            self._show_message(
+                f"**Status Bar Modes:**\n\n"
+                f"  Current: `{current}`\n\n"
+                f"  Available: {', '.join(valid_modes)}\n\n"
+                f"Usage: `/status <mode>`"
+            )
+            return
+        
+        if mode not in valid_modes:
+            self._show_error(f"Invalid mode. Choose from: {', '.join(valid_modes)}")
+            return
+        
+        self.app.status_bar_mode = mode
+        self._show_message(f"Status bar mode set to: {mode}")
+
+    def _cmd_export(self, args: str):
+        """Export session as markdown (Stage 4 feature)."""
+        import time
+        filename = args.strip() or f"octopus_session_{int(time.time())}.md"
+        
+        if not filename.endswith('.md'):
+            filename += '.md'
+        
+        try:
+            # Build markdown content
+            content = "# Octopus Session Export\n\n"
+            
+            if hasattr(self.app, 'session') and self.app.session:
+                session = self.app.session
+                
+                # Metadata
+                content += f"**Role**: {session.role_name}\n"
+                content += f"**Model**: {session.role_config.model_id}\n\n"
+                content += "---\n\n"
+                
+                # Messages
+                if hasattr(session, 'history'):
+                    for msg in session.history:
+                        role = msg.get('role', 'unknown')
+                        text = msg.get('content', '')
+                        content += f"### {role.upper()}\n\n{text}\n\n"
+                
+                # Token stats
+                if hasattr(session, 'token_stats'):
+                    content += "---\n\n## Token Usage\n\n"
+                    for model, tokens in session.token_stats.items():
+                        content += f"- {model}: {tokens:,}\n"
+            
+            # Write to file
+            import os
+            with open(filename, 'w', encoding='utf-8') as f:
+                f.write(content)
+            
+            abs_path = os.path.abspath(filename)
+            self._show_message(f"Session exported to: `{abs_path}`")
+        except Exception as e:
+            self._show_error(f"Export failed: {e}")
+
+    def _cmd_debug(self, args: str):
+        """Toggle debug mode."""
+        if hasattr(self.app, 'session') and self.app.session:
+            current = getattr(self.app.session, 'debug_mode', False)
+            self.app.session.debug_mode = not current
+            status = "enabled" if self.app.session.debug_mode else "disabled"
+            self._show_message(f"Debug mode {status}. Raw model output will be {'shown' if self.app.session.debug_mode else 'hidden'}.")
+        else:
+            self._show_error("No active session.")
+
     def _cmd_config(self, args: str):
         """Open configuration modal."""
-        if hasattr(self.app, 'action_open_config'):
-            self.app.action_open_config()
+        if hasattr(self.app, 'action_config_screen'):
+            self.app.action_config_screen()
         else:
             self._show_error("Config modal not available. Press F2.")
 

@@ -1,0 +1,7 @@
+{"event": "session_start", "timestamp": 1765969325.1819806}
+{"timestamp": 1765969325.197328, "datetime": "2025-12-17T12:02:05.197328", "type": "init", "content": "Session initialized for role: architect", "metadata": {"provider": "openai_cloud"}}
+{"timestamp": 1765969325.3121004, "datetime": "2025-12-17T12:02:05.312100", "type": "status", "content": "Initializing MCP Servers...", "metadata": {}}
+{"timestamp": 1765969325.486714, "datetime": "2025-12-17T12:02:05.486713", "type": "status", "content": "Connected to internal_fs (6 tools)", "metadata": {}}
+{"timestamp": 1765969334.5972674, "datetime": "2025-12-17T12:02:14.597267", "type": "user_msg", "content": "uruchom aplikację pogoda-dashboard", "metadata": {}}
+{"timestamp": 1765969334.6117096, "datetime": "2025-12-17T12:02:14.611709", "type": "text", "content": "⚠️ **Possible Duplicate Task**\nFound similar task from 2025-12-17 11:53:06:\n> uruchom aplikację pogoda-dashboard\n\nStatus: completed", "metadata": {"role": "system"}}
+{"timestamp": 1765969334.6991699, "datetime": "2025-12-17T12:02:14.699169", "type": "status", "content": "Thinking (openai_cloud)...", "metadata": {}}

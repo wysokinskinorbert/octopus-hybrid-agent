@@ -97,6 +97,15 @@ def handle_list_tools():
                     },
                     "required": ["command"]
                 }
+            },
+            {
+                "name": "check_environment",
+                "description": "Detect system environment (OS, Python, package managers). Call this BEFORE running platform-specific commands to avoid errors.",
+                "inputSchema": {
+                    "type": "object",
+                    "properties": {},
+                    "required": []
+                }
             }
         ]
     }
@@ -304,9 +313,8 @@ def handle_call_tool(params):
             
             cmd = resolve_python_command(raw_cmd)
             
-            try:
-                if is_background:
-                     # Start and detach
+            if is_background:
+                 try:
                      proc = subprocess.Popen(
                         cmd,
                         shell=True,
@@ -315,27 +323,90 @@ def handle_call_tool(params):
                         stdin=subprocess.DEVNULL
                      )
                      result_text = f"Started background process. PID: {proc.pid}"
-                else:
-                    proc = subprocess.run(
-                        cmd, 
-                        shell=True, 
-                        capture_output=True, 
-                        text=True, 
-                        timeout=60
+                 except Exception as e:
+                     result_text = f"Background Process Error: {e}"
+                     is_error = True
+            else:
+                # Streaming implementation
+                try:
+                    proc = subprocess.Popen(
+                        cmd,
+                        shell=True,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.STDOUT, # Merge stderr to stdout for simpler streaming
+                        text=True,
+                        bufsize=1, # Line buffered
+                        encoding='utf-8',
+                        errors='replace'
                     )
-                    stdout = proc.stdout
-                    stderr = proc.stderr
-                    exit_code = proc.returncode
-                    result_text = f"Exit Code: {exit_code}\nSTDOUT:\n{stdout.strip()}\nSTDERR:\n{stderr.strip()}"
                     
-                    if exit_code != 0 and "not recognized" in stderr:
-                         result_text += "\n[System Hint]: Check PATH or command spelling."
-                     
-            except subprocess.TimeoutExpired:
-                result_text = "Error: Command timed out (60s limit)"
-                is_error = True
+                    full_output = []
+                    
+                    # Stream output
+                    while True:
+                        line = proc.stdout.readline()
+                        if not line and proc.poll() is not None:
+                            break
+                        
+                        if line:
+                            # Send notification
+                            send_message({
+                                "jsonrpc": "2.0",
+                                "method": "notifications/tool_progress",
+                                "params": {
+                                    "tool": "run_shell_command",
+                                    "output": line
+                                }
+                            })
+                            full_output.append(line)
+                            
+                    exit_code = proc.poll()
+                    output_str = "".join(full_output).strip()
+                    
+                    if exit_code == 0:
+                        result_text = f"Exit Code: 0\nOUTPUT:\n{output_str}"
+                    else:
+                        result_text = f"Exit Code: {exit_code}\nOUTPUT:\n{output_str}"
+                        # Check for common path errors
+                        if exit_code != 0 and ("not recognized" in output_str or "not found" in output_str):
+                              result_text += "\n[System Hint]: Check PATH or command spelling."
+
+                except Exception as e:
+                    result_text = "Execution Error for '{}': {} (Raw: {})".format(cmd, e, repr(raw_cmd))
+                    is_error = True
+
+        elif name == "check_environment":
+            # Import and execute environment detection
+            try:
+                import platform
+                python_cmd = shutil.which("python") or shutil.which("python3")
+                
+                env = {
+                    "os": platform.system(),
+                    "python_installed": python_cmd,
+                    "python_version": None,
+                    "package_manager": None
+                }
+                
+                if python_cmd:
+                    try:
+                        proc = subprocess.run([python_cmd, "--version"], capture_output=True, text=True, timeout=5)
+                        env["python_version"] = proc.stdout.strip() or proc.stderr.strip()
+                    except: pass
+                
+                # Detect package manager
+                if env["os"] == "Windows":
+                    if shutil.which("choco"): env["package_manager"] = "chocolatey"
+                    elif shutil.which("winget"): env["package_manager"] = "winget"
+                elif env["os"] == "Linux":
+                    if shutil.which("apt-get"): env["package_manager"] = "apt"
+                    elif shutil.which("yum"): env["package_manager"] = "yum"
+                elif env["os"] == "Darwin":
+                    if shutil.which("brew"): env["package_manager"] = "homebrew"
+                
+                result_text = json.dumps(env, indent=2)
             except Exception as e:
-                result_text = "Execution Error for '{}': {} (Raw: {})".format(cmd, e, repr(raw_cmd))
+                result_text = f"Environment check error: {e}"
                 is_error = True
 
         else:

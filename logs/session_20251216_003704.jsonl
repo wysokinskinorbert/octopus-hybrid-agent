@@ -1,0 +1,2 @@
+{"event": "session_start", "timestamp": 1765841824.8494976}
+{"timestamp": 1765841824.851, "datetime": "2025-12-16T00:37:04.851000", "type": "init", "content": "Session initialized for role: architect", "metadata": {"provider": "ollama_local"}}

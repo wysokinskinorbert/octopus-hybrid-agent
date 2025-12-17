@@ -1,0 +1,10 @@
+{"event": "session_start", "timestamp": 1765978712.2135742}
+{"timestamp": 1765978712.2289598, "datetime": "2025-12-17T14:38:32.228959", "type": "init", "content": "Session initialized for role: architect", "metadata": {"provider": "openai_cloud"}}
+{"timestamp": 1765978712.3230548, "datetime": "2025-12-17T14:38:32.323054", "type": "status", "content": "Initializing MCP Servers...", "metadata": {}}
+{"timestamp": 1765978712.559062, "datetime": "2025-12-17T14:38:32.559061", "type": "status", "content": "Connected to internal_fs (7 tools)", "metadata": {}}
+{"timestamp": 1765978715.221336, "datetime": "2025-12-17T14:38:35.221335", "type": "user_msg", "content": "STATUS REVIEW: Check files and logs to determine next steps.", "metadata": {}}
+{"timestamp": 1765978715.2532854, "datetime": "2025-12-17T14:38:35.253285", "type": "status", "content": "Thinking (openai_cloud)...", "metadata": {}}
+{"timestamp": 1765978717.2469616, "datetime": "2025-12-17T14:38:37.246961", "type": "stats", "content": "Tokens used: 1104 (gpt-4o)", "metadata": {"model_id": "gpt-4o", "prompt": 1090, "completion": 14, "total": 1104, "role": "architect"}}
+{"timestamp": 1765978717.2611878, "datetime": "2025-12-17T14:38:37.261187", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 1104}}}
+{"timestamp": 1765978717.264471, "datetime": "2025-12-17T14:38:37.264471", "type": "stats", "content": "", "metadata": {"stats": {"gpt-4o": 1104}}}
+{"timestamp": 1765978717.270949, "datetime": "2025-12-17T14:38:37.270948", "type": "tool_call", "content": "Using tool: list_directory", "metadata": {"name": "list_directory", "role": "architect", "model_id": "gpt-4o", "arguments": {"path": "."}}}

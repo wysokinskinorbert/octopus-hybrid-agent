@@ -1,0 +1,4 @@
+{"event": "session_start", "timestamp": 1765841978.708548}
+{"timestamp": 1765841978.711057, "datetime": "2025-12-16T00:39:38.711056", "type": "init", "content": "Session initialized for role: architect", "metadata": {"provider": "ollama_local"}}
+{"timestamp": 1765841978.749093, "datetime": "2025-12-16T00:39:38.749093", "type": "status", "content": "Initializing MCP Servers...", "metadata": {}}
+{"timestamp": 1765841978.9819245, "datetime": "2025-12-16T00:39:38.981924", "type": "status", "content": "Connected to internal_fs (4 tools)", "metadata": {}}

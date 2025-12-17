@@ -12,10 +12,11 @@ class ToolDefinition:
     input_schema: Dict[str, Any]
 
 class JSONRPCClient:
-    def __init__(self, command: str, args: List[str], env: Dict[str, str] = None):
+    def __init__(self, command: str, args: List[str], env: Dict[str, str] = None, notification_handler=None):
         self.command = command
         self.args = args
         self.env = env if env else os.environ.copy()
+        self.notification_handler = notification_handler
         
         # Capture current working directory of the main app
         self._initial_cwd = os.getcwd() 
@@ -71,8 +72,8 @@ class JSONRPCClient:
 
     def _read_response(self, expect_id: int) -> Dict[str, Any]:
         """
-        Naive synchronous reader. Reads lines until it finds the response with matching ID.
-        Ignores notifications or logs on stderr.
+        Reads lines until it finds the response with matching ID.
+        Handles notifications via callback if present.
         """
         while True:
             line = self.process.stdout.readline()
@@ -84,14 +85,19 @@ class JSONRPCClient:
             
             try:
                 msg = json.loads(line)
+                
+                # Check if it's a notification (no id, has method)
+                if "id" not in msg and "method" in msg:
+                    if self.notification_handler:
+                        self.notification_handler(msg)
+                    continue
+
                 # If it's a response to our request
                 if msg.get("id") == expect_id:
                     if "error" in msg:
                         raise RuntimeError(f"MCP Error: {msg['error']}")
                     return msg.get("result")
                 
-                # If it's a notification or log, we just ignore for now in this MVP
-                # In full prod, we would handle logging notifications
             except json.JSONDecodeError:
                 continue # Skip malformed lines
 

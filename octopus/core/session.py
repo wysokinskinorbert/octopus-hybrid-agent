@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import time
 from dataclasses import dataclass, field
 from typing import List, Dict, Any, Generator, Callable
 from enum import Enum
@@ -8,8 +9,13 @@ from enum import Enum
 from .config_store import ConfigStore, RoleConfig, ProviderConfig
 from .logger import SessionLogger
 from .task_history import TaskHistory
+from .types import TaskSpec, TaskResult
 from ..mcp.protocol import JSONRPCClient
 from ..llm.provider_manager import ProviderManager
+from .adapters.base import BaseAdapter
+from .adapters.openai_adapter import OpenAIAdapter
+from .adapters.ollama_adapters import OllamaJSONAdapter, OllamaXMLAdapter
+from .trajectory_logger import TrajectoryLogger
 
 
 # Session Mode System (inspired by Claude Code Plan Mode)
@@ -38,7 +44,8 @@ class SessionEvent:
     metadata: Dict[str, Any] = field(default_factory=dict)
 
 class OctopusSession:
-    def __init__(self, role_name: str = None):
+    def __init__(self, role_name: str = None, auto_approve: bool = False):
+        self.auto_approve = auto_approve
         self.config_store = ConfigStore()
         self.role_name = role_name if role_name else self.config_store.config.active_role
         self.role_config = self.config_store.get_role(self.role_name)
@@ -49,8 +56,13 @@ class OctopusSession:
         
         self.task_history = TaskHistory()
         
+        # Trajectory logging for observability
+        self.trajectory = TrajectoryLogger(session_id=f"session_{int(time.time())}")
+        
         self.llm_manager = ProviderManager()
         self.history = [{"role": "system", "content": self.role_config.system_prompt}]
+        
+        self.debug_mode = False
         
         self.mcp_clients = {}
         self.tools_map = {}
@@ -65,6 +77,12 @@ class OctopusSession:
         self.abort_flag = False
         self.waiting_tool_id = None
         self.current_task_id = None
+
+        # Task completion tracking
+        self.current_task_start = None
+        self.current_task_description = ""
+        self.last_error = None
+        self.last_tool_call = None
 
         # Autonomy control flags
         self.plan_approved = False  # After first ask_user approval, set to True
@@ -144,6 +162,47 @@ class OctopusSession:
             self.logger.log_event(event.type, event.content, event.metadata)
             yield event
 
+    def _handle_mcp_notification(self, msg: Dict[str, Any]):
+        """Handle incoming JSON-RPC notifications from MCP servers."""
+        method = msg.get("method")
+        params = msg.get("params", {})
+        
+        if method == "notifications/tool_progress":
+            output = params.get("output", "")
+            # Log directly to the streaming queue if possible, or just log event
+            # Since this is running in a background thread of JSONRPCClient, 
+            # we need to be careful. But Session logger is thread-safe.
+            
+            # We want this to appear as a 'streaming' event in yield loop?
+            # Creating a generator from a callback is tricky.
+            # Instead, we'll log it and let the UI poll or use a callback mechanism if Session supports it.
+            # BUT, the `initialize()` and `run_iteration()` are generators.
+            # A notification happens asynchronously.
+            
+            # Current Session architecture yields events. 
+            # If we are inside `run_iteration`, we are iterating over `process_user_input`.
+            # We need a way to inject this event into the stream.
+            
+            # For this MVP, we will use a queue or a direct TUI callback if available?
+            # No, 'Session' should be UI agnostic.
+            
+            # Let's log it as a special event type that the logger handles?
+            self.logger.log_event("streaming", output)
+            
+            # IMPORTANT: The TUI relies on the generator yielding the event.
+            # If the generator is blocked waiting for tool result, it won't yield notification.
+            # However, `process_user_input` yields from `_run_step`.
+            # `tool_result` is creating by waiting for `client.call_tool`.
+            # `client.call_tool` waits for response.
+            # While waiting, `_read_response` receives notifications and calls this handler.
+            # So this handler runs ON THE MAIN THREAD (or whatever thread called call_tool).
+            # So we can yield? No, "yield" is not a function we can call.
+            
+            # We can use a side-channel callback provided to Session?
+            # Or simpler: The Session logger can have a 'on_event' callback?
+            if hasattr(self, 'on_event_callback') and self.on_event_callback:
+                self.on_event_callback(SessionEvent("streaming", output))
+
     def _filter_tools_by_role(self, all_tools: List[Dict], role_config: RoleConfig) -> List[Dict]:
         """
         Filtruje listę narzędzi, zwracając tylko te, które są dozwolone dla danej roli
@@ -185,7 +244,15 @@ class OctopusSession:
                 current_pythonpath = full_env.get("PYTHONPATH", "")
                 full_env["PYTHONPATH"] = f"{cwd}{os.pathsep}{current_pythonpath}"
 
-                client = JSONRPCClient(cmd, server_conf.args, env=full_env)
+                current_pythonpath = full_env.get("PYTHONPATH", "")
+                full_env["PYTHONPATH"] = f"{cwd}{os.pathsep}{current_pythonpath}"
+
+                client = JSONRPCClient(
+                    cmd, 
+                    server_conf.args, 
+                    env=full_env,
+                    notification_handler=self._handle_mcp_notification
+                )
                 client.start()
                 self.mcp_clients[server_name] = client
                 
@@ -211,6 +278,18 @@ class OctopusSession:
         self.llm_tools = self._filter_tools_by_role(all_potential_tools, self.role_config)
         self._refresh_dynamic_tools() # Apply dynamic tools and final filtering
 
+    def _get_model_adapter(self, model_id: str) -> BaseAdapter:
+        """
+        Factory method to return the correct protocol adapter for a given model.
+        """
+        if "gpt" in model_id or "openai" in model_id:
+            return OpenAIAdapter()
+        elif "mistral" in model_id:
+            return OllamaXMLAdapter()
+        else:
+            # Default to JSON for Qwen and others
+            return OllamaJSONAdapter()
+
     def _refresh_dynamic_tools(self):
         # Start with the already filtered static tools from _initialize_impl
         base_tools = self.llm_tools.copy() 
@@ -227,14 +306,28 @@ class OctopusSession:
                 "type": "function",
                 "function": {
                     "name": "delegate_task",
-                    "description": f"Delegate sub-task. Available agents: {', '.join(available_roles)}.",
+                    "description": "Delegate a structured task to the Development Team. Provide a clear specification.",
                     "parameters": {
                         "type": "object",
                         "properties": {
-                            "role": {"type": "string", "enum": available_roles},
-                            "instruction": {"type": "string"}
+                            "goal": {"type": "string", "description": "High-level goal of the task"},
+                            "constraints": {
+                                "type": "array", 
+                                "items": {"type": "string"},
+                                "description": "List of constraints (e.g. 'Use React', 'No external libs')"
+                            },
+                            "focus_files": {
+                                "type": "array", 
+                                "items": {"type": "string"},
+                                "description": "List of files to modify or focus on"
+                            },
+                            "verification_steps": {
+                                "type": "array", 
+                                "items": {"type": "string"},
+                                "description": "Steps the Reviewer should take to verify success"
+                            }
                         },
-                        "required": ["role", "instruction"]
+                        "required": ["goal", "constraints", "verification_steps"]
                     }
                 }
             })
@@ -308,9 +401,10 @@ DO NOT ask for:
             key = f"{role}:{model_id}"
             self.session_stats["by_role"][key] = self.session_stats["by_role"].get(key, 0) + count
 
-    def _get_fallback_provider(self, current_name: str) -> Any:
+    def _get_fallback_provider(self, current_name: str, exclude: List[str] = None) -> Any:
+        exclude = exclude or []
         for p in self.config_store.config.providers.values():
-            if p.name != current_name:
+            if p.name != current_name and p.name not in exclude:
                 return p
         return None
 
@@ -321,6 +415,247 @@ DO NOT ask for:
             self.sudo_tools = []
             return True
         return False
+
+
+    def _run_sub_agent_loop(self, target_role: str, task_spec: TaskSpec, max_retries: int = 3) -> Generator[SessionEvent, None, TaskResult]:
+        """
+        Executes the Autonomous Hybrid Handoff Loop:
+        1. Developer attempts task (with clean context).
+        2. Reviewer verifies result.
+        3. If rejected, Developer retries (Local Loop).
+        4. If approved or max retries reached, returns result.
+        """
+        
+        # 1. Setup Developer Context (Pruned)
+        dev_role = "developer"
+        dev_cfg = self.config_store.get_role(dev_role)
+        dev_prov = self.config_store.get_provider(dev_cfg.provider_name)
+        
+        base_history = [
+            {"role": "system", "content": dev_cfg.system_prompt},
+            {"role": "user", "content": f"TASK SPECIFICATION:\n{task_spec.to_prompt()}\n\nExecute this task. Use tools. When done, output a final report."}
+        ]
+        
+        current_history = base_history.copy()
+        current_model_id = dev_cfg.model_id
+        
+        attempt = 1
+        last_result = ""
+        
+        while attempt <= max_retries:
+            yield SessionEvent("status", f"Developer Attempt {attempt}/{max_retries}", {
+                "role": dev_role, "model_id": current_model_id, "iteration": attempt, "max_iterations": max_retries
+            })
+            
+            # --- Developer Phase ---
+            dev_output = ""
+            # Simple linear execution for developer (could be loop if needed, but keeping it simple for now)
+            # We treat the developer as a single-shot or short-loop agent here.
+            # actually we need a small loop here to allow tool usage
+            
+            # --- New Adapter-based Execution Loop ---
+
+            # 1. Select Adapter
+            adapter = self._get_model_adapter(current_model_id)
+
+            # 2. Prepare Messages (System Protocol Injection)
+            dev_tools = self._filter_tools_by_role(self.llm_tools + self.sudo_tools, dev_cfg)
+
+            dev_loop_max = 5
+            for i in range(dev_loop_max):
+
+                # Update status
+                yield SessionEvent("status", f"Developer Attempt {attempt}/{max_retries} (Iter {i+1})", {
+                     "role": dev_role, "model_id": current_model_id, "iteration": attempt, "max_iterations": max_retries
+                })
+
+                # Prepare context using adapter
+                adapter_messages = adapter.prepare_messages(current_history, tools=dev_tools)
+
+                # Streaming Response
+                response_msg = None
+                usage = None
+                dev_output = ""
+
+                try:
+                    # Provide TOOLS to llm_manager only if it's OpenAI adapter (native), 
+                    # otherwise local models might get confused if we don't hide them.
+
+                    for stream_event in self.llm_manager.chat_complete_stream(
+                        dev_prov, current_model_id, adapter_messages, tools=dev_tools
+                    ):
+                        if stream_event["type"] == "chunk":
+                            content = stream_event["content"]
+                            dev_output += content
+                            yield SessionEvent("streaming", content)
+                        elif stream_event["type"] == "done":
+                            response_msg = stream_event["message"]
+                            usage = stream_event["usage"]
+                        elif stream_event["type"] == "error":
+                            raise Exception(stream_event["error"])
+
+                    if not response_msg:
+                         # If stream ended with no message object (but we have text), construct a dummy one
+                         if dev_output:
+                             # Dummy object for flow continuity if needed, but we rely on dev_output
+                             pass 
+                         else:
+                            raise Exception("Stream ended without message")
+
+                    self._update_stats(current_model_id, usage, role=dev_role)
+                    yield SessionEvent("stats", "", {"stats": self.session_stats})
+
+                    if self.debug_mode:
+                        yield SessionEvent("log", f"[DEBUG RAW] {dev_output}", {"style": "dim blue"})
+
+                    # 3. Parse Response via Adapter
+                    llm_tool_calls = getattr(response_msg, 'tool_calls', None) if response_msg else None
+                    parsed_response = adapter.parse_response(dev_output, tool_calls=llm_tool_calls)
+
+                    if self.debug_mode:
+                        yield SessionEvent("log", f"[DEBUG PARSED] {json.dumps(parsed_response.get('tool_calls'), default=str)}", {"style": "dim cyan"})
+
+                    # Add assistant message to history (standardized)
+                    current_history.append({
+                        "role": "assistant", 
+                        "content": parsed_response["content"], 
+                        "tool_calls": parsed_response.get("tool_calls") 
+                    })
+
+                    # 4. Execute Tools
+                    executed_any = False
+                    if parsed_response.get("tool_calls"):
+                        for tc in parsed_response["tool_calls"]:
+                            # Handle standard OpenAI format (nested function)
+                            if "function" in tc:
+                                fn_name = tc["function"]["name"]
+                                fn_args_raw = tc["function"]["arguments"]
+                                if isinstance(fn_args_raw, str):
+                                    try:
+                                        fn_args = json.loads(fn_args_raw)
+                                    except json.JSONDecodeError:
+                                        fn_args = {}
+                                        yield SessionEvent("error", f"Error parsing JSON args for {fn_name}")
+                                else:
+                                    fn_args = fn_args_raw
+                                call_id = tc.get("id", "call_unknown")
+                            else:
+                                # Fallback (Legacy/Flat)
+                                fn_name = tc.get("name")
+                                fn_args = tc.get("arguments", {})
+                                call_id = tc.get("id", "call_unknown")
+
+                            if not fn_name:
+                                continue
+
+                            yield SessionEvent("tool_call", f"{dev_role} calls {fn_name}", {"role": dev_role, "name": fn_name})
+
+                            # Execute
+                            tool_res = f"Error: Tool {fn_name} not found"
+                            if fn_name in self.tools_map:
+                                try:
+                                    res_obj = self.tools_map[fn_name].call_tool(fn_name, fn_args)
+                                    tool_res = str(res_obj)
+                                    tool_res = str(res_obj)
+                                except Exception as e:
+                                    tool_res = f"Tool Execution Error: {e}"
+
+                            current_history.append({
+                                "role": "tool", "tool_call_id": call_id, "name": fn_name, "content": tool_res
+                            })
+                            yield SessionEvent("tool_result", f"Result: {tool_res[:50]}...", {"role": dev_role})
+                            executed_any = True
+
+                    if not executed_any:
+                        # No tools called -> Assume completion or request for info
+                        break
+
+                except Exception as e:
+                    yield SessionEvent("error", f"Developer Error: {e}")
+                    break
+
+            last_result = dev_output
+
+            # --- Reviewer Phase ---
+            rev_role = "reviewer"
+            rev_cfg = self.config_store.get_role(rev_role)
+
+            if not rev_cfg:
+                 # No reviewer configured -> Auto-accept
+                return TaskResult(status="success", summary=last_result, verification_result="Skipped (No Reviewer)")
+
+            rev_prov = self.config_store.get_provider(rev_cfg.provider_name)
+
+            verification_prompt = (
+                f"ORIGINAL SPEC:\n{task_spec.to_prompt()}\n\n"
+                f"DEVELOPER OUTPUT:\n{last_result}\n\n"
+                "Verify if the goal and constraints are met.\n"
+                "If YES, start response with 'APPROVED'.\n"
+                "If NO, provided constructive feedback to fix the issues."
+            )
+
+            yield SessionEvent("log", "Reviewing work...", {"role": "system", "style": "bold yellow"})
+
+            rev_msgs = [
+                {"role": "system", "content": rev_cfg.system_prompt},
+                {"role": "user", "content": verification_prompt}
+            ]
+
+            try:
+                # Streaming Reviewer Response
+                rev_resp = None
+                rev_usage = None
+                feedback = ""
+    
+                for stream_event in self.llm_manager.chat_complete_stream(
+                    rev_prov, rev_cfg.model_id, rev_msgs, tools=self._filter_tools_by_role(self.llm_tools, rev_cfg)
+                ):
+                    if stream_event["type"] == "chunk":
+                        content = stream_event["content"]
+                        feedback += content
+                        yield SessionEvent("streaming", content)
+                    elif stream_event["type"] == "done":
+                        rev_resp = stream_event["message"]
+                        rev_usage = stream_event["usage"]
+                    elif stream_event["type"] == "error":
+                         raise Exception(stream_event["error"])
+
+                if not rev_resp:
+                     raise Exception("Stream ended without message")
+
+                self._update_stats(rev_cfg.model_id, rev_usage, role=rev_role)
+                yield SessionEvent("stats", "", {"stats": self.session_stats})
+    
+                # feedback = rev_resp.content or "" # Computed during stream
+                # yield SessionEvent("text", f"[Reviewer]: {feedback}", {"role": rev_role}) # Removed to keep widget open
+    
+                if "APPROVED" in feedback.upper():
+                    yield SessionEvent("log", "Task Verified & Approved!", {"role": "system", "style": "bold green"})
+                    return TaskResult(status="success", summary=last_result, verification_result=feedback)
+    
+                # Feedback Loop
+                yield SessionEvent("log", f"Verification Failed. Retrying ({attempt}/{max_retries})...", {"role": "system", "style": "bold red"})
+    
+                # Feed feedback back to developer
+                current_history.append({
+                    "role": "user", 
+                    "content": f"[REVIEWER FEEDBACK]: {feedback}\n\nPlease fix these issues and provide the updated output."
+                })
+                attempt += 1
+    
+            except Exception as e:
+                yield SessionEvent("error", f"Reviewer Error: {e}")
+                break
+
+        return TaskResult(status="failure", summary=last_result, verification_result="Max retries reached")
+
+
+
+
+
+
+
+
 
     def process_user_input(self, user_input: str) -> Generator[SessionEvent, None, None]:
         self.abort_flag = False
@@ -407,7 +742,13 @@ DO NOT ask for:
 
     def _process_impl(self, user_input: str) -> Generator[SessionEvent, None, None]:
         # Handle "Resume after ask_user" logic
+        # Handle "Resume after ask_user" logic
         if self.waiting_tool_id:
+            # AUTO-APPROVE LOGIC
+            if self.auto_approve and self.question_context == "plan_approval":
+                user_input = "yes" # Force approval
+                yield SessionEvent("log", "[AUTO-APPROVE] Plan automatically approved by flag.", {"style": "green bold"})
+
             self.history.append({
                 "role": "tool",
                 "tool_call_id": self.waiting_tool_id,
@@ -506,6 +847,7 @@ DO NOT ask for:
             
             response_msg = None
             usage = None
+            tried_providers = set()
             
             while True:
                 if self.abort_flag: return
@@ -599,15 +941,19 @@ DO NOT ask for:
                             temperature=self.role_config.temperature
                         )
 
+
+
                     self._update_stats(self.active_model_id, usage, role=self.role_name)
                     yield SessionEvent("stats", "", {"stats": self.session_stats})
                     break 
                 except Exception as e:
                     yield SessionEvent("error", f"Provider error: {e}")
-                    fallback = self._get_fallback_provider(self.active_provider.name)
+                    tried_providers.add(self.active_provider.name)
+                    
+                    fallback = self._get_fallback_provider(self.active_provider.name, exclude=list(tried_providers))
                     if fallback:
                         original_model = self.active_model_id
-                        yield SessionEvent("log", f"Failover: Switching provider {self.active_provider.name} → {fallback.name}, keeping model {original_model}", {
+                        yield SessionEvent("log", f"Failover: Switching provider {self.active_provider.name} -> {fallback.name}, keeping model {original_model}", {
                             "role": "system",
                             "from_provider": self.active_provider.name,
                             "to_provider": fallback.name,
@@ -617,7 +963,7 @@ DO NOT ask for:
                         # Don't change model_id - keep the role's configured model
                         continue
                     else:
-                        yield SessionEvent("error", "No fallback available.")
+                        yield SessionEvent("error", "No fallback available (all providers tried).")
                         return
 
             self.history.append(response_msg)
@@ -760,334 +1106,56 @@ DO NOT ask for:
                         else:
                             result_str = "SYSTEM: You already have admin privileges."
 
-                    elif fn_name == "delegate_task":
-                        target = fn_args.get("role")
-                        instr = fn_args.get("instruction")
-
-                        # Check delegation limit
-                        self.delegation_counts[target] = self.delegation_counts.get(target, 0) + 1
-                        if self.delegation_counts[target] > self.max_delegations_per_role:
-                            result_str = f"ERROR: Exceeded maximum delegations to {target} ({self.max_delegations_per_role}). Try a different approach or do the task yourself."
-                            yield SessionEvent("error", f"Delegation limit reached for {target}", {"role": self.role_name})
-                            self.history.append({"role": "tool", "tool_call_id": tc.id, "name": fn_name, "content": result_str})
-                            continue
-
-                        yield SessionEvent("log", f"Delegating to {target}: {instr}", {"role": self.role_name, "style": "bold magenta"})
-
-                        # Emit todo_add event for UI (Claude Code style)
-                        task_id = f"task_{target}_{self.delegation_counts[target]}"
-                        task_summary = instr[:50] + "..." if len(instr) > 50 else instr
-                        yield SessionEvent("todo_add", task_summary, {"id": task_id, "status": "pending"})
-                        yield SessionEvent("todo_update", "", {"id": task_id, "status": "in_progress"})
-
-                        target_cfg = self.config_store.get_role(target)
-                        target_prov = self.config_store.get_provider(target_cfg.provider_name)
-                        
-                        memory_str = "\n".join(self.global_context_memory)
-                        context_msg = f"[SYSTEM: CONTEXT FROM PREVIOUS STEPS]\n{memory_str}" if memory_str else ""
-
-                        result_file = "_task_result.txt"
-                        if os.path.exists(result_file): os.remove(result_file)
-                        augmented_instr = f"{instr}\n\n[SYSTEM]: Write FINAL output to '{result_file}'."
-
-                        sub_msgs = [
-                            {"role": "system", "content": target_cfg.system_prompt},
-                            {"role": "user", "content": f"{context_msg}\n\nTASK: {augmented_instr}"}
-                        ]
-                        
+                    if fn_name == "delegate_task":
                         try:
-                            captured_stdout = ""
-                            placeholder_detected = False  # Flag to block false success reports
-
-                            # Dynamic iterations: more for local models (need debugging loops)
-                            sub_iterations = 10 if target_prov.type == "ollama" else 5
-
-                            for iteration in range(sub_iterations):
-                                if self.abort_flag: return
-
-                                yield SessionEvent("status", f"{target} ({target_cfg.model_id}) iteration {iteration+1}/{sub_iterations}", {
-                                    "role": target,
-                                    "model_id": target_cfg.model_id,
-                                    "iteration": iteration + 1,
-                                    "max_iterations": sub_iterations
-                                })
-
-                                # Filter out dynamic tools based on target role
-                                # Developer can delegate to reviewer, but reviewer cannot delegate further
-                                excluded_tools = ['ask_user', 'request_admin_privileges']
-                                if target == 'reviewer':
-                                    excluded_tools.append('delegate_task')  # Reviewer ends the workflow
-                                # Developer should NOT have delegate_task (only MCP tools)
-                                if target == 'developer':
-                                    excluded_tools.append('delegate_task')
-
-                                # KRYTYCZNE: Filtruj po allowed_tools TARGET roli, nie architekta!
-                                target_allowed = set(target_cfg.allowed_tools) if target_cfg.allowed_tools else set()
-
-                                sub_tools = [
-                                    t for t in (self.llm_tools + self.sudo_tools)
-                                    if t['function']['name'] not in excluded_tools
-                                    and t['function']['name'] in target_allowed
-                                ]
-
-                                # FAZA N4: WYŁĄCZONY streaming dla delegacji
-                                # Streaming w sub-tasks powoduje problemy z wydajnością i XML tagami
-                                # Lepiej pokazać status update i poczekać na wynik
-                                use_sub_streaming = False  # Zawsze wyłączony dla stabilności
-
-                                if use_sub_streaming:
-                                    # Kod streaming zostawiony dla ewentualnego przyszłego użycia
-                                    sub_resp = None
-                                    sub_use = None
-                                    for stream_event in self.llm_manager.chat_complete_stream(
-                                        target_prov, target_cfg.model_id, sub_msgs, tools=sub_tools,
-                                        temperature=target_cfg.temperature
-                                    ):
-                                        if stream_event["type"] == "chunk":
-                                            yield SessionEvent("streaming", stream_event["content"], {
-                                                "role": target,
-                                                "model_id": target_cfg.model_id
-                                            })
-                                        elif stream_event["type"] == "done":
-                                            sub_resp = stream_event["message"]
-                                            sub_use = stream_event["usage"]
-                                        elif stream_event["type"] == "error":
-                                            raise Exception(stream_event["error"])
-                                    if not sub_resp:
-                                        raise Exception("Streaming completed without final message")
-                                else:
-                                    # Non-streaming call - stabilniejsze dla delegacji
-                                    sub_resp, sub_use = self.llm_manager.chat_complete(
-                                        target_prov, target_cfg.model_id, sub_msgs, tools=sub_tools,
-                                        temperature=target_cfg.temperature
-                                    )
-
-                                self._update_stats(target_cfg.model_id, sub_use, role=target)
-                                yield SessionEvent("stats", "", {"stats": self.session_stats})
-                                sub_msgs.append(sub_resp)
-                                
-                                if sub_resp.content:
-                                    # Change: Emit intermediate content as 'reasoning' to keep it inside the ActivityWidget
-                                    yield SessionEvent("reasoning", sub_resp.content, {
-                                        "role": target,
-                                        "model_id": target_cfg.model_id
-                                    })
-
-                                if hasattr(sub_resp, 'tool_calls') and sub_resp.tool_calls:
-                                    for stc in sub_resp.tool_calls:
-                                        if self.abort_flag: return
-
-                                        if isinstance(stc, dict):
-                                            s_name = stc.get("function", {}).get("name")
-                                            s_arg_str = stc.get("function", {}).get("arguments")
-                                        else:
-                                            s_name = stc.function.name
-                                            s_arg_str = stc.function.arguments
-
-                                        s_arg = json.loads(s_arg_str)
-
-                                        # LOG przed tool call - pokazuj co developer/reviewer będzie robić
-                                        arg_preview = ", ".join(f"{k}={str(v)[:25]}" for k, v in list(s_arg.items())[:2])
-                                        yield SessionEvent("log", f"{target} → {s_name}({arg_preview})", {
-                                            "role": target,
-                                            "model_id": target_cfg.model_id,
-                                            "style": "dim cyan"
-                                        })
-
-                                        yield SessionEvent("tool_call", f"[{target_cfg.model_id}] Using: {s_name}", {
-                                            "role": target,
-                                            "name": s_name,
-                                            "model_id": target_cfg.model_id,
-                                            "arguments": s_arg
-                                        })
-                                        
-                                        s_res = "Error"
-                                        if s_name in self.tools_map:
-                                            try:
-                                                s_res = self.tools_map[s_name].call_tool(s_name, s_arg)
-                                            except Exception as ex: s_res = f"Error: {ex}"
-                                        else:
-                                            s_res = "Tool not found"
-
-                                        # PLACEHOLDER DETECTION (Goal-Oriented Verification System)
-                                        # Detect common placeholder content in file reads
-                                        if s_name == "read_file" and s_res and s_res != "Error":
-                                            PLACEHOLDER_PATTERNS = [
-                                                "hello world", "lorem ipsum", "todo:", "fixme:",
-                                                "placeholder", "template content", "sample text",
-                                                "your content here", "add your", "replace this"
-                                            ]
-                                            content_lower = str(s_res).lower()
-                                            detected_placeholders = []
-                                            for pattern in PLACEHOLDER_PATTERNS:
-                                                if pattern in content_lower:
-                                                    detected_placeholders.append(pattern)
-
-                                            if detected_placeholders:
-                                                placeholder_detected = True  # SET FLAG - will block success report
-                                                placeholder_warning = f"""[CRITICAL: PLACEHOLDER DETECTED - SUCCESS WILL BE BLOCKED]
-The file contains placeholder content: {', '.join(detected_placeholders)}
-This file has NOT been properly implemented for the task goal.
-
-YOUR SUCCESS REPORT WILL BE REJECTED unless you fix this NOW.
-
-MANDATORY ACTIONS:
-1. Use write_file to REPLACE placeholder content with REAL implementation
-2. Implement the ACTUAL functionality requested in the task
-3. Use read_file to VERIFY your changes removed ALL placeholders
-4. Only then can you complete the task
-
-WARNING: If you report success without fixing placeholders, your work will be REJECTED."""
-                                                sub_msgs.append({
-                                                    "role": "system",
-                                                    "content": placeholder_warning
-                                                })
-                                                yield SessionEvent("log", f"[PLACEHOLDER BLOCK] Found: {detected_placeholders} - Success blocked until fixed", {"role": "system", "style": "red bold"})
-
-                                        if s_name == "run_shell_command" and "STDOUT" in str(s_res):
-                                            captured_stdout = str(s_res)
-                                            
-                                        yield SessionEvent("tool_result", f"Result: {str(s_res)[:100]}...", {
-                                            "role": target,
-                                            "model_id": target_cfg.model_id,
-                                            "name": s_name,
-                                            "full_result": str(s_res)
-                                        })
-
-                                        # LOG po tool result - podsumowanie sukces/błąd
-                                        is_error = "Error" in str(s_res) or "not found" in str(s_res).lower()
-                                        if is_error:
-                                            yield SessionEvent("log", f"  ✗ {s_name} failed", {
-                                                "role": target,
-                                                "model_id": target_cfg.model_id,
-                                                "style": "dim red"
-                                            })
-                                        else:
-                                            # Inteligentne podsumowanie wyniku
-                                            summary = "done"
-                                            if s_name == "read_file":
-                                                lines = str(s_res).count('\n') + 1
-                                                summary = f"read {lines} lines"
-                                            elif s_name == "write_file":
-                                                summary = "file written"
-                                            elif s_name == "list_directory":
-                                                items = str(s_res).count('\n')
-                                                summary = f"found {items} items"
-                                            elif s_name == "run_shell_command":
-                                                if "STDOUT:" in str(s_res):
-                                                    summary = "executed"
-                                                else:
-                                                    summary = "no output"
-                                            yield SessionEvent("log", f"  ✓ {s_name} {summary}", {
-                                                "role": target,
-                                                "model_id": target_cfg.model_id,
-                                                "style": "dim green"
-                                            })
-
-                                        tool_id = stc.get("id") if isinstance(stc, dict) else stc.id
-                                        sub_msgs.append({"role": "tool", "tool_call_id": tool_id, "name": s_name, "content": str(s_res)})
-                                else:
-                                    # Model nie wygenerował tool_calls - zaloguj co się dzieje
-                                    if sub_resp.content:
-                                        content_preview = sub_resp.content[:150].replace('\n', ' ')
-                                        yield SessionEvent("log", f"[{target}] No tool calls. Response: {content_preview}...", {
-                                            "role": target,
-                                            "model_id": target_cfg.model_id,
-                                            "style": "dim yellow"
-                                        })
-                                    else:
-                                        yield SessionEvent("log", f"[{target}] Empty response, no tool calls", {
-                                            "role": target,
-                                            "model_id": target_cfg.model_id,
-                                            "style": "dim red"
-                                        })
-                                    break
-
-                            if self.abort_flag: return
-
-                            final_data = ""
-                            source_info = ""
-
-                            # 1. Try to read the explicit result file (Highest Priority)
-                            if os.path.exists(result_file):
-                                try:
-                                    with open(result_file, "r", encoding="utf-8") as f:
-                                        final_data = f.read()
-                                    source_info = "file '_task_result.txt'"
-                                    yield SessionEvent("log", f"Read result file: {final_data[:100]}...", {"role": "system", "style": "green"})
-                                except Exception as e:
-                                    yield SessionEvent("error", f"Failed to read result file: {e}", {"role": "system"})
+                            # Updated Logic for Hybrid Handoff
+                            goal = fn_args.get("goal")
+                            constraints = fn_args.get("constraints", [])
+                            focus_files = fn_args.get("focus_files", [])
+                            verification_steps = fn_args.get("verification_steps", [])
                             
-                            # 2. If file missing, fallback to captured STDOUT (Smart Capture)
-                            if not final_data and captured_stdout:
-                                final_data = captured_stdout
-                                source_info = "auto-captured STDOUT"
-                                yield SessionEvent("log", "Using auto-captured STDOUT as result.", {"role": "system", "style": "yellow"})
-
-                            # 3. Last Resort: Use the last text response content (Fix for Reviewer/Conversational roles)
-                            if not final_data and sub_msgs:
-                                last_msg = sub_msgs[-1]
-                                if last_msg.get("content"):
-                                    final_data = last_msg["content"]
-                                    source_info = "last text response"
-                                    yield SessionEvent("log", "Using last text response as result.", {"role": "system", "style": "dim"})
-
-                            # 4. Final Report Generation
-                            if final_data:
-                                # CHECK: Block success if placeholders were detected
-                                if placeholder_detected:
-                                    result_str = f"[BLOCKED - PLACEHOLDER CONTENT DETECTED]\nDeveloper attempted to report success but placeholder content was found in files.\nOriginal report:\n{final_data}\n\nThis work is REJECTED. Placeholder content must be replaced with real implementation."
-                                    yield SessionEvent("error", f"Developer report BLOCKED: placeholder content detected", {"role": target, "style": "red bold"})
-                                    # Inject strong rejection message for architect
-                                    self.history.append({
-                                        "role": "system",
-                                        "content": f"[CRITICAL REJECTION] Developer's work was REJECTED because placeholder content (e.g., 'Hello World') was detected in files. The actual functionality was NOT implemented. You MUST delegate again with specific instructions to FIX the placeholder content and implement REAL functionality. Do NOT accept this result."
-                                    })
-                                else:
-                                    result_str = f"Output from {target} (via {source_info}):\n{final_data}"
-                                    yield SessionEvent("text", f"🏁 FINAL REPORT ({target}):\n{final_data}", {"role": target})
-                                    # Mark TODO as completed (Claude Code style)
-                                    yield SessionEvent("todo_update", "", {"id": task_id, "status": "completed"})
-                            else:
-                                # 5. If absolutely nothing produced
-                                result_str = f"Output from {target}: No result file created, no shell output captured, and no text response."
-                                yield SessionEvent("error", "Developer finished without producing results.", {"role": target})
-                                # Mark TODO as failed (keep in_progress but log error)
-                                yield SessionEvent("todo_update", "", {"id": task_id, "status": "pending"})
+                            target = "developer" # Always delegate to developer first in this architecture
                             
-                            self.global_context_memory.append(f"[{target}]: {result_str}")
+                            self.delegation_counts[target] = self.delegation_counts.get(target, 0) + 1
+                            if self.delegation_counts[target] > self.max_delegations_per_role:
+                                result_str = f"ERROR: Exceeded maximum delegations to {target} ({self.max_delegations_per_role})."
+                                yield SessionEvent("error", f"Delegation limit reached for {target}", {"role": self.role_name})
+                                self.history.append({"role": "tool", "tool_call_id": tc.id, "name": fn_name, "content": result_str})
+                                continue
 
-                            # POST-DELEGATION VERIFICATION (Goal-Oriented Verification System)
-                            # Inject verification prompt to force architect to independently verify developer's output
-                            if final_data and target == "developer":
-                                verification_prompt = f"""[VERIFICATION REQUIRED - DO NOT SKIP]
-Developer reported completion. Their report:
-{final_data[:500]}{"..." if len(final_data) > 500 else ""}
+                            spec = TaskSpec(
+                                id=f"task_{self.delegation_counts[target]}", 
+                                goal=goal, 
+                                constraints=constraints, 
+                                focus_files=focus_files, 
+                                verification_steps=verification_steps
+                            )
+                            
+                            yield SessionEvent("log", f"Refining Plan -> Developer: {goal}", {"role": self.role_name, "style": "bold magenta"})
 
-CRITICAL: Before accepting this result, you MUST:
-1. Use read_file to INDEPENDENTLY check the actual code/files created
-2. Look for placeholder content ("Hello World", "TODO", "Lorem ipsum", template defaults)
-3. Compare against the original goal: {instr[:300] if instr else "Unknown"}
-4. If mismatch found → delegate_task AGAIN with specific fix instructions
-5. ONLY declare success if ACTUAL OUTPUT matches EXPECTED GOAL
+                            task_id_ui = spec.id
+                            task_summary = goal[:50] + "..." if len(goal) > 50 else goal
+                            yield SessionEvent("todo_add", task_summary, {"id": task_id_ui, "status": "pending"})
+                            yield SessionEvent("todo_update", "", {"id": task_id_ui, "status": "in_progress"})
 
-DO NOT trust the developer's "success" claim without verification.
-If you find placeholders or missing functionality → FIX IT via delegation."""
-                                self.history.append({
-                                    "role": "system",
-                                    "content": verification_prompt
-                                })
-                                yield SessionEvent("log", "[Verification] Injected post-delegation verification prompt", {"role": "system"})
+                            # Run Autonomous Loop
+                            # Note: We don't pass 'context_msg' anymore as we want PRUNED context.
+                            # The Spec contains everything needed.
+                            
+                            sub_result_obj = yield from self._run_sub_agent_loop(target, spec, 3)
+                            
+                            self.global_context_memory.append(f"[Task {spec.id} Result]: {sub_result_obj.summary} (Ver.: {sub_result_obj.verification_result})")
+                            
+                            is_success = sub_result_obj.status == "success"
+                            ui_status = "completed" if is_success else "failed"
+                            yield SessionEvent("todo_update", "", {"id": task_id_ui, "status": ui_status})
+                            
+                            result_str = f"Final Report from Developer/Reviewer Team:\n{sub_result_obj.summary}\n\nVerification: {sub_result_obj.verification_result}"
+                            yield SessionEvent("text", f"🏁 FINAL REPORT ({target}):\n{sub_result_obj.summary}", {"role": target})
 
                         except Exception as e:
-                            err_msg = f"Delegation Error: {e}"
-                            yield SessionEvent("error", err_msg, {"role": target})
-                            result_str = err_msg
-
-                        # Reset to original role after delegation completes
-                        self.active_provider = self.provider_config
-                        self.active_model_id = self.role_config.model_id
-                        yield SessionEvent("status", f"Returned to {self.role_name} ({self.active_model_id})")
+                            result_str = f"ERROR during delegation: {str(e)}"
+                            yield SessionEvent("error", result_str)
 
                     elif fn_name in self.tools_map:
                         try:
@@ -1114,3 +1182,92 @@ If you find placeholders or missing functionality → FIX IT via delegation."""
              # Reset current_task_id so subsequent unrelated messages can start new tasks if needed
              # self.current_task_id = None # Uncomment this if you want every interaction to be a separate task
              # For now, we keep it to group conversation under one task until restart.
+
+    def _update_stats(self, model_id: str, usage: Any, role: str = "system"):
+        """Updates session statistics with token usage."""
+        if not usage:
+            return
+
+        # Handle litellm Usage object or dict
+        prompt_tokens = 0
+        completion_tokens = 0
+        
+        if hasattr(usage, "prompt_tokens"):
+            prompt_tokens = usage.prompt_tokens
+            completion_tokens = usage.completion_tokens
+        elif isinstance(usage, dict):
+            prompt_tokens = usage.get("prompt_tokens", 0)
+            completion_tokens = usage.get("completion_tokens", 0)
+        
+        total_tokens = prompt_tokens + completion_tokens
+        
+        # Update model stats
+        if model_id not in self.session_stats:
+            self.session_stats[model_id] = 0
+        self.session_stats[model_id] += total_tokens
+        
+        self.logger.log_event("stats", f"Tokens used: {total_tokens} ({model_id})", {
+            "model_id": model_id,
+            "prompt": prompt_tokens,
+            "completion": completion_tokens,
+            "total": total_tokens,
+            "role": role
+        })
+        
+        # Emit stats for all models
+        self.logger.log_event("stats", "", {"stats": self.session_stats})
+    
+    def emit_task_complete(self, success: bool, result_summary: str, **metadata):
+        """Emit task completion or failure event for UI notification."""
+        event_type = "task_complete" if success else "task_failed"
+        
+        duration = time.time() - self.current_task_start if self.current_task_start else 0
+        
+        event_data = {
+            "success": success,
+            "duration": duration,
+            "task": self.current_task_description,
+            **metadata
+        }
+        
+        self.logger.log_event(event_type, result_summary, event_data)
+        
+        return SessionEvent(
+            type=event_type,
+            content=result_summary,
+            metadata=event_data
+        )
+    
+    def get_current_status(self) -> Dict[str, Any]:
+        """Get current session status for /status command."""
+        return {
+            "mode": self.session_mode.value,
+            "task": self.current_task_description,
+            "elapsed": time.time() - self.current_task_start if self.current_task_start else 0,
+            "role": self.role_name,
+            "model": self.active_model_id,
+            "last_error": self.last_error
+        }
+    
+    def abort(self):
+        self.abort_flag = True
+        # Save trajectory on abort
+        try:
+            trajectory_file = self.trajectory.save()
+            self.logger.log_event("trajectory_saved", f"Trajectory saved to {trajectory_file}")
+        except Exception as e:
+            self.logger.log_event("trajectory_save_error", f"Failed to save trajectory: {e}")
+
+    def close(self):
+        # Save trajectory on normal close
+        try:
+            trajectory_file = self.trajectory.save()
+            self.logger.log_event("trajectory_saved", f"Trajectory saved to {trajectory_file}")
+        except Exception as e:
+            self.logger.log_event("trajectory_save_error", f"Failed to save trajectory: {e}")
+        
+        for client in self.mcp_clients.values():
+            try:
+                client.close()
+            except:
+                pass
